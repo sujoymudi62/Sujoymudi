@@ -1,0 +1,30 @@
+{
+  "updated_at": 1700000000,
+  "count": 3,
+  "publications": [
+    {
+      "title": "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India",
+      "authors": "Pulakesh Das, Sujoy Mudi, Mukunda D. Behera, et al.",
+      "venue": "Remote Sensing, 2021",
+      "year": "2021",
+      "citations": "18",
+      "scholar_link": "https://scholar.google.com/citations?user=oVm7TyYAAAAJ&view_op=view_citation&citation_for_view=oVm7TyYAAAAJ:example1"
+    },
+    {
+      "title": "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1",
+      "authors": "Sambhunath Roy, Sujoy Mudi, Pulakesh Das, et al.",
+      "venue": "In Spatial Modeling in Forest Resources Management, Springer (2021)",
+      "year": "2021",
+      "citations": "12",
+      "scholar_link": "https://link.springer.com/chapter/example"
+    },
+    {
+      "title": "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data",
+      "authors": "M.D. Behera, Sujoy Mudi, et al.",
+      "venue": "Tropical Ecology (2021)",
+      "year": "2021",
+      "citations": "5",
+      "scholar_link": "https://eprints.soton.ac.uk/example"
+    }
+  ]
+}
