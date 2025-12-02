@@ -1,206 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Sujoy Mudi</title>
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Recent_Publication">Publication</a></li>
-			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Skills">Skills</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
-                    </ul>
-                </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sujoy Mudi — Geospatial ML Engineer</title>
+  <meta name="description" content="Sujoy Mudi — Senior Geospatial ML Engineer. GeoAI, MRV, natural hazards, forest carbon." />
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#16a34a;
+      --glass: rgba(255,255,255,0.04);
+      --maxw:1100px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:#e6eef6;
+      background: linear-gradient(180deg,#071020 0%, #071827 60%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+    header.nav{
+      display:flex;align-items:center;justify-content:space-between;padding:18px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{
+      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#134e4a,#0ea5a3);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:white;box-shadow:0 6px 18px rgba(2,6,23,0.6)
+    }
+    nav ul{display:flex;gap:14px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a.btn-ghost{padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;padding:40px 0;
+    }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(3,7,18,0.6);
+    }
+    h1{font-size:28px;margin:0 0 6px 0;letter-spacing:0.6px}
+    h2{font-size:15px;margin:0;color:var(--muted);font-weight:600}
+    .meta{margin-top:14px;color:var(--muted);font-size:14px;display:flex;gap:12px;flex-wrap:wrap}
+    .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-weight:600;background:var(--accent);border:none;color:#042014;cursor:pointer;
+    }
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .right-panel{position:relative}
+    .card-small{background:var(--card);padding:18px;border-radius:12px;margin-bottom:12px}
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .skill-row{display:flex;flex-direction:column;gap:6px}
+    .skill-label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+    .progress{height:8px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:999px}
+    /* sections */
+    section.card-section{margin-top:22px;background:var(--glass);padding:18px;border-radius:12px}
+    .two-col{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    .experience .item{margin-bottom:16px}
+    .experience .title{font-weight:700;font-size:15px}
+    .muted{color:var(--muted);font-size:13px}
+    ul.clean{padding-left:18px;margin:8px 0}
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .project{background:var(--card);padding:14px;border-radius:10px}
+    footer{margin-top:24px;padding:24px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+    .social a{color:var(--muted);margin-right:12px}
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; padding:20px 0}
+      .two-col{grid-template-columns:1fr}
+      nav ul{display:none}
+    }
+    /* small accent card at bottom-right for sqrt(81) */
+    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav" role="banner">
+      <div class="brand">
+        <div class="avatar">SM</div>
+        <div>
+          <div style="font-weight:800">Sujoy Mudi</div>
+          <div class="muted" style="font-size:13px">Senior Geospatial ML Engineer — GeoAI • dMRV • Natural Hazards</div>
+        </div>
+      </div>
+      <nav role="navigation" aria-label="Main">
+        <ul>
+          <li><a class="btn-ghost" href="#about">About</a></li>
+          <li><a class="btn-ghost" href="#experience">Experience</a></li>
+          <li><a class="btn-ghost" href="#projects">Projects</a></li>
+          <li><a class="btn-ghost" href="#publications">Publications</a></li>
+          <li><a class="btn-ghost" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Sujoy Mudi</h1>
+          <h2>Machine Learning • GeoAI • Environmental Monitoring</h2>
+
+          <p class="muted" style="margin-top:14px">
+            7+ years building production geospatial pipelines, semantic segmentation & temporal models (CNNs, U-Net, Transformers) for forest carbon, deforestation, burned-area mapping and natural hazard monitoring. Strong in productionising ML: Prefect/Airflow, Snowflake/PostGIS, STAC/COG, xarray/dask.
+          </p>
+
+          <div class="meta">
+            <div><i class="fas fa-map-marker-alt" style="color:#60a5fa"></i>&nbsp;Kolkata, India</div>
+            <div><i class="fas fa-envelope" style="color:#60a5fa"></i>&nbsp;sujoymudi62@gmail.com</div>
+            <div><i class="fas fa-phone" style="color:#60a5fa"></i>&nbsp;+91 90936 16586</div>
+          </div>
+
+          <div class="cta">
+            <a class="btn" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-download"></i> Download CV</a>
+            <a class="btn secondary" href="#contact"><i class="fas fa-comment-dots"></i> Contact</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:13px">
+            Focus areas: Forest carbon MRV • Natural hazards (drought, fire, cyclone, SLR) • Biomass pipelines • Satellite analytics (S1/S2/Landsat/Planet)
+          </div>
+        </div>
+
+        <aside class="right-panel">
+          <div class="card-small">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-weight:700">Skills</div>
+                <div class="muted" style="font-size:12px">Selected technical stack</div>
+              </div>
+              <div style="font-size:12px;color:var(--muted)">7+ yrs</div>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <!--Carousel Wrapper-->
 
+            <div style="margin-top:12px" class="skills">
+              <div class="skill-row">
+                <div class="skill-label"><span>Python • xarray/dask • GEE</span><span class="muted">Expert</span></div>
+                <div class="progress"><i style="width:98%"></i></div>
+              </div>
+              <div class="skill-row">
+                <div class="skill-label"><span>PyTorch • TensorFlow</span><span class="muted">Advanced</span></div>
+                <div class="progress"><i style="width:86%"></i></div>
+              </div>
+              <div class="skill-row">
+                <div class="skill-label"><span>STAC / COG • GDAL</span><span class="muted">Advanced</span></div>
+                <div class="progress"><i style="width:84%"></i></div>
+              </div>
+              <div class="skill-row">
+                <div class="skill-label"><span>Snowflake • PostGIS • Prefect</span><span class="muted">Advanced</span></div>
+                <div class="progress"><i style="width:82%"></i></div>
+              </div>
+            </div>
+          </div>
 
-</div>
-<!--Carousel Wrapper-->
-		<div class="container d-flex h-100 align-items-center">
-                <div class="mx-auto text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">SUJOY MUDI</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Researcher, Developer, Remote Sening and GIS Enthusiast</h2>
-                    <a class="btn btn-primary js-scroll-trigger" href="#about">Know me</a><br></br>
-		    <a class="btn btn-primary js-scroll-trigger" href="Sujoy_cv.pdf" download="Sujoy_CV.pdf">Download CV</a>
-                </div>
+          <div class="card-small" style="display:flex;flex-direction:column;gap:10px;">
+            <div style="font-weight:700">Contact & Social</div>
+            <div class="muted" style="font-size:13px">Let's connect</div>
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <a class="btn secondary" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+              <a class="btn secondary" href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+            <div style="font-size:13px;color:var(--muted);margin-top:8px">Alternate: +91 88010 10191</div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ABOUT + EXPERIENCE -->
+      <section class="card-section two-col" id="about">
+        <div>
+          <h3 style="margin:0 0 8px 0">About</h3>
+          <p class="muted">
+            I’m a geospatial ML engineer focused on applying deep learning and scalable data engineering to environmental challenges — forest carbon, deforestation detection, burned area mapping and natural hazards. I build production pipelines that combine satellite observations with field measurements, run robust validation, and ship STAC/COG-ready outputs for MRV and product teams.
+          </p>
+
+          <div class="experience" id="experience" style="margin-top:16px">
+            <h4 style="margin-bottom:8px">Experience</h4>
+
+            <div class="item">
+              <div class="title">BeZero Carbon — Geospatial ML Analyst II <span class="muted" style="font-weight:600">May 2024 – Oct 2025</span></div>
+              <div class="muted">Remote / Kolkata</div>
+              <ul class="clean muted">
+                <li>Built monitoring approaches for natural hazards and forest carbon — pipelines for drought, wildfire, tropical cyclone, and sea-level rise.</li>
+                <li>Led Natural Hazards product work: geospatial risk assessments, interactive client-facing charts, and reports used by ratings analysts.</li>
+                <li>Project-level forest carbon evaluations integrating remotely sensed variables with field plot datasets; supported biomass validation with a global plots DB and local field surveys.</li>
+                <li>Productionised pipelines: ingestion, GitHub repos, Snowflake/PostGIS, scheduled runs with Prefect; documented methods and supported stakeholder calls.</li>
+              </ul>
             </div>
 
-
-	<!--Carousel Wrapper-->
-		
-        </header>
-        <!-- About-->
-        <section class="about-section text-center" id="about">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-white mb-4">About Me</h2>
-                        <p class="text-white-50">
-				
-                            I am a MS student at Spatial Analysis and Modeling Laboratory (SAMLAB), Center for Ocean River Atmosphere and Land Sciences (CORAL), Indian Institute of Techonology kharagpur; pursuing my reaserch under the supervison of Prof. MD Behera. My broad research domain is Wild/Forest fire and research interest are Fuel bed mapping, Land Use Land Cover mapping, Shifting Cultivation, Web GIS, Mechine Learning etc.<br><br> I have completed my M.Sc in Remote Sensing and GIS from Vidyasagar University, thesis entilted “Development of a Web GIS portal for collecting field data by the local community– case study on Tree Outside Forest at Vidyasagar University”
-							 
-                        </p>
-			     
-                    </div>
-                </div>
-               
+            <div class="item">
+              <div class="title">BeZero Carbon — Geospatial ML Analyst I <span class="muted">Jul 2022 – Apr 2024</span></div>
+              <div class="muted">Remote / Kolkata</div>
+              <ul class="clean muted">
+                <li>Developed ML models for LULC change, degradation signals and biomass (AUC &gt; 0.90 across multiple biomes).</li>
+                <li>Built Airflow-driven ingestion on AWS/GCP, standardized STAC metadata and QC workflows to improve data consistency.</li>
+              </ul>
             </div>
-        </section>
-<section class="projects-section bg-light" id="Recent_Publication">
-	<div class="container">
-		<center><h2>Recent Publication</h2></center>
-		<ul>
-			<li><a href ="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">Das, Pulakesh, <b>Sujoy Mudi</b>, Mukunda D. Behera, Saroj K. Barik, Deepak R. Mishra, and Parth S. Roy. "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India." Remote Sensing 13, no. 6 (2021): 1066.</a></li>
-			<br><li><a href="https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" target="_blank">Roy, Sambhunath, <b>Sujoy Mudi</b>, Pulakesh Das, Sujit Ghosh, Pravat Kumar Shit, Gouri Shankar Bhunia, and John Kim. "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data." In Spatial Modeling in Forest Resources Management, pp. 259-280. Springer, Cham, 2021.</a></li>
-		</ul>
-	</div>
-</section>
-		
 
-<section class="projects-section bg-light" id="Skills">
-           
- <div class="container">
-			<center><h2>Skill Set</h2></center>
-    <div class="bar learning" data-skill="TensorFlow"></div>
-    <div class="bar back basic" data-skill="R"></div>
-    <div class="bar back basic" data-skill="Python"></div>
-    <div class="bar back intermediate" data-skill="Google Earth Engine"></div>
-    <div class="bar back intermediate" data-skill="JavaScript"></div>
-    <div class="bar back intermediate" data-skill="Web GIS"></div>
-    <div class="bar back intermediate" data-skill="Android"></div>
-    <div class="bar front advanced" data-skill="CSS3"></div>
-    <div class="bar front expert" data-skill="Remote Sening & GIS Softwers"></div>
-    <div class="bar front expert" data-skill="HTML5"></div>
+            <div class="item">
+              <div class="title">IIT Kharagpur (CORAL) — Senior Project Assistant <span class="muted">Sep 2020 – Jul 2022</span></div>
+              <div class="muted">Kharagpur, India</div>
+              <ul class="clean muted">
+                <li>Forest fire risk modelling (SAR + DEM + meteorology) with F1 ≈ 0.82; SLR workflows and resilience layers for program reporting.</li>
+              </ul>
+            </div>
 
-  		</div>
-        </section>
-        <!-- Projects-->
-        <section class="projects-section bg-light" id="projects">
-            <div class="container">
-		    <center><h2>Opensource Projects</h2></center><br>
-                <!-- Featured Project Row-->
-                <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/rsgisworld.jpg" alt="" /></div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4>
-				<a href="http://www.rsgisworld.com">RSGISWORLD</a></h4>
-                            <p class="text-black-50 mb-0">RSGISWORLD is an opensource e-learning website designed and devloped by me as well as i am an co-author. This website share knowledge related to Remote Sening and GIS </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project One Row-->
-                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/TMS.png" alt="" /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white"><a href="http://rsgisworld.com/Tourismmanagmentsystem/Web%20map/index.html#15/19.2601/84.9014">Tourism Management System</a></h4>
-                                    <p class="mb-0 text-white-50">An WebGIS application to help the tourist to find placess of local tourist spot, Police station or any emeargency services. Devloped with leaflet, OSM and JavaScripts.</p>
-                                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project Two Row-->
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/SR.png" alt="" /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white"><a href="http://rsgisworld.com/Tourismmanagmentsystem/Shortest%20Route/Index/index.html">Shortest Route Finder</a></h4>
-                                    <p class="mb-0 text-white-50">It can calculate shortest route between two or more points with in some milliseconds with estimated time of arrival.</p>
-                                    <hr class="d-none d-lg-block mb-0 mr-0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="item">
+              <div class="title">Earlier roles: IIT Kharagpur (Junior Project Assistant), Stesalit Systems (Technical Executive)</div>
+              <div class="muted">2018 – 2020</div>
             </div>
-        </section>
-        <section class="signup-section" id="signup">
-        <!-- Contact-->
-        <section class="contact-section">
-            <div class="container">
-		  
-                <div class="row">
-                   
-			<div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Address</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50">VSRC, IIT Kharagpur, Kharagpur, West Bengal, 721302</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50"><a href="#!">sujoymudi62@iitkgp.ac.in</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
-                                <hr class="my-4" />
-                                <div class="small text-black-50">+91 000000000</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="https://in.linkedin.com/in/sujoy-mudi-182553129"><i class="fab fa-linkedin"></i></a>
-                    <a class="mx-2" href="https://www.researchgate.net/profile/Sujoy-Mudi"><i class="fab fa-researchgate"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card-small">
+            <div style="font-weight:700">Education</div>
+            <div style="margin-top:8px" class="muted">
+              MS (Research), Forest Fire Modelling — IIT Kharagpur (2022)<br>
+              M.Sc Remote Sensing & GIS — Vidyasagar University (2018)<br>
+              B.A (Hons), Geography — Vidyasagar University (2016)
             </div>
-        </section>
-	</section>
-        <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Sujoy Mudi 2021</div></footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+          </div>
+
+          <div class="card-small">
+            <div style="font-weight:700">Certifications</div>
+            <div class="muted" style="margin-top:8px">
+              SQL (DataCamp), Java Level-I, Python, Android Dev, Web GIS
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Projects -->
+      <section class="card-section" id="projects" style="margin-top:18px">
+        <h3 style="margin:0 0 12px 0">Selected Projects & Open Source</h3>
+        <div class="projects-grid">
+          <div class="project">
+            <div style="font-weight:700">Global Natural Hazard Monitoring</div>
+            <div class="muted" style="font-size:13px;margin-top:6px">Drought, wildfires, cyclone and sea-level rise pipelines powering ratings and product analytics.</div>
+          </div>
+          <div class="project">
+            <div style="font-weight:700">Forest Carbon MRV & Biomass Pipeline</div>
+            <div class="muted" style="font-size:13px;margin-top:6px">In-house biomass estimation, global plots DB for validation, field surveys to strengthen ground truth.</div>
+          </div>
+          <div class="project">
+            <div style="font-weight:700">RSGISWORLD (Open Learning)</div>
+            <div class="muted" style="font-size:13px;margin-top:6px"><a href="http://www.rsgisworld.com" target="_blank">rsgisworld.com</a> — open-source remote sensing & GIS learning platform (co-author).</div>
+          </div>
+          <div class="project">
+            <div style="font-weight:700">Tourism Management / Routing WebGIS</div>
+            <div class="muted" style="font-size:13px;margin-top:6px"><a href="http://rsgisworld.com/Tourismmanagmentsystem/Web%20map/index.html#15/19.2601/84.9014" target="_blank">Tourism Management System</a> & Shortest Route Finder — Leaflet, OSM, JS</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publications — updated with important / cited works -->
+	  <section class="card-section" id="publications" style="margin-top:18px">
+	    <h3 style="margin:0 0 10px 0">Selected Publications</h3>
+	    <ul class="clean muted">
+		  <li>
+		    <a href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">
+			  Das P., <strong>Mudi S.</strong>, Behera M.D., Barik S.K., Mishra D.R., Roy P.S. — "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India." <em>Remote Sensing</em>, 2021. 
+		    </a>
+		    <div class="muted" style="font-size:13px;margin-top:4px">
+			  Decision-tree multi-step threshold method for consistent long-term mapping of shifting cultivation using Landsat / GEE. :contentReference[oaicite:5]{index=5}
+		    </div>
+		  </li>
+	
+		  <li style="margin-top:10px">
+		    <a href="https://eprints.soton.ac.uk/457154/" target="_blank">
+			  Behera M.D., <strong>Mudi S.</strong>, et al. — "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data." <em>Tropical Ecology</em> (2021).
+		    </a>
+		    <div class="muted" style="font-size:13px;margin-top:4px">
+			  SAR-based inundation mapping and RF classification implemented in Google Earth Engine (case study: Cyclone Amphan). :contentReference[oaicite:6]{index=6}
+		    </div>
+		  </li>
+	
+		  <li style="margin-top:10px">
+		    <a href="https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" target="_blank">
+			  Roy S., <strong>Mudi S.</strong>, Das P., et al. — "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data." In: <em>Spatial Modeling in Forest Resources Management</em>, Springer, Cham (2021).
+		    </a>
+		    <div class="muted" style="font-size:13px;margin-top:4px">
+			  Sentinel-1 based approaches for AGB and tree density estimation — useful background for your biomass pipeline. :contentReference[oaicite:7]{index=7}
+		    </div>
+		  </li>
+	
+		  <li style="margin-top:10px">
+		    <a href="https://www.researchgate.net/publication/379306304_Development_of_an_automated_method_for_flood_inundation_monitoring_flood_hazard_and_soil_erosion_susceptibility_assessment_using_machine_learning_and_AHP-MCE_techniques" target="_blank">
+			  Mudi S., Prakash J., Das P. — "Flood Hazard Mapping in Assam using Sentinel-1 SAR Data" (2022 / project report).
+		    </a>
+		    <div class="muted" style="font-size:13px;margin-top:4px">
+			  Project-level flood hazard mapping with Sentinel-1 and ML methods (assessed in follow-up studies). :contentReference[oaicite:8]{index=8}
+		    </div>
+		  </li>
+	
+		  <li style="margin-top:10px">
+		    <a href="https://www.researchgate.net/publication/330056365_Managing_Mangrove_Forests_Using_Open_Source-Based_WebGIS" target="_blank">
+			  Roy S., <strong>Mudi S.</strong>, Das P. — "Managing Mangrove Forests Using Open Source-Based WebGIS." (WebGIS / methods).
+		    </a>
+		    <div class="muted" style="font-size:13px;margin-top:4px">
+			  WebGIS approaches for community-focused mangrove management and field-data collection. :contentReference[oaicite:9]{index=9}
+		    </div>
+		  </li>
+	
+		  <li style="margin-top:10px">
+		    <div class="muted" style="font-size:13px">
+			  For the full list and citation metrics, see my Google Scholar profile: 
+			  <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank">Google Scholar — Sujoy Mudi</a>. :contentReference[oaicite:10]{index=10}
+		    </div>
+		  </li>
+	    </ul>
+	  </section>
+
+      <!-- Footer / Contact -->
+      <section class="card-section" id="contact" style="margin-top:18px">
+        <h3 style="margin:0 0 8px 0">Contact</h3>
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <div class="muted">Email</div>
+            <div style="font-weight:700">sujoymudi62@gmail.com</div>
+            <div style="height:12px"></div>
+            <div class="muted">Location</div>
+            <div style="font-weight:700">Kolkata, India</div>
+            <div style="height:12px"></div>
+            <div style="margin-top:10px">
+              <a class="btn" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-paper-plane"></i> Email me</a>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:260px">
+            <div class="muted">Social</div>
+            <div style="margin-top:8px" class="social">
+              <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+              <a href="https://www.researchgate.net/profile/Sujoy-Mudi" target="_blank"><i class="fab fa-researchgate fa-lg"></i></a>
+              <a href="https://github.com/" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+            </div>
+
+            <div style="margin-top:16px">
+              <div class="muted">Download</div>
+              <a class="btn secondary" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-file-pdf"></i> Download CV (PDF)</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>© Sujoy Mudi — GeoAI & Environmental Modelling</div>
+      <div class="muted">Designed for GitHub Pages • STAC / COG • Prefect / Airflow • (√81)</div>
+    </footer>
+
+    <div class="sqrt">(√81)</div>
+  </div>
+
+  <!-- small accessibility + smooth scroll -->
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        if(id === '#' || id === '#!') return;
+        const el = document.querySelector(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+</body>
 </html>
