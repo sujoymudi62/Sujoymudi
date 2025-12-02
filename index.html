@@ -148,7 +148,19 @@
       </div>
 
       <aside class="panel">
-        <div class="profile-pic">SM</div>
+        <picture class="profile-pic">
+          <!-- optional WebP for browsers that support it -->
+          <source srcset="assets/sujoy_headshot.webp 320w, assets/sujoy_headshot.webp 640w" type="image/webp">
+          <!-- PNG fallback with retina variants -->
+          <source srcset="assets/sujoy_headshot.png 320w, assets/sujoy_headshot.png 640w" type="image/png">
+          <img src="assets/sujoy_headshot.png"
+               alt="Portrait photo of Sujoy Mudi"
+               width="320"
+               height="320"
+               loading="lazy"
+               decoding="async"
+               style="display:block;border-radius:12px;object-fit:cover;width:100%;height:220px;">
+        </picture>
         <div class="mini">Senior Geospatial ML Engineer — production ML, remote sensing, MRV, dMRV.</div>
         <div class="skill-chips">
           <span class="chip">Python • xarray/dask</span>
