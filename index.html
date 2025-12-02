@@ -7,15 +7,18 @@
   <meta name="description" content="Sujoy Mudi — Senior Geospatial ML Engineer. GeoAI, MRV, natural hazards, forest carbon." />
   <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
+  <!-- Font Awesome (use Kit or CDN) -->
   <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
+  <!-- Chart.js for animated charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
   <style>
     :root{
       --bg:#0f1724;
       --card:#0b1220;
       --muted:#94a3b8;
       --accent:#16a34a;
-      --glass: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.03);
       --maxw:1100px;
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
@@ -81,6 +84,9 @@
     }
     /* small accent card at bottom-right for sqrt(81) */
     .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    /* chart containers */
+    .chart-wrap{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:12px;border-radius:10px}
+    canvas{max-width:100%}
   </style>
 </head>
 <body>
@@ -159,6 +165,11 @@
                 <div class="progress"><i style="width:82%"></i></div>
               </div>
             </div>
+          </div>
+
+          <div class="card-small chart-wrap">
+            <canvas id="skillsChart" width="360" height="220" aria-label="Skills chart" role="img"></canvas>
+            <div class="muted" style="font-size:12px;margin-top:8px">Animated skill proficiency</div>
           </div>
 
           <div class="card-small" style="display:flex;flex-direction:column;gap:10px;">
@@ -261,71 +272,40 @@
         </div>
       </section>
 
-      <!-- Publications — updated with important / cited works -->
-	  <section class="card-section" id="publications" style="margin-top:18px">
-	    <h3 style="margin:0 0 10px 0">Selected Publications</h3>
-	    <ul class="clean muted">
-		  <li>
-		    <a href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">
-			  Das P., <strong>Mudi S.</strong>, Behera M.D., Barik S.K., Mishra D.R., Roy P.S. — "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India." <em>Remote Sensing</em>, 2021. 
-		    </a>
-		    <div class="muted" style="font-size:13px;margin-top:4px">
-			  Decision-tree multi-step threshold method for consistent long-term mapping of shifting cultivation using Landsat / GEE. :contentReference[oaicite:5]{index=5}
-		    </div>
-		  </li>
-	
-		  <li style="margin-top:10px">
-		    <a href="https://eprints.soton.ac.uk/457154/" target="_blank">
-			  Behera M.D., <strong>Mudi S.</strong>, et al. — "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data." <em>Tropical Ecology</em> (2021).
-		    </a>
-		    <div class="muted" style="font-size:13px;margin-top:4px">
-			  SAR-based inundation mapping and RF classification implemented in Google Earth Engine (case study: Cyclone Amphan). :contentReference[oaicite:6]{index=6}
-		    </div>
-		  </li>
-	
-		  <li style="margin-top:10px">
-		    <a href="https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" target="_blank">
-			  Roy S., <strong>Mudi S.</strong>, Das P., et al. — "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data." In: <em>Spatial Modeling in Forest Resources Management</em>, Springer, Cham (2021).
-		    </a>
-		    <div class="muted" style="font-size:13px;margin-top:4px">
-			  Sentinel-1 based approaches for AGB and tree density estimation — useful background for your biomass pipeline. :contentReference[oaicite:7]{index=7}
-		    </div>
-		  </li>
-	
-		  <li style="margin-top:10px">
-		    <a href="https://www.researchgate.net/publication/379306304_Development_of_an_automated_method_for_flood_inundation_monitoring_flood_hazard_and_soil_erosion_susceptibility_assessment_using_machine_learning_and_AHP-MCE_techniques" target="_blank">
-			  Mudi S., Prakash J., Das P. — "Flood Hazard Mapping in Assam using Sentinel-1 SAR Data" (2022 / project report).
-		    </a>
-		    <div class="muted" style="font-size:13px;margin-top:4px">
-			  Project-level flood hazard mapping with Sentinel-1 and ML methods (assessed in follow-up studies). :contentReference[oaicite:8]{index=8}
-		    </div>
-		  </li>
-	
-		  <li style="margin-top:10px">
-		    <a href="https://www.researchgate.net/publication/330056365_Managing_Mangrove_Forests_Using_Open_Source-Based_WebGIS" target="_blank">
-			  Roy S., <strong>Mudi S.</strong>, Das P. — "Managing Mangrove Forests Using Open Source-Based WebGIS." (WebGIS / methods).
-		    </a>
-		    <div class="muted" style="font-size:13px;margin-top:4px">
-			  WebGIS approaches for community-focused mangrove management and field-data collection. :contentReference[oaicite:9]{index=9}
-		    </div>
-		  </li>
-	
-		  <li style="margin-top:10px">
-		    <div class="muted" style="font-size:13px">
-			  For the full list and citation metrics, see my Google Scholar profile: 
-			  <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank">Google Scholar — Sujoy Mudi</a>. :contentReference[oaicite:10]{index=10}
-		    </div>
-		  </li>
-	    </ul>
-	  </section>
+      <!-- Publications (placeholder; rendered from publications.json) -->
+      <section class="card-section" id="publications" style="margin-top:18px">
+        <h3 style="margin:0 0 10px 0">Selected Publications</h3>
 
-      <!-- Footer / Contact -->
+        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:320px">
+            <div id="publications-list" class="muted">Loading publications…</div>
+            <div id="pub-sync-time" class="muted" style="margin-top:10px;font-size:12px"></div>
+          </div>
+
+          <div style="width:360px;min-width:280px">
+            <div class="chart-wrap card-small">
+              <canvas id="pubsByYear" width="340" height="220" aria-label="Publications by year chart" role="img"></canvas>
+              <div class="muted" style="font-size:12px;margin-top:8px">Publications by year (auto-updates from Google Scholar)</div>
+            </div>
+            <div style="height:12px"></div>
+            <div class="chart-wrap card-small">
+              <canvas id="pubCitations" width="340" height="160" aria-label="Top citations chart" role="img"></canvas>
+              <div class="muted" style="font-size:12px;margin-top:8px">Top-cited items (from synced data)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
       <section class="card-section" id="contact" style="margin-top:18px">
         <h3 style="margin:0 0 8px 0">Contact</h3>
         <div style="display:flex;gap:18px;flex-wrap:wrap">
           <div style="flex:1;min-width:260px">
             <div class="muted">Email</div>
             <div style="font-weight:700">sujoymudi62@gmail.com</div>
+            <div style="height:12px"></div>
+            <div class="muted">Phone</div>
+            <div style="font-weight:700">+91 90936 16586 (alt: +91 88010 10191)</div>
             <div style="height:12px"></div>
             <div class="muted">Location</div>
             <div style="font-weight:700">Kolkata, India</div>
@@ -361,18 +341,186 @@
     <div class="sqrt">(√81)</div>
   </div>
 
-  <!-- small accessibility + smooth scroll -->
+  <!-- Scripts: publications rendering + charts -->
   <script>
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        const id = a.getAttribute('href');
-        if(id === '#' || id === '#!') return;
-        const el = document.querySelector(id);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  // ---------- Skills chart (radar or horizontal bar) ----------
+  const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+  const skillsData = {
+    labels: ['Python & xarray', 'Deep Learning (PyTorch/TensorFlow)', 'STAC/COG & GDAL', 'Cloud & Prefect', 'GEE & EO processing'],
+    datasets: [{
+      label: 'Proficiency',
+      data: [98, 86, 84, 82, 90],
+      borderRadius: 6,
+      backgroundColor: (ctx) => {
+        const gradient = ctx.chart.ctx.createLinearGradient(0,0,300,0);
+        gradient.addColorStop(0, 'rgba(22,163,74,0.85)');
+        gradient.addColorStop(1, 'rgba(96,165,250,0.6)');
+        return gradient;
+      },
+      borderColor: 'rgba(22,163,74,0.9)',
+      barPercentage: 0.7
+    }]
+  };
+  const skillsChart = new Chart(skillsCtx, {
+    type: 'bar',
+    data: skillsData,
+    options: {
+      indexAxis: 'y',
+      animation: { duration: 1200, easing: 'easeOutCubic' },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { max: 100, ticks: { color: '#94a3b8' } },
+        y: { ticks: { color: '#e6eef6', font: { size: 12 } } }
+      }
+    }
+  });
+
+  // ---------- Publications rendering + charts ----------
+  async function renderPublicationsAndCharts() {
+    const container = document.getElementById('publications-list');
+    const syncEl = document.getElementById('pub-sync-time');
+    try {
+      const resp = await fetch('/publications.json', {cache: "no-cache"});
+      if (!resp.ok) {
+        container.innerHTML = '<div class="muted">Publications not found. Please run the sync action or commit publications.json.</div>';
+        return;
+      }
+      const data = await resp.json();
+      const pubs = data.publications || [];
+
+      // Render list (top 12)
+      if (pubs.length === 0) {
+        container.innerHTML = '<div class="muted">No publications found.</div>';
+      } else {
+        const list = document.createElement('ul');
+        list.className = 'clean muted';
+        pubs.slice(0, 12).forEach(pub => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = pub.scholar_link || '#';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.innerHTML = pub.title || 'Untitled';
+          const meta = document.createElement('div');
+          meta.className = 'muted';
+          meta.style.fontSize = '13px';
+          meta.style.marginTop = '4px';
+          meta.textContent = `${pub.authors || ''} — ${pub.venue || ''} ${pub.year ? '(' + pub.year + ')' : ''} • Citations: ${pub.citations || '0'}`;
+          li.appendChild(a);
+          li.appendChild(meta);
+          li.style.marginTop = '10px';
+          list.appendChild(li);
+        });
+        container.innerHTML = '';
+        container.appendChild(list);
+      }
+
+      // Sync time
+      if (data.updated_at) {
+        const ts = new Date(data.updated_at * 1000);
+        syncEl.textContent = 'Publications last synced: ' + ts.toLocaleString();
+      }
+
+      // Build publications by year chart data
+      const years = {};
+      pubs.forEach(p => {
+        const y = p.year && p.year.match(/\d{4}/) ? p.year.match(/\d{4}/)[0] : 'Unknown';
+        years[y] = (years[y] || 0) + 1;
       });
+      // sort years ascending, ignore Unknown if present (put at end)
+      const knownYears = Object.keys(years).filter(y=>y!=='Unknown').sort();
+      const labels = knownYears;
+      const values = labels.map(y => years[y]);
+      // If no years, create placeholder
+      if (labels.length === 0) {
+        labels.push('No data'); values.push(0);
+      }
+
+      // Publications by year chart
+      const pubByYearCtx = document.getElementById('pubsByYear').getContext('2d');
+      // destroy if exists
+      if (window._pubsByYearChart) window._pubsByYearChart.destroy();
+      window._pubsByYearChart = new Chart(pubByYearCtx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Publications',
+            data: values,
+            fill: true,
+            tension: 0.3,
+            backgroundColor: function(context) {
+              const ctx = context.chart.ctx;
+              const gradient = ctx.createLinearGradient(0,0,0,200);
+              gradient.addColorStop(0, 'rgba(22,163,74,0.18)');
+              gradient.addColorStop(1, 'rgba(96,165,250,0.02)');
+              return gradient;
+            },
+            borderColor: '#60a5fa',
+            pointBackgroundColor: '#16a34a',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          animation: { duration: 1000 },
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' } },
+            y: { ticks: { color: '#94a3b8', stepSize: 1, beginAtZero: true } }
+          }
+        }
+      });
+
+      // Top-cited items donut chart (top 5 by citations numeric)
+      const top = pubs
+        .map(p => ({...p, citations: parseInt(p.citations || '0') || 0}))
+        .sort((a,b)=>b.citations - a.citations)
+        .slice(0,5);
+      const donutLabels = top.map(t => t.title.length > 40 ? t.title.slice(0,40)+'…' : t.title);
+      const donutData = top.map(t => t.citations);
+
+      const pubCitationsCtx = document.getElementById('pubCitations').getContext('2d');
+      if (window._pubCitationsChart) window._pubCitationsChart.destroy();
+      window._pubCitationsChart = new Chart(pubCitationsCtx, {
+        type: 'doughnut',
+        data: {
+          labels: donutLabels.length ? donutLabels : ['No citations'],
+          datasets: [{
+            data: donutData.length ? donutData : [1],
+            backgroundColor: ['#10b981','#60a5fa','#f97316','#a78bfa','#ef4444'],
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          animation: { duration: 900 },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+    } catch (err) {
+      console.error('Failed to load publications.json', err);
+      document.getElementById('publications-list').innerHTML = '<div class="muted">Failed to load publications (see console). You can still add publications.json manually to your repo root.</div>';
+    }
+  }
+
+  // Trigger render on load
+  renderPublicationsAndCharts();
+
+  // Re-render every 10 minutes in case the file updates during a session
+  setInterval(renderPublicationsAndCharts, 10 * 60 * 1000);
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const id = a.getAttribute('href');
+      if(id === '#' || id === '#!') return;
+      const el = document.querySelector(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     });
+  });
   </script>
 </body>
 </html>
