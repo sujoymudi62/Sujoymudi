@@ -3,524 +3,345 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sujoy Mudi — Geospatial ML Engineer</title>
-  <meta name="description" content="Sujoy Mudi — Senior Geospatial ML Engineer. GeoAI, MRV, natural hazards, forest carbon." />
-  <!-- Google fonts -->
+  <title>Sujoy Mudi — GeoAI & Environmental Monitoring</title>
+  <meta name="description" content="Portfolio of Sujoy Mudi — Geospatial ML Engineer. GeoAI, forest carbon MRV, natural hazards."/>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+  <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome (use Kit or CDN) -->
   <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
-  <!-- Chart.js for animated charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#94a3b8;
-      --accent:#16a34a;
-      --glass: rgba(255,255,255,0.03);
-      --maxw:1100px;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --bg:#071428;
+      --glass: rgba(255,255,255,0.04);
+      --muted:#9fb0c8;
+      --accent:#10b981;
+      --accent-2:#60a5fa;
+      --card-radius:16px;
+      --maxw:1200px;
+      --shadow: 0 10px 30px rgba(3,7,18,0.6);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue";
+      color-scheme: dark;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;
-      color:#e6eef6;
-      background: linear-gradient(180deg,#071020 0%, #071827 60%);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
+      margin:0; background: linear-gradient(180deg,#04101b 0%, #061526 60%); color: #e6f0fa;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.5; font-size:16px;
     }
     a{color:inherit;text-decoration:none}
-    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px;}
+    /* NAV */
     header.nav{
-      display:flex;align-items:center;justify-content:space-between;padding:18px 0;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;position:sticky;top:0;z-index:80;
+      backdrop-filter: blur(6px);
     }
-    .brand{display:flex;align-items:center;gap:14px}
-    .avatar{
-      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#134e4a,#0ea5a3);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:white;box-shadow:0 6px 18px rgba(2,6,23,0.6)
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#022018;box-shadow:0 8px 26px rgba(6,10,20,0.6)
     }
-    nav ul{display:flex;gap:14px;align-items:center;margin:0;padding:0;list-style:none}
-    nav a.btn-ghost{padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06)}
-    /* Hero */
+    nav a{margin-left:14px;color:var(--muted);font-weight:600;font-size:14px}
+    nav a.cta{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px}
+    /* HERO */
     .hero{
-      display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;padding:40px 0;
+      display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0 24px;
     }
     .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(3,7,18,0.6);
+      padding:34px;border-radius:var(--card-radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:var(--shadow); border:1px solid rgba(255,255,255,0.02);
     }
-    h1{font-size:28px;margin:0 0 6px 0;letter-spacing:0.6px}
-    h2{font-size:15px;margin:0;color:var(--muted);font-weight:600}
-    .meta{margin-top:14px;color:var(--muted);font-size:14px;display:flex;gap:12px;flex-wrap:wrap}
-    .cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-weight:600;background:var(--accent);border:none;color:#042014;cursor:pointer;
+    h1{margin:0;font-weight:800;font-size:34px;letter-spacing:-0.6px}
+    p.lead{margin:12px 0 18px;color:var(--muted);font-size:15px;max-width:48ch}
+    .ctas{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#042017;border:none}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .hero-stats{display:flex;gap:18px;margin-top:18px}
+    .stat{background:var(--glass);padding:12px;border-radius:10px;text-align:center;min-width:88px}
+    .stat .n{font-weight:800;font-size:20px}
+    .stat .t{color:var(--muted);font-size:13px}
+    /* RIGHT PANEL */
+    .panel{
+      padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.02)
     }
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .right-panel{position:relative}
-    .card-small{background:var(--card);padding:18px;border-radius:12px;margin-bottom:12px}
-    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-    .skill-row{display:flex;flex-direction:column;gap:6px}
-    .skill-label{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
-    .progress{height:8px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:999px;overflow:hidden}
-    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:999px}
-    /* sections */
-    section.card-section{margin-top:22px;background:var(--glass);padding:18px;border-radius:12px}
-    .two-col{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
-    .experience .item{margin-bottom:16px}
-    .experience .title{font-weight:700;font-size:15px}
-    .muted{color:var(--muted);font-size:13px}
-    ul.clean{padding-left:18px;margin:8px 0}
-    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-    .project{background:var(--card);padding:14px;border-radius:10px}
-    footer{margin-top:24px;padding:24px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;font-size:13px}
-    .social a{color:var(--muted);margin-right:12px}
-    /* responsive */
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr; padding:20px 0}
-      .two-col{grid-template-columns:1fr}
-      nav ul{display:none}
+    .profile-pic{
+      width:100%;height:220px;border-radius:12px;background-image:linear-gradient(120deg,rgba(96,165,250,0.12),rgba(16,185,129,0.06));
+      display:flex;align-items:center;justify-content:center;font-size:46px;color:rgba(255,255,255,0.9);font-weight:700
     }
-    /* small accent card at bottom-right for sqrt(81) */
-    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    /* chart containers */
-    .chart-wrap{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:12px;border-radius:10px}
-    canvas{max-width:100%}
+    .mini{color:var(--muted);font-size:13px;margin-top:8px}
+    .skill-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:600;font-size:13px;color:var(--muted)}
+    /* Projects grid */
+    section{margin-top:26px}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .project-card{
+      position:relative;overflow:hidden;border-radius:14px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);
+      transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+    }
+    .project-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(3,7,18,0.6)}
+    .project-thumb{height:160px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:12px;box-shadow:inset 0 0 80px rgba(0,0,0,0.12)}
+    .project-title{font-weight:700;margin-bottom:6px}
+    .project-desc{color:var(--muted);font-size:14px}
+    .project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
+    /* Publications list */
+    .pubs{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .pub-list{list-style:none;padding:0;margin:0}
+    .pub-item{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);margin-bottom:12px}
+    .pub-item .meta{color:var(--muted);font-size:13px;margin-top:8px}
+    .pub-item .action{margin-top:10px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted)}
+    /* contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .contact-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+    .socials a{margin-right:12px;color:var(--muted);font-weight:700}
+    /* footer */
+    footer.site{margin-top:28px;padding:18px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.02)}
+    /* responsiveness */
+    @media (max-width:1100px){ .projects-grid{grid-template-columns:repeat(2,1fr)} .hero{grid-template-columns:1fr} .pubs{grid-template-columns:1fr} .contact-grid{grid-template-columns:1fr} }
+    @media (max-width:700px){ .projects-grid{grid-template-columns:1fr} nav a{display:none} .wrap{padding:18px} }
+    /* sqrt badge */
+    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6);z-index:80}
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="wrap">
+
+    <!-- NAV -->
     <header class="nav" role="banner">
       <div class="brand">
-        <div class="avatar">SM</div>
+        <div class="logo">SM</div>
         <div>
           <div style="font-weight:800">Sujoy Mudi</div>
-          <div class="muted" style="font-size:13px">Senior Geospatial ML Engineer — GeoAI • dMRV • Natural Hazards</div>
+          <div style="font-size:13px;color:var(--muted)">Geospatial ML Engineer — GeoAI & Environmental Monitoring</div>
         </div>
       </div>
-      <nav role="navigation" aria-label="Main">
-        <ul>
-          <li><a class="btn-ghost" href="#about">About</a></li>
-          <li><a class="btn-ghost" href="#experience">Experience</a></li>
-          <li><a class="btn-ghost" href="#projects">Projects</a></li>
-          <li><a class="btn-ghost" href="#publications">Publications</a></li>
-          <li><a class="btn-ghost" href="#contact">Contact</a></li>
-        </ul>
+
+      <nav role="navigation" aria-label="main">
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#contact" class="cta">Contact</a>
+        <a class="cta" href="Sujoy_Mudi_CV.pdf" download>Download CV</a>
       </nav>
     </header>
 
-    <main>
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-card">
-          <h1>Sujoy Mudi</h1>
-          <h2>Machine Learning • GeoAI • Environmental Monitoring</h2>
+    <!-- HERO -->
+    <main class="hero" role="main">
+      <div class="hero-card">
+        <h1>Turning satellite data into robust, production-ready environmental insights</h1>
+        <p class="lead">I build ML models and production geospatial pipelines (CNNs, U-Net, transformers, SAR/optical fusion) for forest carbon MRV, deforestation and natural hazard monitoring. I focus on reproducible engineering, data validation, and product-ready outputs.</p>
 
-          <p class="muted" style="margin-top:14px">
-            7+ years building production geospatial pipelines, semantic segmentation & temporal models (CNNs, U-Net, Transformers) for forest carbon, deforestation, burned-area mapping and natural hazard monitoring. Strong in productionising ML: Prefect/Airflow, Snowflake/PostGIS, STAC/COG, xarray/dask.
-          </p>
-
-          <div class="meta">
-            <div><i class="fas fa-map-marker-alt" style="color:#60a5fa"></i>&nbsp;Kolkata, India</div>
-            <div><i class="fas fa-envelope" style="color:#60a5fa"></i>&nbsp;sujoymudi62@gmail.com</div>
-            <div><i class="fas fa-phone" style="color:#60a5fa"></i>&nbsp;+91 90936 16586</div>
-          </div>
-
-          <div class="cta">
-            <a class="btn" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-download"></i> Download CV</a>
-            <a class="btn secondary" href="#contact"><i class="fas fa-comment-dots"></i> Contact</a>
-          </div>
-
-          <div style="margin-top:18px;color:var(--muted);font-size:13px">
-            Focus areas: Forest carbon MRV • Natural hazards (drought, fire, cyclone, SLR) • Biomass pipelines • Satellite analytics (S1/S2/Landsat/Planet)
-          </div>
+        <div class="ctas">
+          <a class="btn primary" href="#projects"><i class="fas fa-rocket"></i> Explore projects</a>
+          <a class="btn ghost" href="#contact"><i class="fas fa-comment-dots"></i> Let's talk</a>
         </div>
 
-        <aside class="right-panel">
-          <div class="card-small">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <div style="font-weight:700">Skills</div>
-                <div class="muted" style="font-size:12px">Selected technical stack</div>
-              </div>
-              <div style="font-size:12px;color:var(--muted)">7+ yrs</div>
-            </div>
+        <div class="hero-stats" aria-hidden="true">
+          <div class="stat"><div class="n js-counter" data-from="0" data-to="7">7</div><div class="t">Years experience</div></div>
+          <div class="stat"><div class="n js-counter" data-from="0" data-to="15">15</div><div class="t">Projects (selected)</div></div>
+          <div class="stat"><div class="n js-counter" data-from="0" data-to="5">5</div><div class="t">Selected pubs</div></div>
+        </div>
+      </div>
 
-            <div style="margin-top:12px" class="skills">
-              <div class="skill-row">
-                <div class="skill-label"><span>Python • xarray/dask • GEE</span><span class="muted">Expert</span></div>
-                <div class="progress"><i style="width:98%"></i></div>
-              </div>
-              <div class="skill-row">
-                <div class="skill-label"><span>PyTorch • TensorFlow</span><span class="muted">Advanced</span></div>
-                <div class="progress"><i style="width:86%"></i></div>
-              </div>
-              <div class="skill-row">
-                <div class="skill-label"><span>STAC / COG • GDAL</span><span class="muted">Advanced</span></div>
-                <div class="progress"><i style="width:84%"></i></div>
-              </div>
-              <div class="skill-row">
-                <div class="skill-label"><span>Snowflake • PostGIS • Prefect</span><span class="muted">Advanced</span></div>
-                <div class="progress"><i style="width:82%"></i></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-small chart-wrap">
-            <canvas id="skillsChart" width="360" height="220" aria-label="Skills chart" role="img"></canvas>
-            <div class="muted" style="font-size:12px;margin-top:8px">Animated skill proficiency</div>
-          </div>
-
-          <div class="card-small" style="display:flex;flex-direction:column;gap:10px;">
-            <div style="font-weight:700">Contact & Social</div>
-            <div class="muted" style="font-size:13px">Let's connect</div>
-            <div style="display:flex;gap:8px;margin-top:6px">
-              <a class="btn secondary" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-              <a class="btn secondary" href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            </div>
-            <div style="font-size:13px;color:var(--muted);margin-top:8px">Alternate: +91 88010 10191</div>
-          </div>
-        </aside>
-      </section>
-
-      <!-- ABOUT + EXPERIENCE -->
-      <section class="card-section two-col" id="about">
-        <div>
-          <h3 style="margin:0 0 8px 0">About</h3>
-          <p class="muted">
-            I’m a geospatial ML engineer focused on applying deep learning and scalable data engineering to environmental challenges — forest carbon, deforestation detection, burned area mapping and natural hazards. I build production pipelines that combine satellite observations with field measurements, run robust validation, and ship STAC/COG-ready outputs for MRV and product teams.
-          </p>
-
-          <div class="experience" id="experience" style="margin-top:16px">
-            <h4 style="margin-bottom:8px">Experience</h4>
-
-            <div class="item">
-              <div class="title">BeZero Carbon — Geospatial ML Analyst II <span class="muted" style="font-weight:600">May 2024 – Oct 2025</span></div>
-              <div class="muted">Remote / Kolkata</div>
-              <ul class="clean muted">
-                <li>Built monitoring approaches for natural hazards and forest carbon — pipelines for drought, wildfire, tropical cyclone, and sea-level rise.</li>
-                <li>Led Natural Hazards product work: geospatial risk assessments, interactive client-facing charts, and reports used by ratings analysts.</li>
-                <li>Project-level forest carbon evaluations integrating remotely sensed variables with field plot datasets; supported biomass validation with a global plots DB and local field surveys.</li>
-                <li>Productionised pipelines: ingestion, GitHub repos, Snowflake/PostGIS, scheduled runs with Prefect; documented methods and supported stakeholder calls.</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <div class="title">BeZero Carbon — Geospatial ML Analyst I <span class="muted">Jul 2022 – Apr 2024</span></div>
-              <div class="muted">Remote / Kolkata</div>
-              <ul class="clean muted">
-                <li>Developed ML models for LULC change, degradation signals and biomass (AUC &gt; 0.90 across multiple biomes).</li>
-                <li>Built Airflow-driven ingestion on AWS/GCP, standardized STAC metadata and QC workflows to improve data consistency.</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <div class="title">IIT Kharagpur (CORAL) — Senior Project Assistant <span class="muted">Sep 2020 – Jul 2022</span></div>
-              <div class="muted">Kharagpur, India</div>
-              <ul class="clean muted">
-                <li>Forest fire risk modelling (SAR + DEM + meteorology) with F1 ≈ 0.82; SLR workflows and resilience layers for program reporting.</li>
-              </ul>
-            </div>
-
-            <div class="item">
-              <div class="title">Earlier roles: IIT Kharagpur (Junior Project Assistant), Stesalit Systems (Technical Executive)</div>
-              <div class="muted">2018 – 2020</div>
-            </div>
-          </div>
+      <aside class="panel">
+        <div class="profile-pic">SM</div>
+        <div class="mini">Senior Geospatial ML Engineer — production ML, remote sensing, MRV, dMRV.</div>
+        <div class="skill-chips">
+          <span class="chip">Python • xarray/dask</span>
+          <span class="chip">PyTorch & TensorFlow</span>
+          <span class="chip">STAC / COG</span>
+          <span class="chip">Prefect / Airflow</span>
         </div>
 
-        <aside>
-          <div class="card-small">
-            <div style="font-weight:700">Education</div>
-            <div style="margin-top:8px" class="muted">
-              MS (Research), Forest Fire Modelling — IIT Kharagpur (2022)<br>
-              M.Sc Remote Sensing & GIS — Vidyasagar University (2018)<br>
-              B.A (Hons), Geography — Vidyasagar University (2016)
-            </div>
-          </div>
-
-          <div class="card-small">
-            <div style="font-weight:700">Certifications</div>
-            <div class="muted" style="margin-top:8px">
-              SQL (DataCamp), Java Level-I, Python, Android Dev, Web GIS
-            </div>
-          </div>
-        </aside>
-      </section>
-
-      <!-- Projects -->
-      <section class="card-section" id="projects" style="margin-top:18px">
-        <h3 style="margin:0 0 12px 0">Selected Projects & Open Source</h3>
-        <div class="projects-grid">
-          <div class="project">
-            <div style="font-weight:700">Global Natural Hazard Monitoring</div>
-            <div class="muted" style="font-size:13px;margin-top:6px">Drought, wildfires, cyclone and sea-level rise pipelines powering ratings and product analytics.</div>
-          </div>
-          <div class="project">
-            <div style="font-weight:700">Forest Carbon MRV & Biomass Pipeline</div>
-            <div class="muted" style="font-size:13px;margin-top:6px">In-house biomass estimation, global plots DB for validation, field surveys to strengthen ground truth.</div>
-          </div>
-          <div class="project">
-            <div style="font-weight:700">RSGISWORLD (Open Learning)</div>
-            <div class="muted" style="font-size:13px;margin-top:6px"><a href="http://www.rsgisworld.com" target="_blank">rsgisworld.com</a> — open-source remote sensing & GIS learning platform (co-author).</div>
-          </div>
-          <div class="project">
-            <div style="font-weight:700">Tourism Management / Routing WebGIS</div>
-            <div class="muted" style="font-size:13px;margin-top:6px"><a href="http://rsgisworld.com/Tourismmanagmentsystem/Web%20map/index.html#15/19.2601/84.9014" target="_blank">Tourism Management System</a> & Shortest Route Finder — Leaflet, OSM, JS</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Publications (placeholder; rendered from publications.json) -->
-      <section class="card-section" id="publications" style="margin-top:18px">
-        <h3 style="margin:0 0 10px 0">Selected Publications</h3>
-
-        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
-          <div style="flex:1;min-width:320px">
-            <div id="publications-list" class="muted">Loading publications…</div>
-            <div id="pub-sync-time" class="muted" style="margin-top:10px;font-size:12px"></div>
-          </div>
-
-          <div style="width:360px;min-width:280px">
-            <div class="chart-wrap card-small">
-              <canvas id="pubsByYear" width="340" height="220" aria-label="Publications by year chart" role="img"></canvas>
-              <div class="muted" style="font-size:12px;margin-top:8px">Publications by year (auto-updates from Google Scholar)</div>
-            </div>
-            <div style="height:12px"></div>
-            <div class="chart-wrap card-small">
-              <canvas id="pubCitations" width="340" height="160" aria-label="Top citations chart" role="img"></canvas>
-              <div class="muted" style="font-size:12px;margin-top:8px">Top-cited items (from synced data)</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section class="card-section" id="contact" style="margin-top:18px">
-        <h3 style="margin:0 0 8px 0">Contact</h3>
-        <div style="display:flex;gap:18px;flex-wrap:wrap">
-          <div style="flex:1;min-width:260px">
-            <div class="muted">Email</div>
+        <div style="margin-top:14px">
+          <div class="mini" style="font-weight:700">Quick contact</div>
+          <div style="margin-top:8px">
+            <div class="mini">Email</div>
             <div style="font-weight:700">sujoymudi62@gmail.com</div>
-            <div style="height:12px"></div>
-            <div class="muted">Phone</div>
-            <div style="font-weight:700">+91 90936 16586 (alt: +91 88010 10191)</div>
-            <div style="height:12px"></div>
-            <div class="muted">Location</div>
-            <div style="font-weight:700">Kolkata, India</div>
-            <div style="height:12px"></div>
-            <div style="margin-top:10px">
-              <a class="btn" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-paper-plane"></i> Email me</a>
-            </div>
-          </div>
-
-          <div style="flex:1;min-width:260px">
-            <div class="muted">Social</div>
-            <div style="margin-top:8px" class="social">
-              <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
-              <a href="https://www.researchgate.net/profile/Sujoy-Mudi" target="_blank"><i class="fab fa-researchgate fa-lg"></i></a>
-              <a href="https://github.com/" target="_blank"><i class="fab fa-github fa-lg"></i></a>
-            </div>
-
-            <div style="margin-top:16px">
-              <div class="muted">Download</div>
-              <a class="btn secondary" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-file-pdf"></i> Download CV (PDF)</a>
-            </div>
+            <div style="height:8px"></div>
+            <div class="mini">Phone</div>
+            <div style="font-weight:700">+91 90936 16586</div>
           </div>
         </div>
-      </section>
-
+      </aside>
     </main>
 
-    <footer>
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 style="margin:0 0 12px">Selected Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card" tabindex="0" role="article" aria-labelledby="p1">
+          <div class="project-thumb" style="background-image:url('assets/img/rsgis-thumb.jpg');"></div>
+          <div class="project-title" id="p1">RSGISWORLD — Open Learning</div>
+          <div class="project-desc">Open-source e-learning platform for remote sensing & GIS. Co-author and developer; site contains tutorials & interactive maps.</div>
+          <div class="project-tags"><span class="tag">Open Source</span><span class="tag">WebGIS</span></div>
+        </article>
+
+        <article class="project-card" tabindex="0" role="article" aria-labelledby="p2">
+          <div class="project-thumb" style="background-image:linear-gradient(180deg, rgba(16,185,129,0.08), rgba(96,165,250,0.06));"></div>
+          <div class="project-title" id="p2">Forest Carbon MRV & Biomass Pipeline</div>
+          <div class="project-desc">In-house biomass estimation pipeline with global plots DB for independent validation and local field surveys to increase ground-truth quality.</div>
+          <div class="project-tags"><span class="tag">MRV</span><span class="tag">Biomass</span></div>
+        </article>
+
+        <article class="project-card" tabindex="0" role="article" aria-labelledby="p3">
+          <div class="project-thumb" style="background-image:linear-gradient(180deg, rgba(255,190,86,0.06), rgba(96,165,250,0.04));"></div>
+          <div class="project-title" id="p3">Natural Hazard Monitoring</div>
+          <div class="project-desc">Pipelines to monitor drought, wildfire, cyclone impacts and sea-level rise — powering analytics for ratings and product teams.</div>
+          <div class="project-tags"><span class="tag">Drought</span><span class="tag">Wildfire</span><span class="tag">Cyclone</span></div>
+        </article>
+
+        <!-- add more cards (copy/paste) -->
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2 style="margin:0 0 12px">Selected Publications</h2>
+      <div class="pubs">
+        <div>
+          <ul class="pub-list" id="pubList">
+            <!-- static publications inserted by JS below -->
+          </ul>
+        </div>
+
+        <aside class="panel">
+          <div style="font-weight:700">Publications</div>
+          <div class="mini" style="margin-top:8px">A curated selection — full list on Google Scholar</div>
+          <div style="margin-top:10px" class="pill"><i class="fas fa-book"></i> <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" style="color:inherit">Google Scholar</a></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 style="margin:0 0 12px">Get in touch</h2>
+      <div class="contact-grid">
+        <div class="contact-card contact-card-left">
+          <p class="mini">I'm available for roles or collaborations in GeoAI, MRV, and environmental monitoring. Tell me about your project.</p>
+          <div style="margin-top:12px">
+            <a class="btn primary" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-envelope"></i> Email me</a>
+            <a class="btn ghost" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-file-download"></i> Download CV</a>
+          </div>
+
+          <div style="margin-top:18px">
+            <div class="mini" style="font-weight:700">Social</div>
+            <div class="socials" style="margin-top:8px">
+              <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+              <a href="https://www.researchgate.net/profile/Sujoy-Mudi" target="_blank" rel="noopener noreferrer" style="margin-left:8px"><i class="fab fa-researchgate"></i> ResearchGate</a>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer" style="margin-left:8px"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <div style="font-weight:700">Location</div>
+          <div class="mini" style="margin-top:6px">Kolkata, India</div>
+          <div style="height:8px"></div>
+          <div style="font-weight:700">Phone</div>
+          <div class="mini" style="margin-top:6px">+91 90936 16586</div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="site">
       <div>© Sujoy Mudi — GeoAI & Environmental Modelling</div>
-      <div class="muted">Designed for GitHub Pages • STAC / COG • Prefect / Airflow • (√81)</div>
+      <div class="mini">Designed for GitHub Pages • STAC / COG • Prefect / Airflow</div>
     </footer>
 
     <div class="sqrt">(√81)</div>
   </div>
 
-  <!-- Scripts: publications rendering + charts -->
+  <!-- SCRIPT: populate publications and small interactivity -->
   <script>
-  // ---------- Skills chart (radar or horizontal bar) ----------
-  const skillsCtx = document.getElementById('skillsChart').getContext('2d');
-  const skillsData = {
-    labels: ['Python & xarray', 'Deep Learning (PyTorch/TensorFlow)', 'STAC/COG & GDAL', 'Cloud & Prefect', 'GEE & EO processing'],
-    datasets: [{
-      label: 'Proficiency',
-      data: [98, 86, 84, 82, 90],
-      borderRadius: 6,
-      backgroundColor: (ctx) => {
-        const gradient = ctx.chart.ctx.createLinearGradient(0,0,300,0);
-        gradient.addColorStop(0, 'rgba(22,163,74,0.85)');
-        gradient.addColorStop(1, 'rgba(96,165,250,0.6)');
-        return gradient;
+    // ---------- Static publications (manually curated) ----------
+    const PUBLICATIONS = [
+      {
+        title: "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India",
+        authors: "Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.",
+        venue: "Remote Sensing, 2021",
+        link: "https://www.mdpi.com/2072-4292/13/6/1066"
       },
-      borderColor: 'rgba(22,163,74,0.9)',
-      barPercentage: 0.7
-    }]
-  };
-  const skillsChart = new Chart(skillsCtx, {
-    type: 'bar',
-    data: skillsData,
-    options: {
-      indexAxis: 'y',
-      animation: { duration: 1200, easing: 'easeOutCubic' },
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { max: 100, ticks: { color: '#94a3b8' } },
-        y: { ticks: { color: '#e6eef6', font: { size: 12 } } }
+      {
+        title: "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data",
+        authors: "Behera M.D., Mudi S., et al.",
+        venue: "Tropical Ecology, 2021",
+        link: "https://eprints.soton.ac.uk/457154/"
+      },
+      {
+        title: "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data",
+        authors: "Roy S., Mudi S., Das P., et al.",
+        venue: "In Spatial Modeling in Forest Resources Management, Springer, 2021",
+        link: "https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11"
+      },
+      {
+        title: "Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data",
+        authors: "Mudi S., Prakash J., Das P.",
+        venue: "Research Report / ResearchGate, 2022",
+        link: "https://www.researchgate.net/"
+      },
+      {
+        title: "Managing Mangrove Forests Using Open Source–Based WebGIS",
+        authors: "Roy S., Mudi S., Das P.",
+        venue: "WebGIS research article",
+        link: "https://www.researchgate.net/"
       }
-    }
-  });
+    ];
 
-  // ---------- Publications rendering + charts ----------
-  async function renderPublicationsAndCharts() {
-    const container = document.getElementById('publications-list');
-    const syncEl = document.getElementById('pub-sync-time');
-    try {
-      const resp = await fetch('/publications.json', {cache: "no-cache"});
-      if (!resp.ok) {
-        container.innerHTML = '<div class="muted">Publications not found. Please run the sync action or commit publications.json.</div>';
-        return;
-      }
-      const data = await resp.json();
-      const pubs = data.publications || [];
-
-      // Render list (top 12)
-      if (pubs.length === 0) {
-        container.innerHTML = '<div class="muted">No publications found.</div>';
-      } else {
-        const list = document.createElement('ul');
-        list.className = 'clean muted';
-        pubs.slice(0, 12).forEach(pub => {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = pub.scholar_link || '#';
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.innerHTML = pub.title || 'Untitled';
-          const meta = document.createElement('div');
-          meta.className = 'muted';
-          meta.style.fontSize = '13px';
-          meta.style.marginTop = '4px';
-          meta.textContent = `${pub.authors || ''} — ${pub.venue || ''} ${pub.year ? '(' + pub.year + ')' : ''} • Citations: ${pub.citations || '0'}`;
-          li.appendChild(a);
-          li.appendChild(meta);
-          li.style.marginTop = '10px';
-          list.appendChild(li);
-        });
-        container.innerHTML = '';
-        container.appendChild(list);
-      }
-
-      // Sync time
-      if (data.updated_at) {
-        const ts = new Date(data.updated_at * 1000);
-        syncEl.textContent = 'Publications last synced: ' + ts.toLocaleString();
-      }
-
-      // Build publications by year chart data
-      const years = {};
-      pubs.forEach(p => {
-        const y = p.year && p.year.match(/\d{4}/) ? p.year.match(/\d{4}/)[0] : 'Unknown';
-        years[y] = (years[y] || 0) + 1;
+    // Render publications
+    (function renderPublications(){
+      const ul = document.getElementById('pubList');
+      ul.innerHTML = '';
+      PUBLICATIONS.forEach(p=>{
+        const li = document.createElement('li');
+        li.className = 'pub-item';
+        li.innerHTML = `<div style="font-weight:700"><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></div>
+                        <div class="meta">${p.authors} — <em>${p.venue}</em></div>
+                        <div class="action" style="margin-top:10px"><a class="pill" href="${p.link}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Read</a></div>`;
+        ul.appendChild(li);
       });
-      // sort years ascending, ignore Unknown if present (put at end)
-      const knownYears = Object.keys(years).filter(y=>y!=='Unknown').sort();
-      const labels = knownYears;
-      const values = labels.map(y => years[y]);
-      // If no years, create placeholder
-      if (labels.length === 0) {
-        labels.push('No data'); values.push(0);
-      }
+    })();
 
-      // Publications by year chart
-      const pubByYearCtx = document.getElementById('pubsByYear').getContext('2d');
-      // destroy if exists
-      if (window._pubsByYearChart) window._pubsByYearChart.destroy();
-      window._pubsByYearChart = new Chart(pubByYearCtx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Publications',
-            data: values,
-            fill: true,
-            tension: 0.3,
-            backgroundColor: function(context) {
-              const ctx = context.chart.ctx;
-              const gradient = ctx.createLinearGradient(0,0,0,200);
-              gradient.addColorStop(0, 'rgba(22,163,74,0.18)');
-              gradient.addColorStop(1, 'rgba(96,165,250,0.02)');
-              return gradient;
-            },
-            borderColor: '#60a5fa',
-            pointBackgroundColor: '#16a34a',
-            pointRadius: 4
-          }]
-        },
-        options: {
-          animation: { duration: 1000 },
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: '#94a3b8' } },
-            y: { ticks: { color: '#94a3b8', stepSize: 1, beginAtZero: true } }
-          }
-        }
+    // small animated counters
+    (function counters(){
+      const elems = document.querySelectorAll('.js-counter');
+      elems.forEach(el=>{
+        const from = Number(el.getAttribute('data-from')||0);
+        const to = Number(el.getAttribute('data-to')||0);
+        const duration = 1200;
+        const frameRate = 60;
+        const totalFrames = Math.round(duration / (1000 / frameRate));
+        let frame = 0;
+        const step = (to - from) / totalFrames;
+        const timer = setInterval(()=>{
+          frame++;
+          const val = Math.round(from + step * frame);
+          el.textContent = val;
+          if(frame >= totalFrames){ clearInterval(timer); el.textContent = to; }
+        }, Math.round(1000 / frameRate));
       });
+    })();
 
-      // Top-cited items donut chart (top 5 by citations numeric)
-      const top = pubs
-        .map(p => ({...p, citations: parseInt(p.citations || '0') || 0}))
-        .sort((a,b)=>b.citations - a.citations)
-        .slice(0,5);
-      const donutLabels = top.map(t => t.title.length > 40 ? t.title.slice(0,40)+'…' : t.title);
-      const donutData = top.map(t => t.citations);
-
-      const pubCitationsCtx = document.getElementById('pubCitations').getContext('2d');
-      if (window._pubCitationsChart) window._pubCitationsChart.destroy();
-      window._pubCitationsChart = new Chart(pubCitationsCtx, {
-        type: 'doughnut',
-        data: {
-          labels: donutLabels.length ? donutLabels : ['No citations'],
-          datasets: [{
-            data: donutData.length ? donutData : [1],
-            backgroundColor: ['#10b981','#60a5fa','#f97316','#a78bfa','#ef4444'],
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          animation: { duration: 900 },
-          plugins: {
-            legend: { display: false }
-          }
-        }
+    // keyboard/enter accessibility for project cards (open first link)
+    document.querySelectorAll('.project-card').forEach(card=>{
+      card.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){ card.querySelector('a')?.click(); }
       });
-
-    } catch (err) {
-      console.error('Failed to load publications.json', err);
-      document.getElementById('publications-list').innerHTML = '<div class="muted">Failed to load publications (see console). You can still add publications.json manually to your repo root.</div>';
-    }
-  }
-
-  // Trigger render on load
-  renderPublicationsAndCharts();
-
-  // Re-render every 10 minutes in case the file updates during a session
-  setInterval(renderPublicationsAndCharts, 10 * 60 * 1000);
-
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      e.preventDefault();
-      const id = a.getAttribute('href');
-      if(id === '#' || id === '#!') return;
-      const el = document.querySelector(id);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     });
-  });
+
+    // smooth scroll for local nav
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href = a.getAttribute('href');
+        if(!href.startsWith('#')) return;
+        const el = document.querySelector(href);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
   </script>
 </body>
 </html>
