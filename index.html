@@ -3,353 +3,494 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sujoy Mudi — GeoAI & Environmental Monitoring</title>
-  <meta name="description" content="Portfolio of Sujoy Mudi — Geospatial ML Engineer. GeoAI, forest carbon MRV, natural hazards."/>
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-
+  <title>Sujoy Mudi — Geospatial Dashboard</title>
+  <meta name="description" content="Geospatial dashboard and portfolio of Sujoy Mudi — GeoAI, MRV, natural hazards, forest carbon." />
   <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
 
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
   <style>
     :root{
-      --bg:#071428;
-      --glass: rgba(255,255,255,0.04);
+      --bg:#061324;
+      --panel:#071827;
       --muted:#9fb0c8;
-      --accent:#10b981;
+      --accent:#0ea5a3;
       --accent-2:#60a5fa;
-      --card-radius:16px;
-      --maxw:1200px;
-      --shadow: 0 10px 30px rgba(3,7,18,0.6);
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue";
+      --card-radius:12px;
+      --maxw:1400px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       color-scheme: dark;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body,#map{height:100%}
     body{
-      margin:0; background: linear-gradient(180deg,#04101b 0%, #061526 60%); color: #e6f0fa;
+      margin:0; background:linear-gradient(180deg,#041021 0%, #061428 80%); color:#e6eef6;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      line-height:1.5; font-size:16px;
+      font-size:15px; line-height:1.4;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px;}
-    /* NAV */
-    header.nav{
-      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;position:sticky;top:0;z-index:80;
-      backdrop-filter: blur(6px);
+
+    /* Layout */
+    .dashboard {
+      display:grid;
+      grid-template-columns:320px 1fr 380px;
+      gap:18px;
+      max-width:var(--maxw);
+      margin:18px auto;
+      padding:12px;
+      align-items:start;
     }
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;font-weight:800;color:#022018;box-shadow:0 8px 26px rgba(6,10,20,0.6)
+
+    /* Panels */
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
-    nav a{margin-left:14px;color:var(--muted);font-weight:600;font-size:14px}
-    nav a.cta{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px}
-    /* HERO */
-    .hero{
-      display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0 24px;
+
+    /* Left profile sidebar */
+    .profile {
+      display:flex;flex-direction:column;gap:12px;
+      position:sticky; top:18px;
+      height: calc(100vh - 36px);
+      overflow:auto;
+      padding-bottom:20px;
     }
-    .hero-card{
-      padding:34px;border-radius:var(--card-radius);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow:var(--shadow); border:1px solid rgba(255,255,255,0.02);
+    .profile .photo{
+      width:100%;height:220px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;
     }
-    h1{margin:0;font-weight:800;font-size:34px;letter-spacing:-0.6px}
-    p.lead{margin:12px 0 18px;color:var(--muted);font-size:15px;max-width:48ch}
-    .ctas{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
-    .btn.primary{background:var(--accent);color:#042017;border:none}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .hero-stats{display:flex;gap:18px;margin-top:18px}
-    .stat{background:var(--glass);padding:12px;border-radius:10px;text-align:center;min-width:88px}
-    .stat .n{font-weight:800;font-size:20px}
-    .stat .t{color:var(--muted);font-size:13px}
-    /* RIGHT PANEL */
-    .panel{
-      padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.02)
+    .profile .photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .profile h2{margin:8px 0 2px;font-size:18px}
+    .profile .role{color:var(--muted);font-size:13px;margin-bottom:6px}
+    .stats{display:flex;gap:8px;flex-wrap:wrap}
+    .stat{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;flex:1;min-width:120px;text-align:center}
+    .stat .n{font-weight:800;font-size:18px}
+    .muted{color:var(--muted)}
+    .profile .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--accent);color:#042014;font-weight:700;border:none;cursor:pointer}
+    .profile .btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+    .profile .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .links a{color:var(--muted);font-weight:700}
+
+    /* Center map */
+    .map-wrap{height:80vh;min-height:420px;display:flex;flex-direction:column;gap:10px}
+    #map{flex:1;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Map tools */
+    .map-toolbar{display:flex;gap:8px;align-items:center;margin-top:6px}
+    .tool{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer}
+    .tool.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042014}
+
+    /* Right column: tabs (Projects / Publications / Charts) */
+    .right-col{position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto;padding-bottom:20px;display:flex;flex-direction:column;gap:12px}
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer;font-weight:700}
+    .tab.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042014}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .project-card{padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+    .project-card h4{margin:0 0 6px}
+    .project-card p{margin:0;color:var(--muted);font-size:14px}
+    .pub-item{padding:10px;border-radius:8px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+    canvas{width:100% !important;height:auto !important}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .dashboard{grid-template-columns:1fr;gap:12px;padding:12px}
+      .profile{position:relative;height:auto}
+      .right-col{position:relative;height:auto}
+      .map-wrap{min-height:360px}
     }
-    .profile-pic{
-      width:100%;height:220px;border-radius:12px;background-image:linear-gradient(120deg,rgba(96,165,250,0.12),rgba(16,185,129,0.06));
-      display:flex;align-items:center;justify-content:center;font-size:46px;color:rgba(255,255,255,0.9);font-weight:700
-    }
-    .mini{color:var(--muted);font-size:13px;margin-top:8px}
-    .skill-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:600;font-size:13px;color:var(--muted)}
-    /* Projects grid */
-    section{margin-top:26px}
-    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .project-card{
-      position:relative;overflow:hidden;border-radius:14px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);
-      transition:transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
-    }
-    .project-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(3,7,18,0.6)}
-    .project-thumb{height:160px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:12px;box-shadow:inset 0 0 80px rgba(0,0,0,0.12)}
-    .project-title{font-weight:700;margin-bottom:6px}
-    .project-desc{color:var(--muted);font-size:14px}
-    .project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
-    /* Publications list */
-    .pubs{display:grid;grid-template-columns:1fr 320px;gap:18px}
-    .pub-list{list-style:none;padding:0;margin:0}
-    .pub-item{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);margin-bottom:12px}
-    .pub-item .meta{color:var(--muted);font-size:13px;margin-top:8px}
-    .pub-item .action{margin-top:10px}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted)}
-    /* contact */
-    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .contact-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
-    .socials a{margin-right:12px;color:var(--muted);font-weight:700}
-    /* footer */
-    footer.site{margin-top:28px;padding:18px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.02)}
-    /* responsiveness */
-    @media (max-width:1100px){ .projects-grid{grid-template-columns:repeat(2,1fr)} .hero{grid-template-columns:1fr} .pubs{grid-template-columns:1fr} .contact-grid{grid-template-columns:1fr} }
-    @media (max-width:700px){ .projects-grid{grid-template-columns:1fr} nav a{display:none} .wrap{padding:18px} }
-    /* sqrt badge */
-    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6);z-index:80}
+
+    /* small sqrt badge */
+    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.6);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6);z-index:999}
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="dashboard">
 
-    <!-- NAV -->
-    <header class="nav" role="banner">
-      <div class="brand">
-        <div class="logo">SM</div>
-        <div>
-          <div style="font-weight:800">Sujoy Mudi</div>
-          <div style="font-size:13px;color:var(--muted)">Geospatial ML Engineer — GeoAI & Environmental Monitoring</div>
-        </div>
+    <!-- LEFT: PROFILE / CONTROLS -->
+    <aside class="panel profile" aria-label="Profile and controls">
+      <div class="photo" id="profilePhoto">
+        <!-- Replace the src with assets/img/profile-320.png in your repo. If no image found, initials shown. -->
+        <img id="photoImg" src="assets/img/sujoy_headshot.png" alt="Portrait of Sujoy Mudi" onerror="this.style.display='none'; document.getElementById('initials').style.display='flex'">
+        <div id="initials" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-weight:800;font-size:36px">SM</div>
       </div>
 
-      <nav role="navigation" aria-label="main">
-        <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
-        <a href="#contact" class="cta">Contact</a>
-        <a class="cta" href="Sujoy_Mudi_CV.pdf" download>Download CV</a>
-      </nav>
-    </header>
-
-    <!-- HERO -->
-    <main class="hero" role="main">
-      <div class="hero-card">
-        <h1>Turning satellite data into robust, production-ready environmental insights</h1>
-        <p class="lead">I build ML models and production geospatial pipelines (CNNs, U-Net, transformers, SAR/optical fusion) for forest carbon MRV, deforestation and natural hazard monitoring. I focus on reproducible engineering, data validation, and product-ready outputs.</p>
-
-        <div class="ctas">
-          <a class="btn primary" href="#projects"><i class="fas fa-rocket"></i> Explore projects</a>
-          <a class="btn ghost" href="#contact"><i class="fas fa-comment-dots"></i> Let's talk</a>
-        </div>
-
-        <div class="hero-stats" aria-hidden="true">
-          <div class="stat"><div class="n js-counter" data-from="0" data-to="7">7</div><div class="t">Years experience</div></div>
-          <div class="stat"><div class="n js-counter" data-from="0" data-to="15">15</div><div class="t">Projects (selected)</div></div>
-          <div class="stat"><div class="n js-counter" data-from="0" data-to="5">5</div><div class="t">Selected pubs</div></div>
-        </div>
+      <div>
+        <h2>Sujoy Mudi</h2>
+        <div class="role muted">Senior Geospatial ML Engineer</div>
+        <div style="margin-top:8px" class="muted">GeoAI • Forest Carbon MRV • Natural Hazards • Biomass Pipelines</div>
       </div>
 
-      <aside class="panel">
-        <picture class="profile-pic">
-          <img src="assets/img/sujoy_headshot.png"
-               alt="Portrait photo of Sujoy Mudi"
-               width="320"
-               height="400"
-               loading="lazy"
-               decoding="async"
-               style="display:block;border-radius:12px;object-fit:cover;width:100%;height:220px;">
-        </picture>
-        <div class="mini">Senior Geospatial ML Engineer — production ML, remote sensing, MRV, dMRV.</div>
-        <div class="skill-chips">
-          <span class="chip">Python • xarray/dask</span>
-          <span class="chip">PyTorch & TensorFlow</span>
-          <span class="chip">STAC / COG</span>
-          <span class="chip">Prefect / Airflow</span>
-        </div>
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><div class="n">7+</div><div class="muted">Years</div></div>
+        <div class="stat"><div class="n">15</div><div class="muted">Projects</div></div>
+        <div class="stat"><div class="n">5</div><div class="muted">Selected pubs</div></div>
+      </div>
 
-        <div style="margin-top:14px">
-          <div class="mini" style="font-weight:700">Quick contact</div>
-          <div style="margin-top:8px">
-            <div class="mini">Email</div>
-            <div style="font-weight:700">sujoymudi62@gmail.com</div>
-            <div style="height:8px"></div>
-            <div class="mini">Phone</div>
-            <div style="font-weight:700">+91 90936 16586</div>
-          </div>
-        </div>
-      </aside>
+      <div style="margin-top:12px">
+        <button class="btn" onclick="location.href='Sujoy_Mudi_CV.pdf'"><i class="fas fa-file-pdf"></i> Download CV</button>
+        <button class="btn ghost" style="margin-left:8px" onclick="location.href='#contact'"><i class="fas fa-envelope"></i> Contact</button>
+      </div>
+
+      <div class="links" style="margin-top:12px">
+        <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><i class="fas fa-book"></i> Google Scholar</a>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+
+      <div style="font-weight:700;margin-bottom:8px">Map controls</div>
+      <div class="map-controls">
+        <div class="tool active" id="toggleProjects" onclick="toggleLayer('projects')">Projects</div>
+        <div class="tool active" id="togglePublications" onclick="toggleLayer('publications')">Publications</div>
+        <div class="tool" id="zoomToAll" onclick="fitToAll()">Zoom to all</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div style="font-weight:700;margin-bottom:6px">Basemap</div>
+        <select id="basemapSelect" style="width:100%;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted)" onchange="changeBaseMap(this.value)">
+          <option value="osm">OpenStreetMap (default)</option>
+          <option value="sat">Esri World Imagery</option>
+        </select>
+      </div>
+
+    </aside>
+
+    <!-- CENTER: MAP -->
+    <main class="panel map-wrap" aria-label="Map">
+      <div id="map" role="application" aria-label="Interactive map"></div>
+      <div class="map-toolbar">
+        <div class="tool" id="infoTool" onclick="toggleInfo()">About this dashboard</div>
+        <div class="tool" onclick="downloadMapPNG()">Export PNG</div>
+        <div style="flex:1"></div>
+        <div class="muted">Tip: Click map features for details</div>
+      </div>
     </main>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2 style="margin:0 0 12px">Selected Projects</h2>
-      <div class="projects-grid">
-        <article class="project-card" tabindex="0" role="article" aria-labelledby="p1">
-          <div class="project-thumb" style="background-image:url('assets/img/rsgis-thumb.jpg');"></div>
-          <div class="project-title" id="p1">RSGISWORLD — Open Learning</div>
-          <div class="project-desc">Open-source e-learning platform for remote sensing & GIS. Co-author and developer; site contains tutorials & interactive maps.</div>
-          <div class="project-tags"><span class="tag">Open Source</span><span class="tag">WebGIS</span></div>
-        </article>
-
-        <article class="project-card" tabindex="0" role="article" aria-labelledby="p2">
-          <div class="project-thumb" style="background-image:linear-gradient(180deg, rgba(16,185,129,0.08), rgba(96,165,250,0.06));"></div>
-          <div class="project-title" id="p2">Forest Carbon MRV & Biomass Pipeline</div>
-          <div class="project-desc">In-house biomass estimation pipeline with global plots DB for independent validation and local field surveys to increase ground-truth quality.</div>
-          <div class="project-tags"><span class="tag">MRV</span><span class="tag">Biomass</span></div>
-        </article>
-
-        <article class="project-card" tabindex="0" role="article" aria-labelledby="p3">
-          <div class="project-thumb" style="background-image:linear-gradient(180deg, rgba(255,190,86,0.06), rgba(96,165,250,0.04));"></div>
-          <div class="project-title" id="p3">Natural Hazard Monitoring</div>
-          <div class="project-desc">Pipelines to monitor drought, wildfire, cyclone impacts and sea-level rise — powering analytics for ratings and product teams.</div>
-          <div class="project-tags"><span class="tag">Drought</span><span class="tag">Wildfire</span><span class="tag">Cyclone</span></div>
-        </article>
-
-        <!-- add more cards (copy/paste) -->
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS -->
-    <section id="publications">
-      <h2 style="margin:0 0 12px">Selected Publications</h2>
-      <div class="pubs">
-        <div>
-          <ul class="pub-list" id="pubList">
-            <!-- static publications inserted by JS below -->
-          </ul>
+    <!-- RIGHT: TABS (Projects / Publications / Charts) -->
+    <aside class="panel right-col" aria-label="Details">
+      <div>
+        <div class="tabs" role="tablist" aria-label="Detail tabs">
+          <div class="tab active" id="tabProjects" onclick="showTab('projects')">Projects</div>
+          <div class="tab" id="tabPubs" onclick="showTab('publications')">Publications</div>
+          <div class="tab" id="tabCharts" onclick="showTab('charts')">Charts</div>
         </div>
 
-        <aside class="panel">
-          <div style="font-weight:700">Publications</div>
-          <div class="mini" style="margin-top:8px">A curated selection — full list on Google Scholar</div>
-          <div style="margin-top:10px" class="pill"><i class="fas fa-book"></i> <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" style="color:inherit">Google Scholar</a></div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2 style="margin:0 0 12px">Get in touch</h2>
-      <div class="contact-grid">
-        <div class="contact-card contact-card-left">
-          <p class="mini">I'm available for roles or collaborations in GeoAI, MRV, and environmental monitoring. Tell me about your project.</p>
-          <div style="margin-top:12px">
-            <a class="btn primary" href="mailto:sujoymudi62@gmail.com"><i class="fas fa-envelope"></i> Email me</a>
-            <a class="btn ghost" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-file-download"></i> Download CV</a>
+        <!-- Projects list -->
+        <div id="tab-content-projects" class="list" style="display:block">
+          <!-- sample project cards (same as geojson features) -->
+          <div class="project-card">
+            <h4>Forest Carbon MRV — Amazon pilot</h4>
+            <p class="muted">Large-scale biomass estimation and project-level MRV with plot validation. <a href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">Read paper</a></p>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_amazon')">View on map</button></div>
           </div>
 
-          <div style="margin-top:18px">
-            <div class="mini" style="font-weight:700">Social</div>
-            <div class="socials" style="margin-top:8px">
-              <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
-              <a href="https://www.researchgate.net/profile/Sujoy-Mudi" target="_blank" rel="noopener noreferrer" style="margin-left:8px"><i class="fab fa-researchgate"></i> ResearchGate</a>
-              <a href="https://github.com/" target="_blank" rel="noopener noreferrer" style="margin-left:8px"><i class="fab fa-github"></i> GitHub</a>
+          <div class="project-card">
+            <h4>Natural Hazard Monitoring — Cyclone Amphan</h4>
+            <p class="muted">Inundation mapping using Sentinel-1 SAR to assess cyclone impact and recovery. <a href="https://eprints.soton.ac.uk/457154/" target="_blank">Read case</a></p>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_amphan')">View on map</button></div>
+          </div>
+
+          <div class="project-card">
+            <h4>RSGISWORLD — Open Learning</h4>
+            <p class="muted">Open source e-learning platform for remote sensing & GIS. <a href="http://www.rsgisworld.com" target="_blank">Visit site</a></p>
+            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_rsgis')">View on map</button></div>
+          </div>
+        </div>
+
+        <!-- Publications -->
+        <div id="tab-content-publications" style="display:none">
+          <div class="list">
+            <div class="pub-item">
+              <strong>Automated Mapping for Long-Term Analysis of Shifting Cultivation in NE India</strong>
+              <div class="muted">Das P., Mudi S., Behera M.D. — Remote Sensing (2021). <a href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">Read</a></div>
+            </div>
+            <div class="pub-item">
+              <strong>Estimating AGB & Tree Density using Sentinel-1</strong>
+              <div class="muted">Roy S., Mudi S., Das P. — Springer (2021). <a href="https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" target="_blank">Read</a></div>
+            </div>
+            <div class="pub-item">
+              <strong>Amphan inundation mapping using Sentinel-1</strong>
+              <div class="muted">Behera M.D., Mudi S. — Tropical Ecology (2021). <a href="https://eprints.soton.ac.uk/457154/" target="_blank">Read</a></div>
+            </div>
+            <div style="margin-top:8px">
+              <a class="pill" href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank">Full Google Scholar profile</a>
             </div>
           </div>
         </div>
 
-        <aside class="panel">
-          <div style="font-weight:700">Location</div>
-          <div class="mini" style="margin-top:6px">Kolkata, India</div>
-          <div style="height:8px"></div>
-          <div style="font-weight:700">Phone</div>
-          <div class="mini" style="margin-top:6px">+91 90936 16586</div>
-        </aside>
+        <!-- Charts -->
+        <div id="tab-content-charts" style="display:none">
+          <div style="margin-bottom:12px">
+            <div style="font-weight:700;margin-bottom:8px">Project distribution</div>
+            <canvas id="projectsChart" width="340" height="180"></canvas>
+          </div>
+          <div>
+            <div style="font-weight:700;margin-bottom:8px">Publications by year</div>
+            <canvas id="pubsChart" width="340" height="180"></canvas>
+          </div>
+        </div>
+
       </div>
-    </section>
-
-    <footer class="site">
-      <div>© Sujoy Mudi — GeoAI & Environmental Modelling</div>
-      <div class="mini">Designed for GitHub Pages • STAC / COG • Prefect / Airflow</div>
-    </footer>
-
-    <div class="sqrt">(√81)</div>
+    </aside>
   </div>
 
-  <!-- SCRIPT: populate publications and small interactivity -->
+  <div class="sqrt">(√81)</div>
+
+  <!-- JS: map data, UI interactions, charts -->
   <script>
-    // ---------- Static publications (manually curated) ----------
-    const PUBLICATIONS = [
-      {
-        title: "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India",
-        authors: "Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.",
-        venue: "Remote Sensing, 2021",
-        link: "https://www.mdpi.com/2072-4292/13/6/1066"
-      },
-      {
-        title: "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data",
-        authors: "Behera M.D., Mudi S., et al.",
-        venue: "Tropical Ecology, 2021",
-        link: "https://eprints.soton.ac.uk/457154/"
-      },
-      {
-        title: "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data",
-        authors: "Roy S., Mudi S., Das P., et al.",
-        venue: "In Spatial Modeling in Forest Resources Management, Springer, 2021",
-        link: "https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11"
-      },
-      {
-        title: "Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data",
-        authors: "Mudi S., Prakash J., Das P.",
-        venue: "Research Report / ResearchGate, 2022",
-        link: "https://www.researchgate.net/"
-      },
-      {
-        title: "Managing Mangrove Forests Using Open Source–Based WebGIS",
-        authors: "Roy S., Mudi S., Das P.",
-        venue: "WebGIS research article",
-        link: "https://www.researchgate.net/"
+    /*******************************
+     * Sample GeoJSON features
+     * Replace these features with your real project footprints / points.
+     * Use real GeoJSON polygons or points. Keep property keys:
+     * id, title, description, type ('project' or 'publication'), link.
+     *******************************/
+    const SAMPLE_GEOJSON = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type":"Feature",
+          "properties":{
+            "id":"project_amazon",
+            "title":"Forest Carbon MRV — Amazon pilot",
+            "description":"Biomass estimation pipeline; plot-based validation.",
+            "type":"project",
+            "link":"https://www.mdpi.com/2072-4292/13/6/1066"
+          },
+          "geometry":{
+            "type":"Polygon",
+            "coordinates":[[
+              [-60.0,-3.0],
+              [-59.2,-3.0],
+              [-59.2,-3.6],
+              [-60.0,-3.6],
+              [-60.0,-3.0]
+            ]]
+          }
+        },
+        {
+          "type":"Feature",
+          "properties":{
+            "id":"project_amphan",
+            "title":"Cyclone Amphan inundation (case study)",
+            "description":"SAR-based inundation mapping and damage assessment.",
+            "type":"project",
+            "link":"https://eprints.soton.ac.uk/457154/"
+          },
+          "geometry":{"type":"Point","coordinates":[88.36,22.58]}
+        },
+        {
+          "type":"Feature",
+          "properties":{
+            "id":"project_rsgis",
+            "title":"RSGISWORLD — Open Learning",
+            "description":"Open-source tutorials and mapping demos.",
+            "type":"project",
+            "link":"http://www.rsgisworld.com"
+          },
+          "geometry":{"type":"Point","coordinates":[87.3,22.3]}
+        },
+        {
+          "type":"Feature",
+          "properties":{
+            "id":"pub_shifting_cultivation",
+            "title":"Shifting Cultivation mapping (2021)",
+            "description":"Automated mapping method using Landsat/GEE.",
+            "type":"publication",
+            "link":"https://www.mdpi.com/2072-4292/13/6/1066"
+          },
+          "geometry":{"type":"Point","coordinates":[92.0,26.5]}
+        }
+      ]
+    };
+
+    /*******************************
+     * Initialize the map & layers
+     *******************************/
+    // create map
+    const map = L.map('map', {zoomControl:true, preferCanvas:true}).setView([22.6, 88.2], 6);
+
+    // base layers
+    const baseLayers = {
+      osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '© OSM'}),
+      esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 19, attribution: 'Esri'})
+    };
+    baseLayers.osm.addTo(map);
+
+    // style for projects and publications
+    function styleFeature(feature){
+      if(feature.properties.type === 'publication'){
+        return {color:'#f59e0b', weight:2, opacity:0.9, fill:false};
       }
-    ];
+      return {color:'#16a34a', weight:2, opacity:0.9, fillColor:'rgba(22,163,74,0.08)', fillOpacity:0.5};
+    }
 
-    // Render publications
-    (function renderPublications(){
-      const ul = document.getElementById('pubList');
-      ul.innerHTML = '';
-      PUBLICATIONS.forEach(p=>{
-        const li = document.createElement('li');
-        li.className = 'pub-item';
-        li.innerHTML = `<div style="font-weight:700"><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></div>
-                        <div class="meta">${p.authors} — <em>${p.venue}</em></div>
-                        <div class="action" style="margin-top:10px"><a class="pill" href="${p.link}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Read</a></div>`;
-        ul.appendChild(li);
-      });
-    })();
+    // create GeoJSON layer
+    const geoJsonLayer = L.geoJSON(SAMPLE_GEOJSON, {
+      style: styleFeature,
+      pointToLayer: function(feature, latlng){
+        const icon = L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background:${feature.properties.type==='publication'?'#f59e0b':'#16a34a'};width:14px;height:14px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.5)"></div>`,
+          iconSize:[18,18], iconAnchor:[9,9]
+        });
+        return L.marker(latlng, {icon:icon});
+      },
+      onEachFeature: function(feature, layer){
+        const p = feature.properties;
+        const html = `<div style="font-weight:800;margin-bottom:6px">${p.title}</div>
+                      <div style="font-size:13px;color:${'var(--muted)'}">${p.description || ''}</div>
+                      <div style="margin-top:8px"><a href="${p.link}" target="_blank">Open resource</a></div>`;
+        layer.bindPopup(html, {maxWidth:320});
+        layer.featureId = p.id;
+      }
+    }).addTo(map);
 
-    // small animated counters
-    (function counters(){
-      const elems = document.querySelectorAll('.js-counter');
-      elems.forEach(el=>{
-        const from = Number(el.getAttribute('data-from')||0);
-        const to = Number(el.getAttribute('data-to')||0);
-        const duration = 1200;
-        const frameRate = 60;
-        const totalFrames = Math.round(duration / (1000 / frameRate));
-        let frame = 0;
-        const step = (to - from) / totalFrames;
-        const timer = setInterval(()=>{
-          frame++;
-          const val = Math.round(from + step * frame);
-          el.textContent = val;
-          if(frame >= totalFrames){ clearInterval(timer); el.textContent = to; }
-        }, Math.round(1000 / frameRate));
-      });
-    })();
+    // store layers by type for toggling
+    const layers = {
+      projects: geoJsonLayer,
+      publications: geoJsonLayer
+    };
 
-    // keyboard/enter accessibility for project cards (open first link)
-    document.querySelectorAll('.project-card').forEach(card=>{
-      card.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter'){ card.querySelector('a')?.click(); }
+    // Fit to all features
+    function fitToAll(){
+      try{
+        map.fitBounds(geoJsonLayer.getBounds(), {padding:[30,30]});
+      }catch(e){ map.setView([22.6,88.2],6); }
+    }
+
+    // zoom to specific feature by id
+    function zoomToFeature(id){
+      let found = null;
+      geoJsonLayer.eachLayer(l=>{
+        if(l.feature && l.feature.properties && l.feature.properties.id === id){
+          found = l;
+        }
       });
+      if(found){
+        map.fitBounds(found.getBounds ? found.getBounds() : L.latLng(found.getLatLng()), {maxZoom:12, padding:[40,40]});
+        found.openPopup();
+      } else {
+        alert('Feature not found on map');
+      }
+    }
+
+    // toggle layer type (projects/publications) - demo: both use same layer here
+    function toggleLayer(name){
+      const el = document.getElementById('toggle'+capitalize(name));
+      if(el.classList.contains('active')){
+        el.classList.remove('active');
+        map.removeLayer(layers[name]);
+      } else {
+        el.classList.add('active');
+        map.addLayer(layers[name]);
+      }
+    }
+
+    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+    // change basemap
+    function changeBaseMap(key){
+      Object.values(baseLayers).forEach(l=>map.removeLayer(l));
+      if(key === 'sat') baseLayers.esri.addTo(map);
+      else baseLayers.osm.addTo(map);
+    }
+
+    // info modal (simple)
+    function toggleInfo(){
+      alert('This dashboard showcases geospatial projects, publications and metrics. Replace sample GeoJSON with your real project footprints or points (see the SAMPLE_GEOJSON object in the code).');
+    }
+
+    // Export map to PNG (uses leaflet-image if added later). Simple fallback: capture using html2canvas — not included by default.
+    function downloadMapPNG(){
+      alert('Export feature is not enabled in this demo. If you want PNG export, I can add html2canvas or leaflet-image support.');
+    }
+
+    // Fit once on load
+    fitToAll();
+
+    /*******************************
+     * UI: Tabs and charts
+     *******************************/
+    function showTab(name){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('[id^="tab-content-"]').forEach(e=>e.style.display='none');
+      document.getElementById('tab'+capitalize(name)).classList.add('active');
+      document.getElementById('tab-content-'+name).style.display='block';
+    }
+
+    // wire tab ids to match showTab calls
+    document.getElementById('tabProjects').id = 'tabProjects';
+    document.getElementById('tabPubs').id = 'tabPubs';
+    document.getElementById('tabCharts').id = 'tabCharts';
+
+    // render charts
+    function renderCharts(){
+      // Projects Chart (pie by type)
+      const projCounts = {project:0, publication:0};
+      SAMPLE_GEOJSON.features.forEach(f=>{ if(f.properties.type === 'publication') projCounts.publication++; else projCounts.project++; });
+
+      const ctx1 = document.getElementById('projectsChart').getContext('2d');
+      new Chart(ctx1, {
+        type:'doughnut',
+        data:{
+          labels:['Projects','Publications'],
+          datasets:[{data:[projCounts.project, projCounts.publication], backgroundColor:['#16a34a','#f59e0b']}]
+        },
+        options:{plugins:{legend:{position:'bottom'}}}
+      });
+
+      // Publications by year (static from curated list)
+      const pubData = [
+        {year:2021, count:3},
+        {year:2022, count:1}
+      ];
+      const ctx2 = document.getElementById('pubsChart').getContext('2d');
+      new Chart(ctx2, {
+        type:'bar',
+        data:{labels:pubData.map(d=>d.year), datasets:[{label:'Pubs',data:pubData.map(d=>d.count),backgroundColor:'#60a5fa'}]},
+        options:{scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}
+      });
+    }
+    renderCharts();
+
+    /*******************************
+     * Replace sample GeoJSON with your real projects:
+     * - Edit SAMPLE_GEOJSON above or load a hosted geojson file:
+     *    fetch('/data/my_projects.geojson').then(r=>r.json()).then(g=>{ L.geoJSON(g)... })
+     * - Ensure projection is WGS84 (lon,lat).
+     *******************************/
+
+    /*******************************
+     * Accessibility & keyboard shortcuts
+     *******************************/
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === '1') showTab('projects');
+      if(e.key === '2') showTab('publications');
+      if(e.key === '3') showTab('charts');
+      if(e.key === 'f') fitToAll();
     });
 
-    // smooth scroll for local nav
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const href = a.getAttribute('href');
-        if(!href.startsWith('#')) return;
-        const el = document.querySelector(href);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
-      });
-    });
+    /*******************************
+     * Small helpers for toggles (CSS id naming)
+     *******************************/
+    function toggleLayerUI(name){
+      const el = document.getElementById('toggle'+capitalize(name));
+      if(el) el.classList.toggle('active');
+    }
+    // init UI (sync toggle button IDs)
+    document.getElementById('toggleProjects').id = 'toggleProjects';
+    document.getElementById('togglePublications').id = 'togglePublications';
+
   </script>
 </body>
 </html>
