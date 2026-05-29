@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forest Fire Risk Model — Sujoy Mudi · Case study</title>
+  <meta name="description" content="My MS-research project at IIT Kharagpur: an EO-driven forest fire risk model fusing SAR, DEM, and meteorological variables, achieving F1 ≈ 0.82 for mitigation planning." />
+  <link rel="icon" href="../assets/img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/case-study.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="dot">SM</span><span>Sujoy Mudi</span>
+    </a>
+    <div class="nav-actions">
+      <a class="back" href="../index.html#work"><i class="fas fa-arrow-left"></i> Back to projects</a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="container">
+    <div class="tag-row">
+      <span class="tag accent"><i class="fas fa-fire"></i> Wildfire · Sikkim</span>
+      <span class="tag">IIT Kharagpur — CORAL</span>
+      <span class="tag">Sep 2020 – Jul 2022</span>
+      <span class="tag">Role: Senior Project Assistant · MS (Research)</span>
+    </div>
+    <h1>An EO-driven <span style="background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent">fire-risk model</span> for the Eastern Himalayas.</h1>
+    <p class="lede">Built a forest-fire risk model fusing SAR backscatter, terrain, and meteorological variables to support mitigation planning in Sikkim. The framework went on to feed ecosystem-resilience indicators adopted in national programme reporting.</p>
+    <div class="metric-row">
+      <div class="metric"><div class="v">F1 ≈ 0.82</div><div class="l">On held-out test pixels</div></div>
+      <div class="metric"><div class="v">CGPA 9.0</div><div class="l">MS (Research), IIT Kharagpur, 2022</div></div>
+      <div class="metric"><div class="v">National</div><div class="l">Indicators used in programme reporting</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="case">
+  <div class="container">
+
+    <section class="section">
+      <div class="label">Problem</div>
+      <h2>Mountain forest fires don't behave like everyone else's.</h2>
+      <p>Sikkim sits at the seam of subtropical and alpine ecosystems, with steep terrain, monsoonal moisture, and fuel that varies sharply with elevation. Off-the-shelf fire-weather models built for flatter, drier landscapes underperform here — and so does any model that ignores topography or relies only on optical imagery (clouds win most days).</p>
+      <p>The state needed a risk surface granular enough to support mitigation planning and explainable enough to be defended in a programme review.</p>
+    </section>
+
+    <section class="section">
+      <div class="label">Approach</div>
+      <h2>SAR for vegetation moisture, DEM for terrain, meteo for the weather window.</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-layer-group"></i></span> Feature stack</h3>
+          <ul>
+            <li>Sentinel-1 SAR backscatter (VV / VH) — vegetation moisture proxy</li>
+            <li>SRTM-derived slope, aspect, elevation, TWI</li>
+            <li>Reanalysis temperature, rainfall, RH, wind</li>
+            <li>Distance-to-road / settlement (anthropogenic ignition proxy)</li>
+            <li>MODIS / VIIRS historical fire occurrence (label)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-cogs"></i></span> Modelling</h3>
+          <ul>
+            <li>Pixel-level classification (fire / no-fire)</li>
+            <li>Random Forest baseline, XGBoost final model</li>
+            <li>Class-imbalance handled with stratified sampling + class weights</li>
+            <li>Spatial cross-validation — random splits leak in this geometry</li>
+            <li>Feature-importance reporting for interpretability</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Evaluation</div>
+      <h2>Honest metrics on the right test set.</h2>
+      <ul>
+        <li><strong>F1 ≈ 0.82</strong> on held-out test pixels with spatial separation from training.</li>
+        <li>Confusion patterns reviewed by terrain zone — model was strongest on lower-elevation broadleaf belt, weaker on transitional alpine.</li>
+        <li>Risk surface aggregated to administrative units for use in mitigation planning.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Outcome</div>
+      <h2>From a thesis to a deliverable.</h2>
+      <ul>
+        <li>Streamlined geospatial workflows for <strong>WRI India's SLR programme</strong> via standardised ETL and modelling templates.</li>
+        <li>Produced <strong>ecosystem-resilience indicators adopted in national programme reporting</strong>.</li>
+        <li>Established a SAR-first risk-modelling pattern reused on adjacent CORAL projects (mangrove biomass, shifting-cultivation monitoring).</li>
+        <li>MS (Research) thesis at IIT Kharagpur, CGPA 9.0.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Stack</div>
+      <h2>What it runs on</h2>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">XGBoost</span>
+        <span class="chip">GeoPandas</span><span class="chip">Rasterio</span><span class="chip">GDAL</span>
+        <span class="chip">Sentinel-1 SAR</span><span class="chip">SRTM DEM</span><span class="chip">ERA5</span>
+        <span class="chip">MODIS / VIIRS</span>
+        <span class="chip">QGIS</span><span class="chip">ArcGIS</span>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <div>
+        <div class="label">Back to start</div>
+        <div style="font-family:var(--font-display);font-weight:700;margin-top:4px">Read another case study</div>
+      </div>
+      <a href="natural-hazards.html">Natural Hazards <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</main>
+
+<footer class="case-footer">
+  <div class="container footer-inner">
+    <div>© <span id="year"></span> Sujoy Mudi · Senior Geospatial ML Engineer</div>
+    <div><a href="../index.html" style="color:var(--accent-2)">Back to portfolio</a></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const root=document.documentElement,btn=document.getElementById('themeToggle');
+    const saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved);
+    const sync=()=>{btn.innerHTML=root.getAttribute('data-theme')==='light'?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>'};
+    sync(); btn.addEventListener('click',()=>{const n=root.getAttribute('data-theme')==='light'?'dark':'light';root.setAttribute('data-theme',n);localStorage.setItem('theme',n);sync();});
+  })();
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

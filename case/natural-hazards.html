@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Natural Hazard Monitoring — Sujoy Mudi · Case study</title>
+  <meta name="description" content="How I led BeZero Carbon's Natural Hazards product line — drought, wildfire, cyclone, and sea-level-rise pipelines that powered ratings analysts and client dashboards globally." />
+  <link rel="icon" href="../assets/img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/case-study.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="dot">SM</span><span>Sujoy Mudi</span>
+    </a>
+    <div class="nav-actions">
+      <a class="back" href="../index.html#work"><i class="fas fa-arrow-left"></i> Back to projects</a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="container">
+    <div class="tag-row">
+      <span class="tag accent"><i class="fas fa-globe"></i> Global · Production</span>
+      <span class="tag">BeZero Carbon</span>
+      <span class="tag">May 2024 – Oct 2025</span>
+      <span class="tag">Role: Geospatial ML Analyst II · Product lead</span>
+    </div>
+    <h1>Natural Hazard Monitoring at <span style="background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent">global scale</span></h1>
+    <p class="lede">I led the setup and maturation of BeZero Carbon's Natural Hazards product line — geospatial risk-assessment pipelines for drought, wildfire, tropical cyclone, and sea-level rise that powered ratings analysts, product teams, and client-facing dashboards.</p>
+    <div class="metric-row">
+      <div class="metric"><div class="v">4</div><div class="l">Hazard types in production</div></div>
+      <div class="metric"><div class="v">Global</div><div class="l">Geographic coverage</div></div>
+      <div class="metric"><div class="v">Ratings-grade</div><div class="l">Used in carbon project ratings</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="case">
+  <div class="container">
+
+    <section class="section">
+      <div class="label">Problem</div>
+      <h2>Carbon project ratings need defensible hazard exposure scores.</h2>
+      <p>Carbon projects — REDD+, ARR, IFM and others — sit on the land for decades. A wildfire, drought, cyclone, or rising sea level can erase a project's carbon storage overnight, but most rating methodologies treated hazard exposure as an afterthought.</p>
+      <p>BeZero needed quantitative, repeatable, and auditable hazard exposure pipelines for every project polygon globally — feeding both internal ratings analysts and external client dashboards.</p>
+    </section>
+
+    <section class="section">
+      <div class="label">Approach</div>
+      <h2>One pipeline pattern, four hazard heads.</h2>
+      <p>I designed a shared geospatial pipeline pattern — ingest → clip-to-project → model → score → export to Snowflake — with hazard-specific feature engineering and severity logic at the modelling step.</p>
+      <div class="two-col">
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-sun"></i></span> Drought</h3>
+          <ul>
+            <li>Long-horizon SPI / SPEI indices from reanalysis</li>
+            <li>Trend + anomaly decomposition for chronic vs acute stress</li>
+            <li>Severity scored against historical baselines per biome</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-fire"></i></span> Wildfire</h3>
+          <ul>
+            <li>Active-fire and burn-scar histories at project polygon</li>
+            <li>Fire-weather feature stack (FWI components)</li>
+            <li>Recurrence × severity scoring with seasonality</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-wind"></i></span> Tropical cyclone</h3>
+          <ul>
+            <li>Best-track wind swaths joined to project geometry</li>
+            <li>SAR-based inundation overlays where available</li>
+            <li>Frequency × peak-intensity exposure curves</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-water"></i></span> Sea-level rise</h3>
+          <ul>
+            <li>Coastal / low-lying project flagging from DEMs</li>
+            <li>Projected inundation under multiple SSP scenarios</li>
+            <li>Time-to-impact reporting per project tier</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Engineering</div>
+      <h2>Reproducible by default; provenance tracked end-to-end.</h2>
+      <ul>
+        <li>Built ingestion on <strong>STAC / COG</strong> conventions so every input had a discoverable, versioned source.</li>
+        <li>Scheduled batch workflows in <strong>Prefect</strong> with retry, alerting, and idempotent writes to Snowflake / PostGIS.</li>
+        <li>Reusable <code>xarray</code> / <code>dask</code> pipelines kept memory bounded for global runs on modest compute.</li>
+        <li>Outputs versioned per project polygon — analyst could trace any rating back to inputs, model version, and run date.</li>
+        <li>Standardised QA layer so a regression in any hazard head surfaced before reaching client dashboards.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Outcome</div>
+      <h2>From research code to a product line analysts depend on.</h2>
+      <ul>
+        <li>Set up and matured a new <strong>Natural Hazards product line</strong> from scratch.</li>
+        <li>Powered <strong>ratings analysts, product teams, and client-facing dashboards</strong> with interactive charts and automated summaries.</li>
+        <li>Established the pattern that subsequent hazard heads were built against — onboarding new ones became a feature-engineering exercise, not a pipeline rebuild.</li>
+        <li>Produced internal documentation and supported stakeholder calls with clear technical explanations.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Stack</div>
+      <h2>What it runs on</h2>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">xarray</span><span class="chip">dask</span>
+        <span class="chip">GeoPandas</span><span class="chip">Rasterio</span><span class="chip">GDAL</span>
+        <span class="chip">STAC / COG</span><span class="chip">Sentinel-1</span><span class="chip">Sentinel-2</span>
+        <span class="chip">ERA5</span><span class="chip">VIIRS / MODIS</span>
+        <span class="chip">Prefect</span><span class="chip">AWS S3 / EC2</span><span class="chip">GCP</span>
+        <span class="chip">Snowflake</span><span class="chip">PostGIS</span>
+        <span class="chip">GitHub Actions</span>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <div>
+        <div class="label">Next case study</div>
+        <div style="font-family:var(--font-display);font-weight:700;margin-top:4px">Forest Carbon MRV — Biomass pipeline</div>
+      </div>
+      <a href="forest-carbon.html">Read next <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</main>
+
+<footer class="case-footer">
+  <div class="container footer-inner">
+    <div>© <span id="year"></span> Sujoy Mudi · Senior Geospatial ML Engineer</div>
+    <div><a href="../index.html" style="color:var(--accent-2)">Back to portfolio</a></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const root=document.documentElement,btn=document.getElementById('themeToggle');
+    const saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved);
+    const sync=()=>{btn.innerHTML=root.getAttribute('data-theme')==='light'?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>'};
+    sync(); btn.addEventListener('click',()=>{const n=root.getAttribute('data-theme')==='light'?'dark':'light';root.setAttribute('data-theme',n);localStorage.setItem('theme',n);sync();});
+  })();
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

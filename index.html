@@ -147,6 +147,26 @@
     .btn-ghost:hover{background:var(--surface-2); border-color:var(--border-strong); transform:translateY(-1px)}
     .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
     .pill{padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--fg-dim);font-size:.82rem}
+    .impact-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:24px}
+    @media (max-width:920px){ .impact-row{grid-template-columns:repeat(2,1fr)} }
+    .impact{padding:12px 14px; border-radius:12px; background:var(--surface); border:1px solid var(--border); transition:all var(--t-fast)}
+    .impact:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .impact .iv{font-family:var(--font-display); font-weight:800; font-size:1.1rem; background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1.1}
+    .impact .il{color:var(--muted); font-size:.78rem; margin-top:4px; line-height:1.35}
+
+    /* RECOMMENDATIONS */
+    .recos{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    @media (max-width:980px){ .recos{grid-template-columns:1fr} }
+    .reco{padding:22px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border); position:relative; transition:all var(--t-fast); display:flex; flex-direction:column; gap:14px}
+    .reco:hover{border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px)}
+    .reco::before{content:"\201C"; position:absolute; top:6px; right:14px; font-family:var(--font-display); font-size:3.6rem; color:rgba(59,130,246,0.18); line-height:1}
+    .reco .body{color:var(--fg-dim); font-size:.95rem; line-height:1.6}
+    .reco .who{display:flex; gap:12px; align-items:center; margin-top:auto; padding-top:12px; border-top:1px solid var(--border)}
+    .reco .av{width:40px;height:40px;border-radius:50%;background:var(--accent-grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:.9rem;flex-shrink:0}
+    .reco .n{font-family:var(--font-display); font-weight:600; font-size:.95rem}
+    .reco .r{color:var(--muted); font-size:.8rem; margin-top:2px}
+    .reco.placeholder{border-style:dashed; background:transparent}
+    .reco.placeholder .body{font-style:italic; color:var(--muted)}
 
     .hero-card{
       position:relative; padding:18px; border-radius:var(--radius-lg);
@@ -418,6 +438,7 @@
         <a href="#map-section">Map</a>
         <a href="#publications">Publications</a>
         <a href="#education">Education</a>
+        <a href="#recommendations">Recs</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -452,6 +473,12 @@
             <span class="pill">U-Net · Transformers</span>
             <span class="pill">STAC / COG</span>
             <span class="pill">AWS · GCP</span>
+          </div>
+          <div class="impact-row" aria-label="Selected impact">
+            <div class="impact"><div class="iv">AUC &gt; 0.90</div><div class="il">Biomass &amp; degradation models · multi-biome</div></div>
+            <div class="impact"><div class="iv">F1 ≈ 0.82</div><div class="il">Forest-fire risk model · Sikkim</div></div>
+            <div class="impact"><div class="iv">~30% ↓</div><div class="il">Dataset inconsistency after STAC standardisation</div></div>
+            <div class="impact"><div class="iv">4</div><div class="il">Hazard types live in BeZero's product line</div></div>
           </div>
         </div>
         <div class="reveal">
@@ -754,6 +781,7 @@
             <p>Drought, wildfire, cyclone, and sea-level-rise pipelines feeding BeZero's ratings ecosystem and client dashboards.</p>
             <span class="metric-chip"><i class="fas fa-check-circle"></i> Production · Global</span>
             <div class="actions">
+              <a class="link-inline" href="case/natural-hazards.html">Read case study <i class="fas fa-arrow-right"></i></a>
               <button class="link-inline" onclick="zoomToFeature('proj_hazards')">View on map <i class="fas fa-map-pin"></i></button>
             </div>
           </article>
@@ -764,7 +792,7 @@
             <p>Biomass estimation integrating EO datasets with plot measurements; project-level carbon evaluations across global biomes.</p>
             <span class="metric-chip"><i class="fas fa-chart-line"></i> AUC &gt; 0.90</span>
             <div class="actions">
-              <a class="link-inline" href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank" rel="noopener noreferrer">Related paper <i class="fas fa-arrow-right"></i></a>
+              <a class="link-inline" href="case/forest-carbon.html">Read case study <i class="fas fa-arrow-right"></i></a>
               <button class="link-inline" onclick="zoomToFeature('proj_amazon')">View on map <i class="fas fa-map-pin"></i></button>
             </div>
           </article>
@@ -786,6 +814,7 @@
             <p>EO-driven risk model fusing SAR, DEM, and meteorological variables to support mitigation planning.</p>
             <span class="metric-chip"><i class="fas fa-bullseye"></i> F1 ≈ 0.82</span>
             <div class="actions">
+              <a class="link-inline" href="case/forest-fire-risk.html">Read case study <i class="fas fa-arrow-right"></i></a>
               <button class="link-inline" onclick="zoomToFeature('proj_sikkim')">View on map <i class="fas fa-map-pin"></i></button>
             </div>
           </article>
@@ -917,6 +946,51 @@
               <div class="cert-row"><span class="cic"><i class="fas fa-map-marked-alt"></i></span><span class="ct">Web Programming for GIS Applications</span><span class="cy">Udemy · 2021</span></div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+    <section id="recommendations">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">What people say</div>
+            <h2>Recommendations</h2>
+            <p class="sub">Selected quotes from managers, collaborators, and clients.</p>
+          </div>
+        </div>
+        <div class="recos reveal">
+          <article class="reco placeholder">
+            <div class="body">"Placeholder — Sujoy will replace this with a real endorsement from a BeZero / IIT Kharagpur manager. Two or three sentences on what was useful to work with him on, ideally tied to a concrete outcome."</div>
+            <div class="who">
+              <div class="av">??</div>
+              <div>
+                <div class="n">Name pending</div>
+                <div class="r">Role · Organisation</div>
+              </div>
+            </div>
+          </article>
+          <article class="reco placeholder">
+            <div class="body">"Placeholder — second recommendation. A different angle helps: someone speaking to delivery / engineering rigour rather than to research depth, for example."</div>
+            <div class="who">
+              <div class="av">??</div>
+              <div>
+                <div class="n">Name pending</div>
+                <div class="r">Role · Organisation</div>
+              </div>
+            </div>
+          </article>
+          <article class="reco placeholder">
+            <div class="body">"Placeholder — optional third recommendation. A short client-side quote works well here if available."</div>
+            <div class="who">
+              <div class="av">??</div>
+              <div>
+                <div class="n">Name pending</div>
+                <div class="r">Role · Organisation</div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>

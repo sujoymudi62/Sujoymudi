@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forest Carbon MRV — Sujoy Mudi · Case study</title>
+  <meta name="description" content="How I helped build BeZero Carbon's biomass estimation pipeline — SAR/optical fusion, plot-based validation, AUC > 0.90 across multiple biomes, and a global forest-plots database." />
+  <link rel="icon" href="../assets/img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/case-study.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="dot">SM</span><span>Sujoy Mudi</span>
+    </a>
+    <div class="nav-actions">
+      <a class="back" href="../index.html#work"><i class="fas fa-arrow-left"></i> Back to projects</a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"><i class="fas fa-moon"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="container">
+    <div class="tag-row">
+      <span class="tag accent"><i class="fas fa-tree"></i> Forest carbon · MRV</span>
+      <span class="tag">BeZero Carbon</span>
+      <span class="tag">Jul 2022 – Oct 2025</span>
+      <span class="tag">Role: Geospatial ML Analyst I → II</span>
+    </div>
+    <h1>Biomass estimation that <span style="background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent">survives audit</span>.</h1>
+    <p class="lede">I contributed extensively to BeZero's biomass estimation pipeline — building ML models for LULC change, degradation, and biomass dynamics, and helping establish a global forest-plots database to independently validate carbon project ratings.</p>
+    <div class="metric-row">
+      <div class="metric"><div class="v">AUC &gt; 0.90</div><div class="l">Across multiple biomes</div></div>
+      <div class="metric"><div class="v">~30% ↓</div><div class="l">Dataset inconsistency after STAC standardisation</div></div>
+      <div class="metric"><div class="v">Global</div><div class="l">Forest plots database for validation</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="case">
+  <div class="container">
+
+    <section class="section">
+      <div class="label">Problem</div>
+      <h2>If you can't validate biomass, you can't rate the project.</h2>
+      <p>Carbon project developers report biomass and carbon stocks. Rating agencies have to either trust those numbers or build an independent view. We chose the second — which means an EO + field-data pipeline that's consistent across biomes, transparent enough to defend, and resilient to the messy realities of plot data.</p>
+      <p>The hard parts weren't the models. The hard parts were sensor harmonisation, validation against sparse and noisy field plots, drift across regions, and producing outputs an analyst could trace back to their inputs.</p>
+    </section>
+
+    <section class="section">
+      <div class="label">Approach</div>
+      <h2>SAR / optical fusion + field plots + boring rigour.</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-satellite"></i></span> Inputs</h3>
+          <ul>
+            <li>Sentinel-1 SAR backscatter (VV / VH, multi-temporal)</li>
+            <li>Sentinel-2 optical (cloud-masked, BOA reflectance)</li>
+            <li>Landsat 8/9 for longer time horizons</li>
+            <li>Environmental covariates (climate, topography)</li>
+            <li>Field plot biomass measurements — the ground truth</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="ic"><i class="fas fa-brain"></i></span> Models</h3>
+          <ul>
+            <li>LULC change detection on multi-temporal stacks</li>
+            <li>Degradation-signal classifiers from SAR + optical fusion</li>
+            <li>Biomass regression: RF / XGBoost ensembles</li>
+            <li>Time-series features for biomass dynamics</li>
+            <li>Uncertainty quantification on every prediction</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Validation, not just metrics</h3>
+      <ul>
+        <li>Built a <strong>global forest-plots database</strong> to independently validate biomass predictions across biomes.</li>
+        <li>Conducted local fieldwork to strengthen ground-truth inputs where the published data was thin.</li>
+        <li>Drift evaluation across regions surfaced where the model was extrapolating beyond its training distribution.</li>
+        <li>Model validation reported per-biome — a global mean hides the failure modes.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Engineering</div>
+      <h2>Production geospatial, not notebook geospatial.</h2>
+      <ul>
+        <li>AWS / GCP ingestion pipelines on <strong>Airflow</strong>, improving provenance and reproducibility across S1 / S2 / Landsat sensors.</li>
+        <li>Standardised <strong>STAC</strong> metadata and quality checks, <strong>reducing dataset inconsistencies by ~30%</strong> across regions.</li>
+        <li>Reproducible GitHub repository workflows — pipelines were re-runnable, code-reviewed, and tested.</li>
+        <li>Scheduled workflow automation in <strong>Prefect</strong>; Snowflake / PostGIS as the analyst-facing store.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Outcome</div>
+      <h2>What it meant for the team</h2>
+      <ul>
+        <li><strong>AUC &gt; 0.90</strong> on the LULC and degradation models across multiple biomes — defensible signal for ratings.</li>
+        <li>Field-plot calibration loop became a standing capability rather than a one-off.</li>
+        <li>Pipeline patterns (STAC, Prefect, reproducible repos) were reused by adjacent teams.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="label">Stack</div>
+      <h2>What it runs on</h2>
+      <div class="stack">
+        <span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">XGBoost</span>
+        <span class="chip">PyTorch</span><span class="chip">xarray</span><span class="chip">dask</span>
+        <span class="chip">GeoPandas</span><span class="chip">Rasterio</span><span class="chip">GDAL</span>
+        <span class="chip">STAC / COG</span><span class="chip">Sentinel-1 SAR</span><span class="chip">Sentinel-2</span><span class="chip">Landsat 8/9</span>
+        <span class="chip">Airflow</span><span class="chip">Prefect</span>
+        <span class="chip">AWS S3 / EC2</span><span class="chip">GCP / BigQuery</span>
+        <span class="chip">Snowflake</span><span class="chip">PostGIS</span>
+        <span class="chip">GitHub Actions</span>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <div>
+        <div class="label">Next case study</div>
+        <div style="font-family:var(--font-display);font-weight:700;margin-top:4px">Forest Fire Risk — Sikkim</div>
+      </div>
+      <a href="forest-fire-risk.html">Read next <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</main>
+
+<footer class="case-footer">
+  <div class="container footer-inner">
+    <div>© <span id="year"></span> Sujoy Mudi · Senior Geospatial ML Engineer</div>
+    <div><a href="../index.html" style="color:var(--accent-2)">Back to portfolio</a></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const root=document.documentElement,btn=document.getElementById('themeToggle');
+    const saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved);
+    const sync=()=>{btn.innerHTML=root.getAttribute('data-theme')==='light'?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>'};
+    sync(); btn.addEventListener('click',()=>{const n=root.getAttribute('data-theme')==='light'?'dark':'light';root.setAttribute('data-theme',n);localStorage.setItem('theme',n);sync();});
+  })();
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
