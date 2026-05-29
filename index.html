@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sujoy Mudi — Geospatial ML Engineer & GeoAI Researcher</title>
-  <meta name="description" content="Portfolio of Sujoy Mudi — Geospatial Machine Learning Engineer working on GeoAI, forest carbon MRV, natural hazards, and biomass pipelines." />
+  <title>Sujoy Mudi — Senior Geospatial ML Engineer · GeoAI · Forest Carbon · Natural Hazards</title>
+  <meta name="description" content="Sujoy Mudi — Senior Geospatial ML Engineer with 7+ years building deep-learning and ML pipelines for forest carbon MRV, natural hazards, and large-scale satellite analytics." />
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" href="assets/img/favicon.ico" />
 
+  <meta property="og:title" content="Sujoy Mudi — Senior Geospatial ML Engineer" />
+  <meta property="og:description" content="GeoAI · Forest Carbon MRV · Natural Hazards · SAR & Optical Fusion. 7+ years across BeZero Carbon, IIT Kharagpur, and Neara." />
+  <meta property="og:type" content="profile" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -30,7 +34,6 @@
       --accent: #3b82f6;
       --accent-2: #06b6d4;
       --accent-grad: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-      --danger: #ef4444;
       --success: #10b981;
       --radius: 14px;
       --radius-sm: 10px;
@@ -42,6 +45,7 @@
       --t-med: 280ms cubic-bezier(.2,.7,.3,1);
       --font-display: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       --font-body: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
     }
     html[data-theme="light"]{
       --bg: #fafafa;
@@ -78,12 +82,12 @@
         var(--bg);
     }
     h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;margin:0}
-    h1{font-size:clamp(2.2rem, 4.2vw, 3.6rem); line-height:1.05}
-    h2{font-size:clamp(1.6rem, 2.6vw, 2.1rem); line-height:1.15}
+    h1{font-size:clamp(2.2rem, 4.4vw, 3.8rem); line-height:1.04}
+    h2{font-size:clamp(1.7rem, 2.6vw, 2.2rem); line-height:1.15}
     h3{font-size:1.15rem}
     p{margin:0}
     a{color:inherit;text-decoration:none}
-    a:focus-visible, button:focus-visible, .tab:focus-visible, .tool:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:8px}
+    a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:8px}
 
     .container{max-width:var(--maxw); margin:0 auto; padding:0 22px}
 
@@ -97,8 +101,8 @@
     }
     .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
     .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em;font-size:1.05rem}
-    .brand .dot{width:28px;height:28px;border-radius:8px;background:var(--accent-grad);box-shadow:var(--shadow-glow);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem}
-    .nav-links{display:flex;align-items:center;gap:8px}
+    .brand .dot{width:30px;height:30px;border-radius:9px;background:var(--accent-grad);box-shadow:var(--shadow-glow);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.82rem}
+    .nav-links{display:flex;align-items:center;gap:4px}
     .nav-links a{padding:8px 12px;border-radius:999px;color:var(--fg-dim);font-size:.92rem;transition:color var(--t-fast), background var(--t-fast)}
     .nav-links a:hover{color:var(--fg); background:var(--surface)}
     .nav-links a.active{color:var(--fg); background:var(--surface-2)}
@@ -110,7 +114,7 @@
     }
     .icon-btn:hover{color:var(--fg); border-color:var(--border-strong); transform:translateY(-1px)}
     .nav-toggle{display:none}
-    @media (max-width:860px){
+    @media (max-width:920px){
       .nav-links{display:none}
       .nav-toggle{display:inline-flex}
       .nav-links.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg-elev);padding:12px;border-bottom:1px solid var(--border)}
@@ -118,7 +122,7 @@
     }
 
     /* HERO */
-    .hero{padding:72px 0 36px; position:relative}
+    .hero{padding:84px 0 40px; position:relative}
     .hero-grid{display:grid;grid-template-columns:1.3fr .9fr; gap:48px; align-items:center}
     .eyebrow{
       display:inline-flex;align-items:center;gap:8px;
@@ -128,7 +132,7 @@
     }
     .eyebrow .live{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 4px rgba(16,185,129,.18)}
     .gradient-text{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero p.lead{margin-top:18px; color:var(--fg-dim); font-size:1.08rem; max-width:58ch}
+    .hero p.lead{margin-top:18px; color:var(--fg-dim); font-size:1.08rem; max-width:60ch}
     .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
     .btn{
       display:inline-flex;align-items:center;gap:8px;
@@ -164,16 +168,40 @@
     }
     .photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
     .photo-frame .initials{font-family:var(--font-display); font-weight:800; font-size:64px; color:var(--fg)}
-    @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:32px} .hero{padding:48px 0 16px} .photo-frame{max-width:340px;margin:0 auto} }
+    .now-row{display:flex;gap:10px;align-items:center;margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);font-size:.85rem;color:var(--fg-dim)}
+    .now-row strong{color:var(--fg); font-weight:600}
+    @media (max-width:920px){ .hero-grid{grid-template-columns:1fr; gap:32px} .hero{padding:48px 0 16px} .photo-frame{max-width:340px;margin:0 auto} }
 
     /* SECTIONS */
-    section{padding:56px 0; scroll-margin-top:72px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+    section{padding:64px 0; scroll-margin-top:72px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
     .section-head .label{color:var(--muted); font-size:.85rem; text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px}
+    .section-head .sub{color:var(--muted); font-size:.9rem; max-width:48ch; margin-top:6px}
+
+    /* ABOUT */
+    .about-grid{display:grid; grid-template-columns: 1.4fr .9fr; gap:24px; align-items:start}
+    @media (max-width:920px){ .about-grid{grid-template-columns:1fr} }
+    .about-card{padding:28px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-soft)}
+    .about-card p{color:var(--fg-dim); font-size:1rem; line-height:1.7}
+    .about-card p + p{margin-top:14px}
+    .strengths{display:flex;flex-direction:column;gap:10px}
+    .strength{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
+      transition: all var(--t-fast);
+    }
+    .strength:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .strength .icon{
+      flex-shrink:0; width:36px; height:36px; border-radius:9px;
+      background:var(--accent-grad); color:#fff;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .strength .t{font-weight:600; font-family:var(--font-display); font-size:.98rem}
+    .strength .d{color:var(--muted); font-size:.85rem; margin-top:2px; line-height:1.45}
 
     /* STATS BENTO */
-    .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    @media (max-width:860px){ .bento{grid-template-columns:repeat(2,1fr)} }
+    .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+    @media (max-width:920px){ .bento{grid-template-columns:repeat(2,1fr)} }
     .stat-card{
       padding:18px;border-radius:var(--radius);
       background:var(--surface);border:1px solid var(--border);
@@ -183,17 +211,65 @@
     .stat-card .n{font-family:var(--font-display);font-weight:800;font-size:1.9rem;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
     .stat-card .lbl{color:var(--muted); font-size:.85rem; margin-top:4px}
 
+    /* SKILLS */
+    .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    @media (max-width:980px){ .skills-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .skills-grid{grid-template-columns:1fr} }
+    .skill-card{
+      padding:22px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
+      transition: all var(--t-fast); display:flex; flex-direction:column; gap:14px;
+    }
+    .skill-card:hover{border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px)}
+    .skill-card h3{display:flex;align-items:center;gap:10px;font-size:1.02rem}
+    .skill-card h3 .ic{
+      width:32px;height:32px;border-radius:9px;background:var(--surface-2);
+      display:inline-flex;align-items:center;justify-content:center;color:var(--accent-2);
+    }
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{
+      padding:5px 10px;border-radius:8px;
+      background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.18);
+      color:var(--fg-dim); font-size:.78rem; font-family:var(--font-mono); font-weight:500;
+    }
+
+    /* EXPERIENCE TIMELINE */
+    .timeline{position:relative; padding-left:28px}
+    .timeline::before{
+      content:""; position:absolute; left:8px; top:8px; bottom:8px;
+      width:2px; background:linear-gradient(180deg, var(--accent), var(--accent-2), transparent);
+      border-radius:2px; opacity:.5;
+    }
+    .tl-item{position:relative; padding-bottom:28px}
+    .tl-item:last-child{padding-bottom:0}
+    .tl-item::before{
+      content:""; position:absolute; left:-26px; top:18px; width:14px; height:14px;
+      border-radius:50%; background:var(--bg-elev); border:2px solid var(--accent);
+      box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 25%, transparent);
+    }
+    .tl-item.current::before{background:var(--accent); box-shadow:0 0 0 4px color-mix(in oklab, var(--accent) 35%, transparent)}
+    .tl-card{
+      padding:22px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
+      transition: all var(--t-fast);
+    }
+    .tl-card:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .tl-head{display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap}
+    .tl-role{font-family:var(--font-display); font-weight:700; font-size:1.05rem}
+    .tl-org{color:var(--accent-2); font-weight:600; font-size:.92rem; margin-top:2px}
+    .tl-meta{color:var(--muted); font-size:.82rem; text-align:right; font-family:var(--font-mono)}
+    .tl-meta .here{display:inline-flex;align-items:center;gap:6px;color:var(--success);font-weight:600}
+    .tl-meta .here::before{content:""; width:6px;height:6px; border-radius:50%; background:var(--success); box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+    .tl-body{margin-top:12px; color:var(--fg-dim)}
+    .tl-body ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:6px}
+    .tl-body li{font-size:.92rem; line-height:1.5}
+    .tl-body li strong{color:var(--fg); font-weight:600}
+
     /* MAP */
     .map-wrap{
       position:relative; border-radius:var(--radius-lg); overflow:hidden;
-      border:1px solid var(--border); background:var(--bg-elev);
-      box-shadow:var(--shadow-soft);
+      border:1px solid var(--border); background:var(--bg-elev); box-shadow:var(--shadow-soft);
     }
     #map{height:520px; width:100%}
-    .map-toolbar{
-      position:absolute; top:14px; left:14px; right:14px; z-index:400;
-      display:flex; gap:8px; flex-wrap:wrap; pointer-events:none;
-    }
+    .map-toolbar{position:absolute; top:14px; left:14px; right:14px; z-index:400; display:flex; gap:8px; flex-wrap:wrap; pointer-events:none}
     .map-toolbar > *{pointer-events:auto}
     .tool{
       padding:8px 12px;border-radius:10px;
@@ -219,23 +295,23 @@
       position:relative; padding:22px; border-radius:var(--radius);
       background:var(--surface); border:1px solid var(--border);
       transition: transform var(--t-med), border-color var(--t-med), background var(--t-med);
-      display:flex; flex-direction:column; gap:12px;
-      min-height:200px;
+      display:flex; flex-direction:column; gap:12px; min-height:200px;
     }
     .project-card:hover{transform:translateY(-4px); border-color:var(--border-strong); background:var(--surface-2)}
     .project-card .tag{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;color:var(--accent-2);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-    .project-card h3{font-size:1.1rem; line-height:1.3}
+    .project-card h3{font-size:1.08rem; line-height:1.3}
     .project-card p{color:var(--fg-dim); font-size:.92rem}
     .project-card .actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
-    .link-inline{color:var(--accent-2);font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:6px;transition:gap var(--t-fast)}
+    .link-inline{color:var(--accent-2);font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:6px;transition:gap var(--t-fast);background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-body)}
     .link-inline:hover{gap:10px}
+    .metric-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,.1);color:var(--success);font-size:.74rem;font-weight:600;font-family:var(--font-mono);border:1px solid rgba(16,185,129,.2)}
 
     /* TABS */
     .tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--border)}
     .tab{padding:8px 16px;border-radius:999px;color:var(--fg-dim);cursor:pointer;font-weight:600;font-size:.88rem;border:none;background:transparent;font-family:var(--font-body);transition: all var(--t-fast)}
     .tab.active{background:var(--accent-grad);color:#fff}
 
-    /* PUBLICATIONS LIST */
+    /* PUBLICATIONS */
     .pub-list{display:flex;flex-direction:column;gap:12px}
     .pub-item{
       padding:18px;border-radius:var(--radius);background:var(--surface);
@@ -250,15 +326,35 @@
       font-family:var(--font-display);
     }
 
-    /* CHART AREA */
+    /* CHART */
     .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:860px){ .chart-grid{grid-template-columns:1fr} }
+    @media (max-width:920px){ .chart-grid{grid-template-columns:1fr} }
     .chart-card{padding:20px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border)}
     .chart-card h4{font-size:.95rem;margin-bottom:14px}
 
+    /* EDUCATION + CERTIFICATIONS */
+    .credentials-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:24px}
+    @media (max-width:920px){ .credentials-grid{grid-template-columns:1fr} }
+    .edu-card{padding:22px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);transition:all var(--t-fast)}
+    .edu-card + .edu-card{margin-top:12px}
+    .edu-card:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .edu-card .deg{font-family:var(--font-display); font-weight:700; font-size:1.02rem}
+    .edu-card .org{color:var(--accent-2); font-weight:600; font-size:.92rem; margin-top:4px}
+    .edu-card .yr{color:var(--muted); font-size:.82rem; margin-top:6px; font-family:var(--font-mono)}
+    .cert-list{display:flex;flex-direction:column;gap:8px}
+    .cert-row{
+      display:flex; align-items:center; gap:12px; padding:12px 14px;
+      border-radius:var(--radius-sm); background:var(--surface); border:1px solid var(--border);
+      transition: all var(--t-fast);
+    }
+    .cert-row:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .cert-row .cic{width:32px;height:32px;border-radius:8px;background:var(--surface-2);display:inline-flex;align-items:center;justify-content:center;color:var(--accent-2);flex-shrink:0}
+    .cert-row .ct{font-size:.92rem; font-weight:500}
+    .cert-row .cy{color:var(--muted); font-size:.78rem; font-family:var(--font-mono); margin-left:auto}
+
     /* CONTACT */
     .contact-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:24px}
-    @media (max-width:860px){ .contact-grid{grid-template-columns:1fr} }
+    @media (max-width:920px){ .contact-grid{grid-template-columns:1fr} }
     .contact-card{padding:28px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-soft)}
     .form{display:flex;flex-direction:column;gap:12px;margin-top:18px}
     .form input,.form textarea{
@@ -300,7 +396,7 @@
       *{animation:none !important; transition:none !important}
     }
 
-    /* LEAFLET adjustments for dark mode */
+    /* LEAFLET dark popups */
     .leaflet-popup-content-wrapper, .leaflet-popup-tip{background:var(--bg-elev);color:var(--fg);border:1px solid var(--border)}
     .leaflet-popup-content a{color:var(--accent-2)}
   </style>
@@ -315,10 +411,13 @@
         <span>Sujoy Mudi</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary">
-        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#work">Projects</a>
         <a href="#map-section">Map</a>
         <a href="#publications">Publications</a>
-        <a href="#about">About</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -338,20 +437,21 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <span class="eyebrow"><span class="live"></span> Open to GeoAI &amp; MRV collaborations</span>
-          <h1>Mapping the planet with <span class="gradient-text">machine learning</span>.</h1>
-          <p class="lead">I'm Sujoy — a Senior Geospatial ML Engineer building GeoAI pipelines for forest carbon MRV, natural-hazard mapping, and large-scale biomass estimation from satellite data.</p>
+          <span class="eyebrow"><span class="live"></span> Open to GeoAI &amp; climate-tech collaborations</span>
+          <h1>I build <span class="gradient-text">GeoAI</span> pipelines that turn satellite data into climate decisions.</h1>
+          <p class="lead">Senior Geospatial ML Engineer with <strong>7+ years</strong> shipping deep-learning and ML systems for forest carbon MRV, natural-hazard monitoring, and large-scale satellite analytics — across BeZero Carbon, IIT Kharagpur, and now Neara.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#contact"><i class="fas fa-envelope"></i> Get in touch</a>
-            <a class="btn btn-ghost" href="#work"><i class="fas fa-arrow-right"></i> See selected work</a>
+            <a class="btn btn-ghost" href="#experience"><i class="fas fa-briefcase"></i> See experience</a>
           </div>
           <div class="pills" aria-label="Focus areas">
             <span class="pill">GeoAI</span>
             <span class="pill">Forest Carbon MRV</span>
-            <span class="pill">SAR &amp; Optical Fusion</span>
+            <span class="pill">SAR · Optical Fusion</span>
             <span class="pill">Natural Hazards</span>
-            <span class="pill">Biomass Pipelines</span>
-            <span class="pill">Earth Engine</span>
+            <span class="pill">U-Net · Transformers</span>
+            <span class="pill">STAC / COG</span>
+            <span class="pill">AWS · GCP</span>
           </div>
         </div>
         <div class="reveal">
@@ -364,25 +464,353 @@
                    onerror="this.style.display='none'; document.getElementById('photoInitials').style.display='flex'">
               <div id="photoInitials" class="initials" style="display:none">SM</div>
             </div>
+            <div class="now-row">
+              <i class="fas fa-briefcase" style="color:var(--accent-2)"></i>
+              <div><strong>Currently:</strong> Customer Success Manager (Deployment) at <strong>Neara</strong> · Remote / Kolkata</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- STATS BENTO -->
+    <!-- ABOUT -->
     <section id="about">
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <div class="label">At a glance</div>
-            <h2>Numbers &amp; focus</h2>
+            <div class="label">About</div>
+            <h2>Where remote sensing meets machine learning.</h2>
+            <p class="sub">Built for the messy parts: validation, drift, reproducibility, and getting EO + field data to actually agree.</p>
           </div>
         </div>
+        <div class="about-grid reveal">
+          <div class="about-card">
+            <p>I'm a Machine Learning &amp; Geospatial specialist with deep expertise in <strong>CNNs, U-Net, Transformers, semantic segmentation, and time-series modelling</strong>, applied to environmental monitoring, forest carbon, and natural hazards.</p>
+            <p>My day-to-day spans cloud-native geospatial engineering (STAC/COG, xarray/dask, Earth Engine, AWS/GCP), <strong>model validation and drift evaluation</strong>, and integrating EO data with field measurements for MRV and carbon assessments.</p>
+            <p>I care about <strong>reproducible pipelines</strong>, honest uncertainty, and AI that makes ecological monitoring more trustworthy — the climate-tech and dMRV space is where I want to keep building.</p>
+          </div>
+          <div class="strengths">
+            <div class="strength">
+              <div class="icon"><i class="fas fa-brain"></i></div>
+              <div>
+                <div class="t">Deep learning for EO</div>
+                <div class="d">U-Net, Transformers, OBIA, semantic segmentation, time-series ML, uncertainty quantification.</div>
+              </div>
+            </div>
+            <div class="strength">
+              <div class="icon"><i class="fas fa-leaf"></i></div>
+              <div>
+                <div class="t">Forest carbon &amp; MRV</div>
+                <div class="d">Biomass estimation pipelines, plot-based validation, global forest plots database.</div>
+              </div>
+            </div>
+            <div class="strength">
+              <div class="icon"><i class="fas fa-bolt"></i></div>
+              <div>
+                <div class="t">Natural-hazard pipelines</div>
+                <div class="d">Drought, wildfire, cyclone, and sea-level-rise monitoring at global scale.</div>
+              </div>
+            </div>
+            <div class="strength">
+              <div class="icon"><i class="fas fa-cloud"></i></div>
+              <div>
+                <div class="t">Production geospatial</div>
+                <div class="d">STAC/COG, xarray/dask, Airflow/Prefect, Snowflake/PostGIS, GitHub Actions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="bento reveal">
           <div class="stat-card"><div class="n">7+</div><div class="lbl">Years experience</div></div>
-          <div class="stat-card"><div class="n">15</div><div class="lbl">Projects delivered</div></div>
-          <div class="stat-card"><div class="n">5</div><div class="lbl">Selected publications</div></div>
-          <div class="stat-card"><div class="n">3</div><div class="lbl">Continents covered</div></div>
+          <div class="stat-card"><div class="n">6</div><div class="lbl">Organisations</div></div>
+          <div class="stat-card"><div class="n" id="statPubs">—</div><div class="lbl">Publications</div></div>
+          <div class="stat-card"><div class="n" id="statCites">—</div><div class="lbl">Total citations</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Toolbox</div>
+            <h2>Core skills</h2>
+            <p class="sub">The stack I reach for when shipping geospatial ML in production.</p>
+          </div>
+        </div>
+        <div class="skills-grid reveal">
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-robot"></i></span> Machine Learning &amp; AI</h3>
+            <div class="chips">
+              <span class="chip">CNNs</span><span class="chip">U-Net</span><span class="chip">Transformers</span>
+              <span class="chip">Semantic Segmentation</span><span class="chip">OBIA</span>
+              <span class="chip">Random Forest</span><span class="chip">XGBoost</span><span class="chip">SVM</span>
+              <span class="chip">Time-series ML</span><span class="chip">Uncertainty Quant.</span>
+              <span class="chip">Drift Analysis</span><span class="chip">Model Validation</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-code"></i></span> Programming</h3>
+            <div class="chips">
+              <span class="chip">Python</span><span class="chip">R</span><span class="chip">SQL</span>
+              <span class="chip">scikit-learn</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span>
+              <span class="chip">NumPy</span><span class="chip">Pandas</span>
+              <span class="chip">xarray</span><span class="chip">dask</span>
+              <span class="chip">REST APIs</span><span class="chip">CI / testing</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-satellite"></i></span> Remote Sensing &amp; GIS</h3>
+            <div class="chips">
+              <span class="chip">GDAL</span><span class="chip">Rasterio</span><span class="chip">GeoPandas</span>
+              <span class="chip">STAC / COG</span><span class="chip">QGIS</span><span class="chip">ArcGIS</span>
+              <span class="chip">ENVI</span><span class="chip">ERDAS</span>
+              <span class="chip">Sentinel-1/2</span><span class="chip">Landsat 8/9</span>
+              <span class="chip">MODIS / VIIRS</span><span class="chip">PlanetScope</span>
+              <span class="chip">SAR backscatter</span><span class="chip">LiDAR</span>
+              <span class="chip">Atmospheric / Radiometric Correction</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-cloud-upload-alt"></i></span> Cloud &amp; DevOps</h3>
+            <div class="chips">
+              <span class="chip">AWS (S3 / EC2)</span><span class="chip">GCP (GCS / BigQuery)</span>
+              <span class="chip">Google Earth Engine</span>
+              <span class="chip">Docker</span><span class="chip">Airflow</span><span class="chip">Prefect</span>
+              <span class="chip">Git / GitHub</span><span class="chip">GitHub Actions</span>
+              <span class="chip">Snowflake</span><span class="chip">PostGIS</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-map"></i></span> WebGIS</h3>
+            <div class="chips">
+              <span class="chip">GeoServer</span><span class="chip">Leaflet</span><span class="chip">Mapbox</span>
+              <span class="chip">JavaScript</span><span class="chip">HTML / CSS</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <h3><span class="ic"><i class="fas fa-tasks"></i></span> Ways of working</h3>
+            <div class="chips">
+              <span class="chip">Reproducible pipelines</span><span class="chip">MLOps lite</span>
+              <span class="chip">Field ↔ EO integration</span><span class="chip">Technical documentation</span>
+              <span class="chip">Stakeholder calls</span><span class="chip">Code review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Career</div>
+            <h2>Experience timeline</h2>
+            <p class="sub">7+ years across climate-tech, academia, and enterprise GIS.</p>
+          </div>
+        </div>
+        <div class="timeline reveal">
+
+          <div class="tl-item current">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Customer Success Manager (Deployment)</div>
+                  <div class="tl-org">Neara</div>
+                </div>
+                <div class="tl-meta">
+                  <span class="here">Current</span><br>
+                  Jan 2026 – present<br>Remote · Kolkata
+                </div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Build accurate <strong>physics-based digital twins</strong> for the utility market using LiDAR, GIS, and remote-sensing datasets.</li>
+                  <li>Manage contractors daily to ensure timely project delivery and high-quality outputs.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Geospatial ML Analyst II</div>
+                  <div class="tl-org">BeZero Carbon</div>
+                </div>
+                <div class="tl-meta">May 2024 – Oct 2025<br>Remote · Kolkata</div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Co-developed BeZero's <strong>monitoring approaches for natural hazards and forest carbon</strong>, designing pipelines for drought, wildfire, tropical cyclone, and sea-level rise across global regions.</li>
+                  <li>Led setup and maturation of the <strong>Natural Hazards product line</strong>, delivering geospatial risk-assessment pipelines that powered ratings analysts, product teams, and client-facing dashboards.</li>
+                  <li>Conducted project-level forest carbon evaluations, integrating remotely sensed variables with field plot datasets and environmental covariates.</li>
+                  <li>Contributed to the <strong>biomass estimation pipeline</strong>, helping build a global forest-plots database for independent validation and conducting local fieldwork for ground truth.</li>
+                  <li>Productionised geospatial pipelines: reproducible GitHub workflows, Snowflake / PostGIS, scheduled automation with Prefect.</li>
+                  <li>Produced internal documentation and supported stakeholder calls with clear technical explanations.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Geospatial ML Analyst I</div>
+                  <div class="tl-org">BeZero Carbon</div>
+                </div>
+                <div class="tl-meta">Jul 2022 – Apr 2024<br>Remote · Kolkata</div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Built ML models for <strong>LULC change detection, degradation signals, and biomass dynamics</strong>, achieving <strong>AUC &gt; 0.90</strong> across multiple biomes.</li>
+                  <li>Supported natural-hazard and carbon modelling via SAR / optical fusion, EO time-series analysis, and feature engineering.</li>
+                  <li>Developed AWS / GCP ingestion pipelines on Airflow, improving data provenance and reproducibility across S1 / S2 / Landsat sensors.</li>
+                  <li>Standardised STAC metadata and quality checks, <strong>reducing dataset inconsistencies by ~30%</strong> across regions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Senior Project Assistant — CORAL</div>
+                  <div class="tl-org">IIT Kharagpur</div>
+                </div>
+                <div class="tl-meta">Sep 2020 – Jul 2022<br>Kharagpur, India</div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Built a <strong>forest-fire risk model</strong> (SAR + DEM + meteorological variables) achieving <strong>F1 ≈ 0.82</strong> for risk mapping and mitigation planning.</li>
+                  <li>Streamlined geospatial workflows for <strong>WRI India's SLR program</strong> via standardised ETL and modelling templates.</li>
+                  <li>Produced ecosystem-resilience indicators adopted in national program reporting.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Junior Project Assistant — CORAL</div>
+                  <div class="tl-org">IIT Kharagpur</div>
+                </div>
+                <div class="tl-meta">Mar 2019 – Aug 2020<br>Kharagpur, India</div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Automated long-term <strong>shifting-cultivation monitoring</strong> across NE India using EO time series for carbon-flux studies.</li>
+                  <li>Contributed to mangrove biomass and structural mapping using multi-sensor satellite data.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-card">
+              <div class="tl-head">
+                <div>
+                  <div class="tl-role">Technical Executive, GIS</div>
+                  <div class="tl-org">Stesalit Systems Ltd</div>
+                </div>
+                <div class="tl-meta">Jun 2018 – Mar 2019<br>Kolkata · Bhubaneswar</div>
+              </div>
+              <div class="tl-body">
+                <ul>
+                  <li>Delivered QA/QC for enterprise GIS and WebGIS deployments, improving acceptance and reliability.</li>
+                  <li>Integrated geospatial datasets and configured <strong>OGC-compliant GeoServer</strong> services.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Selected projects</div>
+            <h2>Work</h2>
+            <p class="sub">A cross-section of climate-tech, hazard, and academic projects.</p>
+          </div>
+        </div>
+        <div class="projects reveal">
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-globe"></i> Natural Hazards · Global</span>
+            <h3>Natural Hazard Monitoring</h3>
+            <p>Drought, wildfire, cyclone, and sea-level-rise pipelines feeding BeZero's ratings ecosystem and client dashboards.</p>
+            <span class="metric-chip"><i class="fas fa-check-circle"></i> Production · Global</span>
+            <div class="actions">
+              <button class="link-inline" onclick="zoomToFeature('proj_hazards')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-tree"></i> Forest Carbon</span>
+            <h3>Forest Carbon MRV</h3>
+            <p>Biomass estimation integrating EO datasets with plot measurements; project-level carbon evaluations across global biomes.</p>
+            <span class="metric-chip"><i class="fas fa-chart-line"></i> AUC &gt; 0.90</span>
+            <div class="actions">
+              <a class="link-inline" href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank" rel="noopener noreferrer">Related paper <i class="fas fa-arrow-right"></i></a>
+              <button class="link-inline" onclick="zoomToFeature('proj_amazon')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-leaf"></i> Land-Use · NE India</span>
+            <h3>Shifting-Cultivation Monitoring</h3>
+            <p>Multi-decadal change detection across Northeast India using EO time series for carbon-impact assessments.</p>
+            <span class="metric-chip"><i class="fas fa-calendar-alt"></i> Multi-decadal</span>
+            <div class="actions">
+              <a class="link-inline" href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank" rel="noopener noreferrer">Published paper <i class="fas fa-arrow-right"></i></a>
+              <button class="link-inline" onclick="zoomToFeature('proj_shifting')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-fire"></i> Wildfire · Sikkim</span>
+            <h3>Forest Fire Risk</h3>
+            <p>EO-driven risk model fusing SAR, DEM, and meteorological variables to support mitigation planning.</p>
+            <span class="metric-chip"><i class="fas fa-bullseye"></i> F1 ≈ 0.82</span>
+            <div class="actions">
+              <button class="link-inline" onclick="zoomToFeature('proj_sikkim')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-wind"></i> Cyclone · West Bengal</span>
+            <h3>Cyclone Amphan Inundation</h3>
+            <p>Sentinel-1 SAR–based inundation mapping and rapid damage assessment along coastal West Bengal.</p>
+            <span class="metric-chip"><i class="fas fa-broadcast-tower"></i> SAR</span>
+            <div class="actions">
+              <a class="link-inline" href="https://eprints.soton.ac.uk/457154/" target="_blank" rel="noopener noreferrer">Published paper <i class="fas fa-arrow-right"></i></a>
+              <button class="link-inline" onclick="zoomToFeature('proj_amphan')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-server"></i> WebGIS · Enterprise</span>
+            <h3>Enterprise WebGIS</h3>
+            <p>OGC-compliant map services, data governance, and QA/QC for enterprise GIS and WebGIS deployments.</p>
+            <span class="metric-chip"><i class="fas fa-shield-alt"></i> OGC compliant</span>
+            <div class="actions">
+              <button class="link-inline" onclick="zoomToFeature('proj_webgis')">View on map <i class="fas fa-map-pin"></i></button>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
@@ -392,10 +820,10 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <div class="label">Where the work happens</div>
-            <h2>Interactive project map</h2>
+            <div class="label">Footprint</div>
+            <h2>Where the work happens</h2>
+            <p class="sub">Selected project sites and study areas. Click any feature for details.</p>
           </div>
-          <div style="color:var(--muted);font-size:.88rem">Click any feature for details</div>
         </div>
         <div class="map-wrap reveal">
           <div id="map" role="application" aria-label="Interactive map of projects and publications"></div>
@@ -413,55 +841,14 @@
       </div>
     </section>
 
-    <!-- WORK -->
-    <section id="work">
-      <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <div class="label">Selected work</div>
-            <h2>Projects</h2>
-          </div>
-        </div>
-        <div class="projects reveal">
-          <article class="project-card">
-            <span class="tag"><i class="fas fa-tree"></i> Forest Carbon</span>
-            <h3>Forest Carbon MRV — Amazon pilot</h3>
-            <p>Biomass estimation pipeline with plot-based validation across a tropical forest test site.</p>
-            <div class="actions">
-              <a class="link-inline" href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank" rel="noopener noreferrer">Read paper <i class="fas fa-arrow-right"></i></a>
-              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_amazon')">View on map <i class="fas fa-map-pin"></i></a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <span class="tag"><i class="fas fa-wind"></i> Natural Hazards</span>
-            <h3>Cyclone Amphan — Inundation mapping</h3>
-            <p>Sentinel-1 SAR–based inundation mapping and rapid damage assessment over coastal West Bengal.</p>
-            <div class="actions">
-              <a class="link-inline" href="https://eprints.soton.ac.uk/457154/" target="_blank" rel="noopener noreferrer">Read paper <i class="fas fa-arrow-right"></i></a>
-              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_amphan')">View on map <i class="fas fa-map-pin"></i></a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <span class="tag"><i class="fas fa-graduation-cap"></i> Open Learning</span>
-            <h3>RSGISWORLD — Open RS/GIS Learning</h3>
-            <p>An open-source teaching project with tutorials, mapping demos, and reproducible notebooks.</p>
-            <div class="actions">
-              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_rsgis')">View on map <i class="fas fa-map-pin"></i></a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS + CHARTS -->
+    <!-- PUBLICATIONS -->
     <section id="publications">
       <div class="container">
         <div class="section-head reveal">
           <div>
             <div class="label">Research output</div>
             <h2>Publications &amp; metrics</h2>
+            <p class="sub">Auto-fetched weekly from Google Scholar.</p>
           </div>
           <div class="tabs" role="tablist">
             <button class="tab active" id="tabBtnPublications" onclick="showTab('publications')" role="tab">List</button>
@@ -494,6 +881,46 @@
       </div>
     </section>
 
+    <!-- EDUCATION + CERTIFICATIONS -->
+    <section id="education">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Credentials</div>
+            <h2>Education &amp; certifications</h2>
+          </div>
+        </div>
+        <div class="credentials-grid reveal">
+          <div>
+            <div class="edu-card">
+              <div class="deg">MS (Research) — Forest Fire Modelling using Geospatial Techniques</div>
+              <div class="org">IIT Kharagpur</div>
+              <div class="yr">2022 · CGPA 9.0</div>
+            </div>
+            <div class="edu-card">
+              <div class="deg">M.Sc — Remote Sensing &amp; GIS</div>
+              <div class="org">Vidyasagar University</div>
+              <div class="yr">2018 · CGPA 8.48</div>
+            </div>
+            <div class="edu-card">
+              <div class="deg">B.A (Hons) — Geography</div>
+              <div class="org">Vidyasagar University</div>
+              <div class="yr">2016</div>
+            </div>
+          </div>
+          <div>
+            <div class="cert-list">
+              <div class="cert-row"><span class="cic"><i class="fas fa-database"></i></span><span class="ct">SQL — Intro &amp; Intermediate</span><span class="cy">DataCamp · 2023</span></div>
+              <div class="cert-row"><span class="cic"><i class="fab fa-java"></i></span><span class="ct">Java Level-I Developer</span><span class="cy">Cambridge · 2020</span></div>
+              <div class="cert-row"><span class="cic"><i class="fab fa-python"></i></span><span class="ct">Python Certification</span><span class="cy">LeanVern · 2019</span></div>
+              <div class="cert-row"><span class="cic"><i class="fab fa-android"></i></span><span class="ct">Android Development</span><span class="cy">Udemy · 2021</span></div>
+              <div class="cert-row"><span class="cic"><i class="fas fa-map-marked-alt"></i></span><span class="ct">Web Programming for GIS Applications</span><span class="cy">Udemy · 2021</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
@@ -501,12 +928,13 @@
           <div>
             <div class="label">Say hello</div>
             <h2>Get in touch</h2>
+            <p class="sub">Open to GeoAI, MRV, and climate-tech roles or collaborations.</p>
           </div>
         </div>
         <div class="contact-grid reveal">
           <div class="contact-card">
             <h3 style="font-family:var(--font-display);font-size:1.25rem">Let's collaborate</h3>
-            <p style="color:var(--fg-dim);margin-top:8px">Available for roles or collaborations in GeoAI, MRV, and environmental monitoring. Send a short note and I'll reply.</p>
+            <p style="color:var(--fg-dim);margin-top:8px">Send a short note about your project, role, or paper — I'll reply.</p>
             <form id="contactForm" class="form" onsubmit="submitForm(event)">
               <input type="text" id="name" placeholder="Your name" required autocomplete="name">
               <input type="email" id="email" placeholder="Your email" required autocomplete="email">
@@ -554,8 +982,8 @@
 
   <footer>
     <div class="container footer-inner">
-      <div>© <span id="year"></span> Sujoy Mudi · Built with care</div>
-      <div>Geospatial ML · Kolkata, India</div>
+      <div>© <span id="year"></span> Sujoy Mudi · Senior Geospatial ML Engineer</div>
+      <div>Built with care · Kolkata, India</div>
     </div>
   </footer>
 
@@ -614,23 +1042,21 @@
       const els = document.querySelectorAll('.reveal');
       const io = new IntersectionObserver((entries) => {
         entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.12 });
+      }, { threshold: 0.10 });
       els.forEach(el => io.observe(el));
     })();
 
-    /* Footer year */
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /*******************************
      * Publications — auto-fetched from publications.json
-     * (refreshed weekly by a GitHub Action that scrapes Google Scholar)
      *******************************/
     const FALLBACK_PUBS = [
-      { title:"Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India", authors:"Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.", venue:"Remote Sensing", year:"2021", citations:"", scholar_link:"https://www.mdpi.com/2072-4292/13/6/1066" },
-      { title:"Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data", authors:"Behera M.D., Mudi S., et al.", venue:"Tropical Ecology", year:"2021", citations:"", scholar_link:"https://eprints.soton.ac.uk/457154/" },
-      { title:"Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data", authors:"Roy S., Mudi S., Das P., et al.", venue:"Springer", year:"2021", citations:"", scholar_link:"https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" },
-      { title:"Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data", authors:"Mudi S., Prakash J., Das P.", venue:"ResearchGate", year:"2022", citations:"", scholar_link:"https://www.researchgate.net/" },
-      { title:"Managing Mangrove Forests Using Open Source–Based WebGIS", authors:"Roy S., Mudi S., Das P.", venue:"WebGIS article", year:"2020", citations:"", scholar_link:"https://www.researchgate.net/" }
+      { title:"Automated Mapping of Shifting Cultivation in NE India", authors:"Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.", venue:"Remote Sensing", year:"2021", citations:"", scholar_link:"https://www.mdpi.com/2072-4292/13/6/1066" },
+      { title:"COVID-19 Slowdown and Air Quality in India", authors:"Mudi S., et al.", venue:"Geocarto International", year:"2021", citations:"", scholar_link:"https://scholar.google.com/citations?user=oVm7TyYAAAAJ" },
+      { title:"Cyclone Amphan Inundation Using Sentinel-1", authors:"Behera M.D., Mudi S., et al.", venue:"Tropical Ecology", year:"2021", citations:"", scholar_link:"https://eprints.soton.ac.uk/457154/" },
+      { title:"Rise in Wildfires in Community Forests", authors:"Mudi S., et al.", venue:"Current Science", year:"2021", citations:"", scholar_link:"https://scholar.google.com/citations?user=oVm7TyYAAAAJ" },
+      { title:"Estimating AGB and Tree Density Using Sentinel-1", authors:"Roy S., Mudi S., Das P., et al.", venue:"Springer", year:"2021", citations:"", scholar_link:"https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" }
     ];
 
     let PUBS = FALLBACK_PUBS;
@@ -678,6 +1104,9 @@
       const upd = PUB_DATA && PUB_DATA.updated_at ? formatUpdated(PUB_DATA.updated_at) : '';
       document.getElementById('pubUpdated').innerHTML = upd
         ? `<i class="fas fa-sync-alt"></i> updated ${upd}` : '';
+      // hero stats
+      const sp = document.getElementById('statPubs'); if(sp) sp.textContent = count;
+      const sc = document.getElementById('statCites'); if(sc) sc.textContent = totalCites > 0 ? totalCites : '—';
     }
 
     async function loadPublications(){
@@ -689,9 +1118,7 @@
           PUB_DATA = data;
           PUBS = data.publications;
         }
-      }catch(_){
-        // keep fallback
-      }
+      }catch(_){}
       renderPublicationsTab();
       if(chartsRendered){ chartsRendered = false; renderCharts(); }
     }
@@ -703,17 +1130,22 @@
     const SAMPLE_GEOJSON = {
       "type":"FeatureCollection",
       "features":[
-        {"type":"Feature","properties":{"id":"project_amazon","title":"Forest Carbon MRV — Amazon pilot","description":"Biomass estimation pipeline; plot-based validation.","type":"project","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Polygon","coordinates":[[[-60.0,-3.0],[-59.2,-3.0],[-59.2,-3.6],[-60.0,-3.6],[-60.0,-3.0]]] }},
-        {"type":"Feature","properties":{"id":"project_amphan","title":"Cyclone Amphan inundation","description":"SAR-based inundation mapping and damage assessment.","type":"project","link":"https://eprints.soton.ac.uk/457154/"},"geometry":{"type":"Point","coordinates":[88.36,22.58]}},
-        {"type":"Feature","properties":{"id":"project_rsgis","title":"RSGISWORLD — Open Learning","description":"Open-source tutorials and mapping demos.","type":"project","link":""},"geometry":{"type":"Point","coordinates":[87.3,22.3]}},
-        {"type":"Feature","properties":{"id":"pub_shifting_cultivation","title":"Shifting Cultivation mapping (2021)","description":"Automated mapping method using Landsat/GEE.","type":"publication","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Point","coordinates":[92.0,26.5]}}
+        {"type":"Feature","properties":{"id":"proj_hazards","title":"Natural Hazard Monitoring (Global)","description":"BeZero's drought, wildfire, cyclone, and sea-level-rise pipelines.","type":"project","link":""},"geometry":{"type":"Point","coordinates":[0,15]}},
+        {"type":"Feature","properties":{"id":"proj_amazon","title":"Forest Carbon MRV — Amazon test site","description":"Biomass estimation with plot-based validation.","type":"project","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Polygon","coordinates":[[[-60.0,-3.0],[-59.2,-3.0],[-59.2,-3.6],[-60.0,-3.6],[-60.0,-3.0]]]}},
+        {"type":"Feature","properties":{"id":"proj_shifting","title":"Shifting Cultivation — NE India","description":"Multi-decadal EO time-series change detection.","type":"project","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Point","coordinates":[92.0,26.5]}},
+        {"type":"Feature","properties":{"id":"proj_sikkim","title":"Forest Fire Risk — Sikkim","description":"SAR + DEM + meteo risk model (F1 ≈ 0.82).","type":"project","link":""},"geometry":{"type":"Point","coordinates":[88.6,27.5]}},
+        {"type":"Feature","properties":{"id":"proj_amphan","title":"Cyclone Amphan Inundation","description":"Sentinel-1 SAR inundation mapping over coastal WB.","type":"project","link":"https://eprints.soton.ac.uk/457154/"},"geometry":{"type":"Point","coordinates":[88.36,22.58]}},
+        {"type":"Feature","properties":{"id":"proj_webgis","title":"Enterprise WebGIS — Stesalit","description":"OGC-compliant GeoServer deployments and QA/QC.","type":"project","link":""},"geometry":{"type":"Point","coordinates":[85.84,20.30]}},
+        {"type":"Feature","properties":{"id":"iit_kgp","title":"IIT Kharagpur — CORAL","description":"Forest fire risk, mangrove biomass, shifting cultivation work (2019–2022).","type":"project","link":""},"geometry":{"type":"Point","coordinates":[87.31,22.34]}},
+        {"type":"Feature","properties":{"id":"pub_amphan","title":"Cyclone Amphan publication (Tropical Ecology, 2021)","description":"SAR-based inundation mapping paper.","type":"publication","link":"https://eprints.soton.ac.uk/457154/"},"geometry":{"type":"Point","coordinates":[88.4,22.6]}},
+        {"type":"Feature","properties":{"id":"pub_shifting","title":"Shifting Cultivation paper (Remote Sensing, 2021)","description":"Automated mapping using Landsat / GEE.","type":"publication","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Point","coordinates":[92.5,26.7]}}
       ]
     };
 
     let map, baseLayers, geoJsonLayer, layers;
     function initMap(){
       if(typeof L === 'undefined'){ setTimeout(initMap, 80); return; }
-      map = L.map('map', {zoomControl:true, preferCanvas:true}).setView([22.6, 88.2], 4);
+      map = L.map('map', {zoomControl:true, preferCanvas:true}).setView([22.6, 88.2], 3);
       baseLayers = {
         osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19, attribution:'© OpenStreetMap'}),
         esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19, attribution:'Esri'})
@@ -744,16 +1176,21 @@
 
     function fitToAll(){
       if(!geoJsonLayer) return;
-      try{ map.fitBounds(geoJsonLayer.getBounds(), {padding:[40,40]}); }catch(e){ map.setView([22.6,88.2],4); }
+      try{ map.fitBounds(geoJsonLayer.getBounds(), {padding:[40,40]}); }catch(e){ map.setView([22.6,88.2],3); }
     }
     function zoomToFeature(id){
-      if(!geoJsonLayer) return;
+      if(!geoJsonLayer){
+        document.getElementById('map-section').scrollIntoView({behavior:'smooth'});
+        setTimeout(() => zoomToFeature(id), 600);
+        return;
+      }
+      document.getElementById('map-section').scrollIntoView({behavior:'smooth'});
       let found=null;
       geoJsonLayer.eachLayer(l => { if(l.feature && l.feature.properties && l.feature.properties.id === id) found = l; });
       if(found){
         const b = found.getBounds ? found.getBounds() : null;
         if(b) map.fitBounds(b, {maxZoom:8, padding:[40,40]});
-        else map.setView(found.getLatLng(), 8);
+        else map.setView(found.getLatLng(), 6);
         found.openPopup();
       }
     }
@@ -817,7 +1254,7 @@
       document.getElementById('contactForm').reset();
     }
 
-    /* Keyboard shortcuts (kept) */
+    /* Keyboard shortcuts */
     document.addEventListener('keydown', (e) => {
       if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if(e.key === '1') showTab('publications');
