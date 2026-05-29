@@ -1,30 +1,157 @@
 {
-  "updated_at": 1700000000,
-  "count": 3,
+  "updated_at": 1780021918,
+  "user_id": "oVm7TyYAAAAJ",
+  "source": "scholar.google.com (via SerpAPI)",
+  "name": "Sujoy Mudi",
+  "affiliation": "Geospatial Analyst at BeZero Carbon Ltd",
+  "h_index": 9,
+  "i10_index": 9,
+  "total_citations": 304,
+  "count": 18,
   "publications": [
     {
-      "title": "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India",
-      "authors": "Pulakesh Das, Sujoy Mudi, Mukunda D. Behera, et al.",
-      "venue": "Remote Sensing, 2021",
-      "year": "2021",
+      "title": "A synergistic approach using machine learning and deep learning for forest fire susceptibility in Himalayan forests",
+      "authors": "P Shome, AJ Prakash, MD Behera, S Mudi, P Das, S Behera, PV Vinod, ...",
+      "venue": "Journal of the Indian Society of Remote Sensing, 1-16, 2025",
+      "year": "2025",
+      "citations": "8",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:gmHTDCtJMcoC"
+    },
+    {
+      "title": "Earth observation for monitoring of shifting cultivation",
+      "authors": "P Das, MD Behera, SK Barik, S Mudi",
+      "venue": "Sustainable Development Perspectives in Earth Observation, 201-216, 2025",
+      "year": "2025",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:zzCxg_vo7cAC"
+    },
+    {
+      "title": "Dominant expression of SAR backscatter in predicting aboveground biomass: Integrating multi-sensor data and machine learning in Sikkim Himalaya",
+      "authors": "AJ Prakash, S Mudi, S Paramanik, MD Behera, S Shekhar, N Sharma, ...",
+      "venue": "Journal of the Indian Society of Remote Sensing 52 (4), 871-883, 2024",
+      "year": "2024",
+      "citations": "9",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:sJK75vZXtG0C"
+    },
+    {
+      "title": "Development of an automated method for flood inundation monitoring, flood hazard, and soil erosion susceptibility assessment using machine learning and AHP–MCE techniques",
+      "authors": "AJ Prakash, S Begam, V Vilímek, S Mudi, P Das",
+      "venue": "Geoenvironmental Disasters 11 (1), 14, 2024",
+      "year": "2024",
+      "citations": "38",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:DIubQTN3OvUC"
+    },
+    {
+      "title": "Microwave Data-based Automated Flood Monitoring and Hazard Assessment Using Machine Learning Algorithms",
+      "authors": "P Das, AJ Prakash, S Mudi",
+      "venue": "Chapman Conference on Remote Sensing of the Water Cycle, 2024",
+      "year": "2024",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:eFf2swCANGcC"
+    },
+    {
+      "title": "Harvesting Synergy: Incorporating fuel flammability to estimate Forest fire susceptibility using Machine Learning and earth observation data",
+      "authors": "S Behera, P Shome, AJ Prakash, S Mudi, MD Behera, BK Prusty, MP Kale, ...",
+      "venue": "AGU Fall Meeting Abstracts 2023 (2669), A33J-2669, 2023",
+      "year": "2023",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:Nufq_to8ts0C"
+    },
+    {
+      "title": "COVID-19 slowdown induced improvement in air quality in India: Rapid assessment using Sentinel-5P TROPOMI data",
+      "authors": "MD Behera, S Mudi, P Shome, PK Das, S Kumar, A Joshi, A Rathore, ...",
+      "venue": "Geocarto International 37 (25), 8127-8147, 2022",
+      "year": "2022",
+      "citations": "49",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:wBLCggQE-ToC"
+    },
+    {
+      "title": "Moderate resolution LAI prediction using Sentinel-2 satellite data and indirect field measurements in Sikkim Himalaya",
+      "authors": "S Mudi, S Paramanik, MD Behera, AJ Prakash, NR Deep, MP Kale, ...",
+      "venue": "Environmental Monitoring and Assessment 194 (12), 897, 2022",
+      "year": "2022",
+      "citations": "16",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:ojlX30-wUrgC"
+    },
+    {
+      "title": "Shifting cultivation induced burn area dynamics using ensemble approach in Northeast India",
+      "authors": "P Das, MD Behera, SK Barik, S Mudi, B Jagadish, S Sarkar, SR Joshi, ...",
+      "venue": "Trees, Forests and People 7, 100183, 2022",
+      "year": "2022",
+      "citations": "19",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:oYLFIHfuHKwC"
+    },
+    {
+      "title": "Assessment of tropical cyclone amphan affected inundation areas using sentinel-1 satellite data",
+      "authors": "MD Behera, J Prakash, S Paramanik, S Mudi, J Dash, R Varghese, ...",
+      "venue": "Tropical Ecology 63 (1), 9-19, 2022",
+      "year": "2022",
+      "citations": "21",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:cSdaV2aYdYsC"
+    },
+    {
+      "title": "Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data",
+      "authors": "S Mudi, JP A, P Das",
+      "venue": "Geospatial Technology for Environmental Hazards, 459-473, 2022",
+      "year": "2022",
       "citations": "18",
-      "scholar_link": "https://scholar.google.com/citations?user=oVm7TyYAAAAJ"
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:S2WlVNSe3u4C"
     },
     {
-      "title": "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1",
-      "authors": "Sambhunath Roy, Sujoy Mudi, Pulakesh Das, et al.",
-      "venue": "Springer, 2021",
+      "title": "Automated mapping for long-term analysis of shifting cultivation in Northeast India",
+      "authors": "P Das, S Mudi, MD Behera, SK Barik, DR Mishra, PS Roy",
+      "venue": "Remote Sensing 13 (6), 1066, 2021",
       "year": "2021",
-      "citations": "12",
-      "scholar_link": "https://link.springer.com"
+      "citations": "76",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:BW2nPTmhBn4C"
     },
     {
-      "title": "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1",
-      "authors": "M.D. Behera, Sujoy Mudi, et al.",
-      "venue": "Tropical Ecology, 2021",
+      "title": "Automated mapping for long-term analysis of shifting cultivation in Northeast India. Remote Sens 13 (6): 1066",
+      "authors": "P Das, S Mudi, MD Behera, SK Barik, DR Mishra, PS Roy",
+      "venue": "",
       "year": "2021",
+      "citations": "10",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:a2necdfpwlEC"
+    },
+    {
+      "title": "Recent rise in wildfires in community forests and other natural vegetation: geospatial basis",
+      "authors": "S Mudi, MD Behera, S Paramanik, A Jayaprakash, BK Prusty",
+      "venue": "Current Science 121 (7), 891-893, 2021",
+      "year": "2021",
+      "citations": "8",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:ShjGdcaqzI0C"
+    },
+    {
+      "title": "Development of a WebGIS platform to generate biodiversity data using citizen science approach",
+      "authors": "S Mudi, S Roy, P Das, SKV Pasha",
+      "venue": "Forest Resources Resilience and Conflicts, 17-31, 2021",
+      "year": "2021",
+      "citations": "2",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:K4-iKlO5MD4C"
+    },
+    {
+      "title": "Estimating above ground biomass (AGB) and tree density using sentinel-1 data",
+      "authors": "S Roy, S Mudi, P Das, S Ghosh, PK Shit, GS Bhunia, J Kim",
+      "venue": "Spatial Modeling in Forest Resources Management: Rural Livelihood and …, 2020",
+      "year": "2020",
+      "citations": "25",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:wGzT3bKASkAC"
+    },
+    {
+      "title": "Scaling Agroforestry Land Suitability Analysis in Odisha, India: A Machine Learning Approach",
+      "authors": "RK Singh, S Gakhar, P Das, J Prakash, MD Behera, C Biradar, S Mudi, ...",
+      "venue": "Frontiers in Remote Sensing 7, 1780218, 0",
+      "year": "",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:pUxgyZctzPYC"
+    },
+    {
+      "title": "A, JP, & Das, P.(2022). Flood hazard mapping in Assam using Sentinel-1 SAR data",
+      "authors": "S Mudi, D A JP",
+      "venue": "Geospatial technology for environmental hazards. Advances in geographic …, 0",
+      "year": "",
       "citations": "5",
-      "scholar_link": "https://scholar.google.com/citations?user=oVm7TyYAAAAJ"
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:NtGNdKbuCngC"
     }
   ]
 }
