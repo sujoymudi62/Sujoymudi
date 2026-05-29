@@ -8,9 +8,62 @@
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" href="assets/img/favicon.ico" />
 
+  <link rel="canonical" href="https://sujoymudi62.github.io/Sujoymudi/" />
+
   <meta property="og:title" content="Sujoy Mudi — Senior Geospatial ML Engineer" />
   <meta property="og:description" content="GeoAI · Forest Carbon MRV · Natural Hazards · SAR & Optical Fusion. 7+ years across BeZero Carbon, IIT Kharagpur, and Neara." />
   <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://sujoymudi62.github.io/Sujoymudi/" />
+  <meta property="og:site_name" content="Sujoy Mudi · Portfolio" />
+  <meta property="og:image" content="https://sujoymudi62.github.io/Sujoymudi/assets/img/sujoy_headshot.png" />
+  <meta property="og:image:alt" content="Portrait of Sujoy Mudi" />
+  <meta property="profile:first_name" content="Sujoy" />
+  <meta property="profile:last_name" content="Mudi" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sujoy Mudi — Senior Geospatial ML Engineer" />
+  <meta name="twitter:description" content="GeoAI · Forest Carbon MRV · Natural Hazards · SAR & Optical Fusion. 7+ years across BeZero Carbon, IIT Kharagpur, and Neara." />
+  <meta name="twitter:image" content="https://sujoymudi62.github.io/Sujoymudi/assets/img/sujoy_headshot.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sujoy Mudi",
+    "givenName": "Sujoy",
+    "familyName": "Mudi",
+    "jobTitle": "Senior Geospatial ML Engineer",
+    "description": "Geospatial Machine Learning Engineer with 7+ years building deep-learning and ML pipelines for forest carbon MRV, natural hazards, and large-scale satellite analytics.",
+    "url": "https://sujoymudi62.github.io/Sujoymudi/",
+    "image": "https://sujoymudi62.github.io/Sujoymudi/assets/img/sujoy_headshot.png",
+    "email": "mailto:sujoymudi62@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kolkata",
+      "addressCountry": "IN"
+    },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "IIT Kharagpur" },
+      { "@type": "CollegeOrUniversity", "name": "Vidyasagar University" }
+    ],
+    "knowsAbout": [
+      "Remote Sensing", "Geospatial Machine Learning", "GeoAI",
+      "Forest Carbon MRV", "Natural Hazard Monitoring",
+      "Synthetic Aperture Radar", "Sentinel-1", "Sentinel-2",
+      "U-Net", "Transformers", "Semantic Segmentation",
+      "STAC", "xarray", "dask", "Earth Engine", "Prefect", "Airflow"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Neara"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/sujoy-mudi-182553129",
+      "https://scholar.google.com/citations?user=oVm7TyYAAAAJ",
+      "https://github.com/sujoymudi62"
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -436,6 +489,62 @@
     /* LEAFLET dark popups */
     .leaflet-popup-content-wrapper, .leaflet-popup-tip{background:var(--bg-elev);color:var(--fg);border:1px solid var(--border)}
     .leaflet-popup-content a{color:var(--accent-2)}
+
+    /* GITHUB REPOS */
+    .repos{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media (max-width:1000px){ .repos{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .repos{grid-template-columns:1fr} }
+    .repo{
+      padding:18px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
+      display:flex; flex-direction:column; gap:10px;
+      transition:all var(--t-fast);
+    }
+    .repo:hover{border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px)}
+    .repo .name{font-family:var(--font-display); font-weight:700; font-size:1rem; display:flex; align-items:center; gap:8px}
+    .repo .name .ic{color:var(--accent-2)}
+    .repo .desc{color:var(--fg-dim); font-size:.88rem; line-height:1.5; flex:1}
+    .repo .foot{display:flex; gap:14px; align-items:center; color:var(--muted); font-size:.78rem; font-family:var(--font-mono); margin-top:auto; padding-top:8px; border-top:1px solid var(--border)}
+    .repo .foot .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+    .repo .foot .stars{color:var(--accent-2)}
+    .repos-empty{padding:22px; border-radius:var(--radius); background:var(--surface); border:1px dashed var(--border); color:var(--muted); text-align:center; font-size:.92rem}
+
+    /* WRITING / NOTES */
+    .notes{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media (max-width:980px){ .notes{grid-template-columns:1fr} }
+    .note{
+      padding:22px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border);
+      display:flex; flex-direction:column; gap:12px; transition:all var(--t-fast); min-height:200px;
+    }
+    .note:hover{border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px)}
+    .note .badge{display:inline-flex; gap:6px; align-items:center; padding:4px 10px; border-radius:999px; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.22); color:#fbbf24; font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; align-self:flex-start}
+    .note h3{font-size:1.05rem; line-height:1.3}
+    .note p{color:var(--fg-dim); font-size:.9rem; line-height:1.5; flex:1}
+    .note .foot{color:var(--muted); font-size:.78rem; font-family:var(--font-mono); display:flex; gap:10px; align-items:center}
+
+    /* STAC LOOKUP DEMO */
+    .demo-toggle{
+      padding:8px 12px; border-radius:10px;
+      background: color-mix(in oklab, var(--bg-elev) 75%, transparent);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color:var(--fg); font-weight:600; font-size:.82rem; cursor:pointer;
+      border:1px solid var(--border); transition: all var(--t-fast);
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .demo-toggle:hover{border-color:var(--border-strong)}
+    .demo-toggle.active{background:var(--accent-grad); color:#fff; border-color:transparent}
+    .demo-banner{
+      margin-top:10px; padding:10px 14px; border-radius:var(--radius-sm);
+      background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.22);
+      color:var(--fg-dim); font-size:.85rem; display:none; align-items:center; gap:10px;
+    }
+    .demo-banner.show{display:flex}
+    .demo-banner .pulse{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(59,130,246,.6);animation:pulse 1.6s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(59,130,246,.6)}70%{box-shadow:0 0 0 12px rgba(59,130,246,0)}100%{box-shadow:0 0 0 0 rgba(59,130,246,0)}}
+    .stac-popup{font-family:var(--font-body); font-size:13px}
+    .stac-popup .row{display:flex; justify-content:space-between; gap:12px; margin-top:4px}
+    .stac-popup .row .k{color:var(--muted)}
+    .stac-popup .row .v{font-family:var(--font-mono); color:var(--fg)}
+    .stac-popup img{margin-top:8px; width:100%; max-width:240px; border-radius:6px; border:1px solid var(--border)}
   </style>
 </head>
 <body>
@@ -452,9 +561,10 @@
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#work">Projects</a>
+        <a href="#code">Code</a>
         <a href="#map-section">Map</a>
         <a href="#publications">Publications</a>
-        <a href="#education">Education</a>
+        <a href="#notes">Notes</a>
         <a href="#recommendations">Recs</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -871,14 +981,31 @@
       </div>
     </section>
 
+    <!-- GITHUB SHOWCASE -->
+    <section id="code">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Open code</div>
+            <h2>From GitHub</h2>
+            <p class="sub">Top public repositories, pulled live from the GitHub API.</p>
+          </div>
+          <a class="link-inline" href="https://github.com/sujoymudi62" target="_blank" rel="noopener noreferrer">View all on GitHub <i class="fab fa-github"></i></a>
+        </div>
+        <div id="reposGrid" class="repos reveal">
+          <div class="repos-empty" id="reposEmpty">Loading repositories from GitHub…</div>
+        </div>
+      </div>
+    </section>
+
     <!-- MAP -->
     <section id="map-section">
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <div class="label">Footprint</div>
+            <div class="label">Footprint &amp; live demo</div>
             <h2>Where the work happens</h2>
-            <p class="sub">Selected project sites and study areas. Click any feature for details.</p>
+            <p class="sub">Project sites + a live Sentinel-2 STAC lookup. Click "STAC mode", then click anywhere on the map.</p>
           </div>
         </div>
         <div class="map-wrap reveal">
@@ -887,6 +1014,7 @@
             <button class="tool active" id="toggleProjects" onclick="toggleLayer('projects')">Projects</button>
             <button class="tool active" id="togglePublications" onclick="toggleLayer('publications')">Publications</button>
             <button class="tool" onclick="fitToAll()"><i class="fas fa-expand"></i> Fit all</button>
+            <button class="demo-toggle" id="stacToggle" onclick="toggleStacMode()" title="Click the map to query the latest Sentinel-2 tile"><i class="fas fa-satellite"></i> STAC mode</button>
             <div style="flex:1"></div>
             <select id="basemapSelect" class="basemap-select" aria-label="Basemap" onchange="changeBaseMap(this.value)">
               <option value="osm">OpenStreetMap</option>
@@ -894,6 +1022,7 @@
             </select>
           </div>
         </div>
+        <div class="demo-banner" id="stacBanner"><span class="pulse"></span><span><strong>STAC mode is on.</strong> Click anywhere on the map to fetch the latest Sentinel-2 L2A tile at that point — live via the open <a href="https://earth-search.aws.element84.com/v1" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">Earth Search</a> API.</span></div>
       </div>
     </section>
 
@@ -973,6 +1102,39 @@
               <div class="cert-row"><span class="cic"><i class="fas fa-map-marked-alt"></i></span><span class="ct">Web Programming for GIS Applications</span><span class="cy">Udemy · 2021</span></div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WRITING / NOTES -->
+    <section id="notes">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Writing</div>
+            <h2>Field notes</h2>
+            <p class="sub">Short technical notes from the work. Drafts in progress — full posts coming.</p>
+          </div>
+        </div>
+        <div class="notes reveal">
+          <article class="note">
+            <span class="badge"><i class="fas fa-pen"></i> Draft</span>
+            <h3>Why MRV biomass models live or die on plot validation</h3>
+            <p>Most biomass models aren't bottlenecked by architecture — they're bottlenecked by ground-truth integrity. A note on building a global forest-plots database and what changed about how we reported per-biome accuracy.</p>
+            <div class="foot"><i class="fas fa-clock"></i> Coming soon</div>
+          </article>
+          <article class="note">
+            <span class="badge"><i class="fas fa-pen"></i> Draft</span>
+            <h3>STAC isn't documentation — it's tooling</h3>
+            <p>Standardising on STAC metadata reduced our cross-region dataset inconsistency by ~30%. The post: which conventions actually paid off, which were over-engineering, and where STAC stops being enough.</p>
+            <div class="foot"><i class="fas fa-clock"></i> Coming soon</div>
+          </article>
+          <article class="note">
+            <span class="badge"><i class="fas fa-pen"></i> Draft</span>
+            <h3>SAR + DEM + meteo: what worked for Himalayan fire risk</h3>
+            <p>An F1 ≈ 0.82 wildfire risk model in Sikkim wasn't about a fancier classifier — it was the feature stack and the cross-validation strategy. Spatial splits matter more than people admit.</p>
+            <div class="foot"><i class="fas fa-clock"></i> Coming soon</div>
+          </article>
         </div>
       </div>
     </section>
@@ -1153,6 +1315,56 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /*******************************
+     * GitHub repos — live fetch from REST API
+     *******************************/
+    (async function loadRepos(){
+      const grid = document.getElementById('reposGrid');
+      const empty = document.getElementById('reposEmpty');
+      const LANG_COLORS = {
+        Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#3178c6',
+        HTML:'#e34c26', CSS:'#563d7c', 'Jupyter Notebook':'#DA5B0B',
+        Shell:'#89e051', R:'#198CE7', Go:'#00ADD8', Rust:'#dea584',
+        Java:'#b07219', C:'#555555', 'C++':'#f34b7d'
+      };
+      try{
+        const resp = await fetch('https://api.github.com/users/sujoymudi62/repos?per_page=100&sort=updated', {
+          headers:{'Accept':'application/vnd.github+json'}
+        });
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
+        const repos = await resp.json();
+        const filtered = repos
+          .filter(r => !r.fork && !r.archived)
+          .sort((a,b) => (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at)))
+          .slice(0, 6);
+        if(!filtered.length){
+          empty.textContent = 'No public repos to show yet.';
+          return;
+        }
+        grid.innerHTML = '';
+        const fmtDate = d => new Date(d).toLocaleDateString(undefined, {year:'numeric', month:'short'});
+        filtered.forEach(r => {
+          const langColor = LANG_COLORS[r.language] || '#7a8294';
+          const card = document.createElement('a');
+          card.className = 'repo';
+          card.href = r.html_url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.innerHTML = `
+            <div class="name"><span class="ic"><i class="fas fa-code-branch"></i></span>${escapeHtml(r.name)}</div>
+            <div class="desc">${escapeHtml(r.description || 'No description provided.')}</div>
+            <div class="foot">
+              ${r.language ? `<span><span class="dot" style="background:${langColor}"></span> ${escapeHtml(r.language)}</span>` : ''}
+              <span class="stars"><i class="fas fa-star"></i> ${r.stargazers_count}</span>
+              <span style="margin-left:auto"><i class="fas fa-clock"></i> ${fmtDate(r.pushed_at)}</span>
+            </div>`;
+          grid.appendChild(card);
+        });
+      }catch(err){
+        empty.innerHTML = `Couldn't load repos from GitHub right now. <a href="https://github.com/sujoymudi62" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2);font-weight:600">View on GitHub →</a>`;
+      }
+    })();
+
+    /*******************************
      * Publications — auto-fetched from publications.json
      *******************************/
     const FALLBACK_PUBS = [
@@ -1288,9 +1500,65 @@
       }).addTo(map);
 
       layers = { projects: geoJsonLayer, publications: geoJsonLayer };
+      map.on('click', onMapClick);
       fitToAll();
     }
     window.addEventListener('load', initMap);
+
+    /* STAC click demo — query Earth Search v1 for the latest Sentinel-2 L2A item */
+    let stacMode = false;
+    function toggleStacMode(){
+      stacMode = !stacMode;
+      const btn = document.getElementById('stacToggle');
+      const banner = document.getElementById('stacBanner');
+      btn.classList.toggle('active', stacMode);
+      banner.classList.toggle('show', stacMode);
+      if(map){ map.getContainer().style.cursor = stacMode ? 'crosshair' : ''; }
+    }
+    async function onMapClick(e){
+      if(!stacMode) return;
+      const {lat, lng} = e.latlng;
+      const popup = L.popup({maxWidth:300}).setLatLng(e.latlng).setContent(
+        `<div class="stac-popup"><div style="font-weight:700;font-family:Archivo,sans-serif;margin-bottom:6px"><i class="fas fa-satellite"></i> Querying Sentinel-2…</div><div style="color:#7a8294;font-size:12px">${lat.toFixed(3)}°, ${lng.toFixed(3)}°</div></div>`
+      ).openOn(map);
+      try{
+        const body = {
+          collections:['sentinel-2-l2a'],
+          intersects:{type:'Point', coordinates:[lng, lat]},
+          limit:1,
+          sortby:[{field:'properties.datetime', direction:'desc'}]
+        };
+        const resp = await fetch('https://earth-search.aws.element84.com/v1/search', {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+        });
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        const item = (data.features || [])[0];
+        if(!item){
+          popup.setContent(`<div class="stac-popup"><div style="font-weight:700;font-family:Archivo,sans-serif;margin-bottom:6px">No Sentinel-2 tile here</div><div style="color:#7a8294;font-size:12px">${lat.toFixed(3)}°, ${lng.toFixed(3)}° — try a different point.</div></div>`);
+          return;
+        }
+        const dt = new Date(item.properties.datetime);
+        const cloud = item.properties['eo:cloud_cover'];
+        const tile = item.properties['mgrs:utm_zone']
+          ? `${item.properties['mgrs:utm_zone']}${item.properties['mgrs:latitude_band']}${item.properties['mgrs:grid_square']}`
+          : (item.id || '—');
+        const thumbHref = (item.assets && item.assets.thumbnail && item.assets.thumbnail.href) || null;
+        const stacBrowserUrl = `https://radiantearth.github.io/stac-browser/#/external/earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/${encodeURIComponent(item.id)}`;
+        popup.setContent(`
+          <div class="stac-popup">
+            <div style="font-weight:700;font-family:Archivo,sans-serif;margin-bottom:6px"><i class="fas fa-satellite"></i> Sentinel-2 L2A</div>
+            <div class="row"><span class="k">Tile</span><span class="v">${tile}</span></div>
+            <div class="row"><span class="k">Acquired</span><span class="v">${dt.toLocaleDateString()}</span></div>
+            <div class="row"><span class="k">Cloud cover</span><span class="v">${typeof cloud === 'number' ? cloud.toFixed(0) + '%' : '—'}</span></div>
+            ${thumbHref ? `<img src="${thumbHref}" alt="Tile thumbnail" loading="lazy" />` : ''}
+            <div style="margin-top:8px"><a href="${stacBrowserUrl}" target="_blank" rel="noopener noreferrer">Open STAC item →</a></div>
+          </div>
+        `);
+      }catch(err){
+        popup.setContent(`<div class="stac-popup"><div style="font-weight:700;font-family:Archivo,sans-serif;margin-bottom:6px">Lookup failed</div><div style="color:#7a8294;font-size:12px">${escapeHtml(String(err.message || err))}</div></div>`);
+      }
+    }
 
     function fitToAll(){
       if(!geoJsonLayer) return;
