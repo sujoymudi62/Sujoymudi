@@ -2,74 +2,66 @@
 """
 scripts/fetch_scholar.py
 
-Scrape a Google Scholar profile and write a publications.json file.
+Fetch a Google Scholar profile and write publications.json.
 
-Usage (locally or in GitHub Actions):
-  python scripts/fetch_scholar.py --user oVm7TyYAAAAJ --out publications.json
+Uses the `scholarly` library, which rotates user agents and optionally
+proxies — substantially more resilient than a raw HTML scrape from a
+data-center IP.
 
-Notes
------
-Google Scholar has no public API. This scrapes the public profile page.
-It may occasionally hit a CAPTCHA wall; in that case the script exits
-non-zero and the existing publications.json is left untouched (so the
-site keeps showing the last good data).
+Usage:
+    python scripts/fetch_scholar.py --user oVm7TyYAAAAJ --out publications.json
+    python scripts/fetch_scholar.py --user oVm7TyYAAAAJ --out publications.json --use-free-proxies
+
+Exit codes:
+    0  success
+    2  Scholar unreachable / blocked / timed out
+    3  fetched profile but parsed zero publications
 """
 import argparse
 import json
 import sys
 import time
-from urllib.parse import urljoin
+import traceback
 
-import requests
-from bs4 import BeautifulSoup
-
-BASE = "https://scholar.google.com"
-
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/120.0 Safari/537.36"
-    ),
-    "Accept-Language": "en-US,en;q=0.9",
-}
+from scholarly import scholarly, ProxyGenerator
 
 
-def fetch_profile(user: str) -> str:
-    url = f"{BASE}/citations?user={user}&hl=en&pagesize=100"
-    resp = requests.get(url, headers=HEADERS, timeout=30)
-    resp.raise_for_status()
-    body = resp.text
-    if "Please show you're not a robot" in body or "/sorry/" in resp.url:
-        raise RuntimeError("Google Scholar served a CAPTCHA; try again later.")
-    return body
+def configure_proxies() -> bool:
+    """Best-effort: try a free proxy pool. Returns True if a proxy was set."""
+    pg = ProxyGenerator()
+    try:
+        if pg.FreeProxies():
+            scholarly.use_proxy(pg)
+            return True
+    except Exception as e:
+        print(f"WARN: free proxy setup failed: {e}", file=sys.stderr)
+    return False
 
 
-def parse_profile(html: str) -> list[dict]:
-    soup = BeautifulSoup(html, "html.parser")
-    rows = soup.select(".gsc_a_tr")
+def fetch_author(user_id: str) -> dict:
+    author = scholarly.search_author_id(user_id)
+    return scholarly.fill(
+        author,
+        sections=["basics", "indices", "counts", "publications"],
+    )
+
+
+def normalize_publications(author: dict) -> list[dict]:
     pubs: list[dict] = []
-    for r in rows:
-        title_tag = r.select_one(".gsc_a_t a")
-        if not title_tag:
+    for p in author.get("publications", []):
+        bib = p.get("bib", {}) or {}
+        title = bib.get("title", "").strip()
+        if not title:
             continue
-        title = title_tag.get_text(strip=True)
-        href = title_tag.get("href")
-        link = urljoin(BASE, href) if href else None
-
-        grays = r.select(".gsc_a_t .gs_gray")
-        authors = grays[0].get_text(strip=True) if len(grays) > 0 else ""
-        venue = grays[1].get_text(strip=True) if len(grays) > 1 else ""
-
-        year_tag = r.select_one(".gsc_a_y .gsc_a_h")
-        year = year_tag.get_text(strip=True) if year_tag else ""
-
-        cite_tag = r.select_one(".gsc_a_c a")
-        if cite_tag:
-            citations = cite_tag.get_text(strip=True) or "0"
-        else:
-            fallback = r.select_one(".gsc_a_c")
-            citations = (fallback.get_text(strip=True) if fallback else "") or "0"
-
+        authors = bib.get("author", "").strip()
+        venue = (bib.get("venue") or bib.get("citation") or "").strip()
+        year = str(bib.get("pub_year", "")).strip()
+        citations = str(p.get("num_citations", 0))
+        link = p.get("pub_url") or p.get("eprint_url")
+        if not link:
+            cid = p.get("author_pub_id")
+            if cid:
+                link = f"https://scholar.google.com/citations?view_op=view_citation&hl=en&user={author.get('scholar_id','')}&citation_for_view={cid}"
         pubs.append({
             "title": title,
             "authors": authors,
@@ -78,49 +70,55 @@ def parse_profile(html: str) -> list[dict]:
             "citations": citations,
             "scholar_link": link,
         })
-
     pubs.sort(key=lambda p: (int(p["year"]) if p["year"].isdigit() else 0), reverse=True)
     return pubs
 
 
-def summary(pubs: list[dict]) -> dict:
-    total_citations = 0
-    for p in pubs:
-        c = p["citations"]
-        if c.isdigit():
-            total_citations += int(c)
-    return {"total_citations": total_citations}
-
-
 def main() -> int:
-    p = argparse.ArgumentParser()
-    p.add_argument("--user", required=True, help="Google Scholar user id (e.g. oVm7TyYAAAAJ)")
-    p.add_argument("--out", default="publications.json")
-    args = p.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--user", required=True, help="Google Scholar user id (e.g. oVm7TyYAAAAJ)")
+    ap.add_argument("--out", default="publications.json")
+    ap.add_argument("--use-free-proxies", action="store_true",
+                    help="Route requests through free proxy pool (slower but evades blocks).")
+    args = ap.parse_args()
 
-    print(f"Fetching Google Scholar profile for user: {args.user}", file=sys.stderr)
+    if args.use_free_proxies:
+        print("Configuring free proxy pool…", file=sys.stderr)
+        if configure_proxies():
+            print("Free proxy pool active.", file=sys.stderr)
+        else:
+            print("No usable free proxies — continuing direct.", file=sys.stderr)
+
+    print(f"Fetching Google Scholar profile: {args.user}", file=sys.stderr)
     try:
-        html = fetch_profile(args.user)
+        author = fetch_author(args.user)
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)
+        traceback.print_exc()
         return 2
 
-    pubs = parse_profile(html)
+    pubs = normalize_publications(author)
     if not pubs:
-        print("ERROR: parsed 0 publications (page layout may have changed).", file=sys.stderr)
+        print("ERROR: 0 publications parsed.", file=sys.stderr)
         return 3
 
+    total_cites_field = author.get("citedby") or sum(int(p["citations"]) for p in pubs if p["citations"].isdigit())
     data = {
         "updated_at": int(time.time()),
         "user_id": args.user,
-        "source": "scholar.google.com",
+        "source": "scholar.google.com (via scholarly)",
+        "name": author.get("name", ""),
+        "affiliation": author.get("affiliation", ""),
+        "h_index": author.get("hindex"),
+        "i10_index": author.get("i10index"),
+        "total_citations": total_cites_field,
         "count": len(pubs),
-        **summary(pubs),
         "publications": pubs,
     }
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    print(f"Wrote {len(pubs)} publications to {args.out}", file=sys.stderr)
+    print(f"Wrote {len(pubs)} publications · {total_cites_field} citations · "
+          f"h={author.get('hindex')} to {args.out}", file=sys.stderr)
     return 0
 
 

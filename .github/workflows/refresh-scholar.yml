@@ -18,7 +18,7 @@ env:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -31,8 +31,43 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Fetch publications
-        run: python scripts/fetch_scholar.py --user oVm7TyYAAAAJ --out publications.json
+      - name: Fetch publications (with retry + proxy fallback)
+        id: fetch
+        shell: bash
+        run: |
+          set +e
+          USER_ID="oVm7TyYAAAAJ"
+          OUT="publications.json"
+
+          attempt() {
+            local label="$1"; shift
+            echo "::group::Attempt: $label"
+            python scripts/fetch_scholar.py --user "$USER_ID" --out "$OUT" "$@"
+            local rc=$?
+            echo "::endgroup::"
+            return $rc
+          }
+
+          attempt "direct (try 1)"
+          rc=$?
+          if [ $rc -ne 0 ]; then
+            echo "Direct fetch failed (rc=$rc). Sleeping 30s then retrying direct."
+            sleep 30
+            attempt "direct (try 2)"
+            rc=$?
+          fi
+          if [ $rc -ne 0 ]; then
+            echo "Still failing (rc=$rc). Sleeping 60s then trying free proxies."
+            sleep 60
+            attempt "free-proxies" --use-free-proxies
+            rc=$?
+          fi
+
+          if [ $rc -ne 0 ]; then
+            echo "::error::All fetch attempts failed (rc=$rc). publications.json left untouched."
+            exit $rc
+          fi
+          echo "Fetch succeeded."
 
       - name: Commit if changed
         run: |
