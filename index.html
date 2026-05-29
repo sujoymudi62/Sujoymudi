@@ -470,6 +470,12 @@
         </div>
 
         <div id="tab-content-publications" class="reveal">
+          <div id="pubMeta" style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;color:var(--muted);font-size:.85rem">
+            <span id="pubCount"></span>
+            <span id="pubCitations"></span>
+            <span id="pubUpdated"></span>
+            <a class="link-inline" href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" style="margin-left:auto">View on Scholar <i class="fas fa-external-link-alt"></i></a>
+          </div>
           <div id="pubListContainer" class="pub-list"></div>
         </div>
 
@@ -616,33 +622,80 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /*******************************
-     * Publications data
+     * Publications — auto-fetched from publications.json
+     * (refreshed weekly by a GitHub Action that scrapes Google Scholar)
      *******************************/
-    const STATIC_PUBS = [
-      { title:"Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India", authors:"Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.", venue:"Remote Sensing", year:2021, link:"https://www.mdpi.com/2072-4292/13/6/1066" },
-      { title:"Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data", authors:"Behera M.D., Mudi S., et al.", venue:"Tropical Ecology", year:2021, link:"https://eprints.soton.ac.uk/457154/" },
-      { title:"Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data", authors:"Roy S., Mudi S., Das P., et al.", venue:"Spatial Modeling in Forest Resources Management, Springer", year:2021, link:"https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" },
-      { title:"Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data", authors:"Mudi S., Prakash J., Das P.", venue:"Research Report / ResearchGate", year:2022, link:"https://www.researchgate.net/" },
-      { title:"Managing Mangrove Forests Using Open Source–Based WebGIS", authors:"Roy S., Mudi S., Das P.", venue:"WebGIS research article", year:2020, link:"https://www.researchgate.net/" }
+    const FALLBACK_PUBS = [
+      { title:"Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India", authors:"Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.", venue:"Remote Sensing", year:"2021", citations:"", scholar_link:"https://www.mdpi.com/2072-4292/13/6/1066" },
+      { title:"Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data", authors:"Behera M.D., Mudi S., et al.", venue:"Tropical Ecology", year:"2021", citations:"", scholar_link:"https://eprints.soton.ac.uk/457154/" },
+      { title:"Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data", authors:"Roy S., Mudi S., Das P., et al.", venue:"Springer", year:"2021", citations:"", scholar_link:"https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" },
+      { title:"Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data", authors:"Mudi S., Prakash J., Das P.", venue:"ResearchGate", year:"2022", citations:"", scholar_link:"https://www.researchgate.net/" },
+      { title:"Managing Mangrove Forests Using Open Source–Based WebGIS", authors:"Roy S., Mudi S., Das P.", venue:"WebGIS article", year:"2020", citations:"", scholar_link:"https://www.researchgate.net/" }
     ];
+
+    let PUBS = FALLBACK_PUBS;
+    let PUB_DATA = null;
+
+    function escapeHtml(s){
+      return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    function formatUpdated(ts){
+      if(!ts) return '';
+      const d = new Date(ts * 1000);
+      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+    }
 
     function renderPublicationsTab(){
       const container = document.getElementById('pubListContainer');
       container.innerHTML = '';
-      STATIC_PUBS.sort((a,b)=>b.year-a.year).forEach(p => {
+      const sorted = [...PUBS].sort((a,b) => (parseInt(b.year)||0) - (parseInt(a.year)||0));
+      sorted.forEach(p => {
+        const link = p.scholar_link || p.link || '#';
+        const citeStr = (p.citations && /^\d+$/.test(p.citations) && parseInt(p.citations) > 0)
+          ? `<span title="Citations" style="color:var(--accent-2);font-weight:600;margin-left:8px"><i class="fas fa-quote-right" style="font-size:.7em;margin-right:4px"></i>${escapeHtml(p.citations)}</span>` : '';
         const d = document.createElement('article');
         d.className = 'pub-item';
         d.innerHTML = `
           <div style="min-width:0">
-            <div style="font-weight:600;font-family:var(--font-display);font-size:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></div>
-            <div class="meta">${p.authors} — <em>${p.venue}</em></div>
-            <div style="margin-top:10px"><a class="link-inline" href="${p.link}" target="_blank" rel="noopener noreferrer">Open <i class="fas fa-external-link-alt"></i></a></div>
+            <div style="font-weight:600;font-family:var(--font-display);font-size:1rem"><a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.title)}</a>${citeStr}</div>
+            <div class="meta">${escapeHtml(p.authors)} — <em>${escapeHtml(p.venue)}</em></div>
+            <div style="margin-top:10px"><a class="link-inline" href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">Open <i class="fas fa-external-link-alt"></i></a></div>
           </div>
-          <span class="year-badge">${p.year}</span>`;
+          <span class="year-badge">${escapeHtml(p.year)}</span>`;
         container.appendChild(d);
       });
+      renderPubMeta();
     }
-    renderPublicationsTab();
+
+    function renderPubMeta(){
+      const count = PUBS.length;
+      const totalCites = PUB_DATA && Number.isFinite(PUB_DATA.total_citations)
+        ? PUB_DATA.total_citations
+        : PUBS.reduce((s,p) => s + (parseInt(p.citations)||0), 0);
+      document.getElementById('pubCount').innerHTML = `<i class="fas fa-book"></i> ${count} publications`;
+      document.getElementById('pubCitations').innerHTML = totalCites > 0
+        ? `<i class="fas fa-quote-right"></i> ${totalCites} total citations` : '';
+      const upd = PUB_DATA && PUB_DATA.updated_at ? formatUpdated(PUB_DATA.updated_at) : '';
+      document.getElementById('pubUpdated').innerHTML = upd
+        ? `<i class="fas fa-sync-alt"></i> updated ${upd}` : '';
+    }
+
+    async function loadPublications(){
+      try{
+        const resp = await fetch(`publications.json?t=${Date.now()}`, { cache:'no-store' });
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        if(data && Array.isArray(data.publications) && data.publications.length){
+          PUB_DATA = data;
+          PUBS = data.publications;
+        }
+      }catch(_){
+        // keep fallback
+      }
+      renderPublicationsTab();
+      if(chartsRendered){ chartsRendered = false; renderCharts(); }
+    }
+    loadPublications();
 
     /*******************************
      * Map (Leaflet) — defer-loaded
@@ -738,7 +791,7 @@
         options:{ responsive:true, plugins:{ legend:{ position:'bottom', labels:{ color:'#b6bdcc' } } } }
       });
       const byYear = {};
-      STATIC_PUBS.forEach(p => byYear[p.year] = (byYear[p.year]||0)+1);
+      PUBS.forEach(p => { const y = String(p.year || ''); if(y) byYear[y] = (byYear[y]||0)+1; });
       const years = Object.keys(byYear).sort();
       new Chart(document.getElementById('pubsChart').getContext('2d'), {
         type:'bar',
