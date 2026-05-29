@@ -1,414 +1,787 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sujoy Mudi — Geospatial Dashboard</title>
-  <meta name="description" content="Geospatial dashboard and portfolio of Sujoy Mudi — GeoAI, MRV, natural hazards, forest carbon." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <title>Sujoy Mudi — Geospatial ML Engineer & GeoAI Researcher</title>
+  <meta name="description" content="Portfolio of Sujoy Mudi — Geospatial Machine Learning Engineer working on GeoAI, forest carbon MRV, natural hazards, and biomass pipelines." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" href="assets/img/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a2d9b9c7b6.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <style>
     :root{
-      --bg:#061324; --muted:#9fb0c8; --accent:#0ea5a3; --accent-2:#60a5fa;
-      --card-radius:12px; --maxw:1400px; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --bg: #0a0a0f;
+      --bg-elev: #11111a;
+      --surface: rgba(255,255,255,0.035);
+      --surface-2: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.14);
+      --fg: #e9ecf2;
+      --fg-dim: #b6bdcc;
+      --muted: #7a8294;
+      --accent: #3b82f6;
+      --accent-2: #06b6d4;
+      --accent-grad: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+      --danger: #ef4444;
+      --success: #10b981;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --radius-lg: 22px;
+      --maxw: 1240px;
+      --shadow-soft: 0 8px 28px rgba(0,0,0,0.35);
+      --shadow-glow: 0 0 0 1px rgba(59,130,246,0.18), 0 18px 50px -10px rgba(59,130,246,0.35);
+      --t-fast: 160ms cubic-bezier(.2,.7,.3,1);
+      --t-med: 280ms cubic-bezier(.2,.7,.3,1);
+      --font-display: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-body: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     }
+    html[data-theme="light"]{
+      --bg: #fafafa;
+      --bg-elev: #ffffff;
+      --surface: rgba(15,23,42,0.03);
+      --surface-2: rgba(15,23,42,0.06);
+      --border: rgba(15,23,42,0.08);
+      --border-strong: rgba(15,23,42,0.14);
+      --fg: #0b1220;
+      --fg-dim: #2b3445;
+      --muted: #5b6577;
+      --shadow-soft: 0 10px 30px rgba(15,23,42,0.08);
+    }
+
     *{box-sizing:border-box}
-    html,body,#map{height:100%}
-    body{margin:0;background:linear-gradient(180deg,#041021 0%, #061428 80%);color:#e6eef6;font-size:15px}
-    .dashboard{display:grid;grid-template-columns:320px 1fr 380px;gap:18px;max-width:var(--maxw);margin:18px auto;padding:12px}
-    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-    .profile{display:flex;flex-direction:column;gap:12px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto;padding-bottom:20px}
-    .photo{width:100%;height:220px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center}
-    /* RESPONSIVE IMAGE: use srcset for high-res */
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-    .profile h2{margin:8px 0 2px;font-size:18px}
-    .role{color:var(--muted);font-size:13px;margin-bottom:6px}
-    .muted{color:var(--muted)}
-    .stats{display:flex;gap:8px;flex-wrap:wrap}
-    .stat{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;flex:1;min-width:120px;text-align:center}
-    .stat .n{font-weight:800;font-size:18px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--accent);color:#042014;font-weight:700;border:none;cursor:pointer}
-    .btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
-    .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .links a{color:var(--muted);font-weight:700}
-    #map{flex:1;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    .map-toolbar{display:flex;gap:8px;align-items:center;margin-top:6px}
-    .tool{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:700;cursor:pointer}
-    .tool.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042014}
-    .right-col{position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto;padding-bottom:20px;display:flex;flex-direction:column;gap:12px}
-    .tabs{display:flex;gap:8px;margin-bottom:12px}
-    .tab{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer;font-weight:700}
-    .tab.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042014}
-    .list{display:flex;flex-direction:column;gap:10px}
-    .project-card{padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
-    .pub-item{padding:10px;border-radius:8px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
-    canvas{width:100% !important;height:auto !important}
-    .contact-form{display:flex;flex-direction:column;gap:8px}
-    .contact-form input,.contact-form textarea{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);color:#e6eef6}
-    .contact-form button{align-self:flex-start}
-    @media (max-width:1100px){ .dashboard{grid-template-columns:1fr;gap:12px;padding:12px} .profile{position:relative;height:auto} .right-col{position:relative;height:auto} }
-    .sqrt{position:fixed;right:18px;bottom:14px;background:rgba(0,0,0,0.6);padding:8px 10px;border-radius:8px;font-weight:700;color:#cde;box-shadow:0 6px 18px rgba(2,6,23,0.6);z-index:999}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 600px at 80% -10%, rgba(59,130,246,0.18), transparent 60%),
+        radial-gradient(700px 500px at -10% 10%, rgba(6,182,212,0.14), transparent 55%),
+        var(--bg);
+      color:var(--fg);
+      font-family: var(--font-body);
+      font-size:16px; line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    html[data-theme="light"] body{
+      background:
+        radial-gradient(900px 600px at 80% -10%, rgba(59,130,246,0.10), transparent 60%),
+        radial-gradient(700px 500px at -10% 10%, rgba(6,182,212,0.08), transparent 55%),
+        var(--bg);
+    }
+    h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;margin:0}
+    h1{font-size:clamp(2.2rem, 4.2vw, 3.6rem); line-height:1.05}
+    h2{font-size:clamp(1.6rem, 2.6vw, 2.1rem); line-height:1.15}
+    h3{font-size:1.15rem}
+    p{margin:0}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible, .tab:focus-visible, .tool:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:8px}
+
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(160%) blur(14px);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em;font-size:1.05rem}
+    .brand .dot{width:28px;height:28px;border-radius:8px;background:var(--accent-grad);box-shadow:var(--shadow-glow);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem}
+    .nav-links{display:flex;align-items:center;gap:8px}
+    .nav-links a{padding:8px 12px;border-radius:999px;color:var(--fg-dim);font-size:.92rem;transition:color var(--t-fast), background var(--t-fast)}
+    .nav-links a:hover{color:var(--fg); background:var(--surface)}
+    .nav-links a.active{color:var(--fg); background:var(--surface-2)}
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .icon-btn{
+      width:38px;height:38px;border-radius:10px;border:1px solid var(--border);
+      background:var(--surface); color:var(--fg-dim); display:inline-flex;align-items:center;justify-content:center;
+      cursor:pointer; transition: all var(--t-fast);
+    }
+    .icon-btn:hover{color:var(--fg); border-color:var(--border-strong); transform:translateY(-1px)}
+    .nav-toggle{display:none}
+    @media (max-width:860px){
+      .nav-links{display:none}
+      .nav-toggle{display:inline-flex}
+      .nav-links.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg-elev);padding:12px;border-bottom:1px solid var(--border)}
+      .nav-links.open a{width:100%}
+    }
+
+    /* HERO */
+    .hero{padding:72px 0 36px; position:relative}
+    .hero-grid{display:grid;grid-template-columns:1.3fr .9fr; gap:48px; align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 12px;border-radius:999px;border:1px solid var(--border);
+      background:var(--surface); color:var(--fg-dim); font-size:.82rem; font-weight:500;
+      margin-bottom:18px;
+    }
+    .eyebrow .live{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 4px rgba(16,185,129,.18)}
+    .gradient-text{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p.lead{margin-top:18px; color:var(--fg-dim); font-size:1.08rem; max-width:58ch}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:12px 18px;border-radius:12px;
+      font-weight:600;font-size:.95rem;cursor:pointer;
+      border:1px solid transparent;
+      transition: transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+    }
+    .btn-primary{background:var(--accent-grad); color:#fff; box-shadow:var(--shadow-glow)}
+    .btn-primary:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(59,130,246,.3), 0 22px 60px -12px rgba(59,130,246,.55)}
+    .btn-ghost{background:var(--surface); color:var(--fg); border-color:var(--border)}
+    .btn-ghost:hover{background:var(--surface-2); border-color:var(--border-strong); transform:translateY(-1px)}
+    .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .pill{padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--fg-dim);font-size:.82rem}
+
+    .hero-card{
+      position:relative; padding:18px; border-radius:var(--radius-lg);
+      background:var(--surface); border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+    .hero-card::before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+      background:linear-gradient(135deg, rgba(59,130,246,.5), transparent 40%, rgba(6,182,212,.4));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+    }
+    .photo-frame{
+      aspect-ratio: 4/5; width:100%; border-radius:16px; overflow:hidden;
+      background:linear-gradient(135deg, rgba(59,130,246,.18), rgba(6,182,212,.10));
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+    .photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
+    .photo-frame .initials{font-family:var(--font-display); font-weight:800; font-size:64px; color:var(--fg)}
+    @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:32px} .hero{padding:48px 0 16px} .photo-frame{max-width:340px;margin:0 auto} }
+
+    /* SECTIONS */
+    section{padding:56px 0; scroll-margin-top:72px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+    .section-head .label{color:var(--muted); font-size:.85rem; text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px}
+
+    /* STATS BENTO */
+    .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media (max-width:860px){ .bento{grid-template-columns:repeat(2,1fr)} }
+    .stat-card{
+      padding:18px;border-radius:var(--radius);
+      background:var(--surface);border:1px solid var(--border);
+      transition: transform var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+    }
+    .stat-card:hover{transform:translateY(-2px); border-color:var(--border-strong); background:var(--surface-2)}
+    .stat-card .n{font-family:var(--font-display);font-weight:800;font-size:1.9rem;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat-card .lbl{color:var(--muted); font-size:.85rem; margin-top:4px}
+
+    /* MAP */
+    .map-wrap{
+      position:relative; border-radius:var(--radius-lg); overflow:hidden;
+      border:1px solid var(--border); background:var(--bg-elev);
+      box-shadow:var(--shadow-soft);
+    }
+    #map{height:520px; width:100%}
+    .map-toolbar{
+      position:absolute; top:14px; left:14px; right:14px; z-index:400;
+      display:flex; gap:8px; flex-wrap:wrap; pointer-events:none;
+    }
+    .map-toolbar > *{pointer-events:auto}
+    .tool{
+      padding:8px 12px;border-radius:10px;
+      background: color-mix(in oklab, var(--bg-elev) 75%, transparent);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      color:var(--fg-dim); font-weight:600; font-size:.82rem; cursor:pointer;
+      border:1px solid var(--border); transition: all var(--t-fast);
+    }
+    .tool:hover{color:var(--fg); border-color:var(--border-strong)}
+    .tool.active{background:var(--accent-grad);color:#fff;border-color:transparent}
+    .basemap-select{
+      padding:8px 12px; border-radius:10px;
+      background: color-mix(in oklab, var(--bg-elev) 75%, transparent);
+      backdrop-filter: blur(8px);
+      color:var(--fg); border:1px solid var(--border); font-family:var(--font-body); font-size:.82rem;
+    }
+
+    /* PROJECTS GRID */
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:1000px){ .projects{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .projects{grid-template-columns:1fr} }
+    .project-card{
+      position:relative; padding:22px; border-radius:var(--radius);
+      background:var(--surface); border:1px solid var(--border);
+      transition: transform var(--t-med), border-color var(--t-med), background var(--t-med);
+      display:flex; flex-direction:column; gap:12px;
+      min-height:200px;
+    }
+    .project-card:hover{transform:translateY(-4px); border-color:var(--border-strong); background:var(--surface-2)}
+    .project-card .tag{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;color:var(--accent-2);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+    .project-card h3{font-size:1.1rem; line-height:1.3}
+    .project-card p{color:var(--fg-dim); font-size:.92rem}
+    .project-card .actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+    .link-inline{color:var(--accent-2);font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:6px;transition:gap var(--t-fast)}
+    .link-inline:hover{gap:10px}
+
+    /* TABS */
+    .tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--border)}
+    .tab{padding:8px 16px;border-radius:999px;color:var(--fg-dim);cursor:pointer;font-weight:600;font-size:.88rem;border:none;background:transparent;font-family:var(--font-body);transition: all var(--t-fast)}
+    .tab.active{background:var(--accent-grad);color:#fff}
+
+    /* PUBLICATIONS LIST */
+    .pub-list{display:flex;flex-direction:column;gap:12px}
+    .pub-item{
+      padding:18px;border-radius:var(--radius);background:var(--surface);
+      border:1px solid var(--border); transition:all var(--t-fast);
+      display:flex; justify-content:space-between; gap:18px; align-items:flex-start;
+    }
+    .pub-item:hover{border-color:var(--border-strong); background:var(--surface-2)}
+    .pub-item .meta{color:var(--muted); font-size:.82rem; margin-top:6px}
+    .pub-item .year-badge{
+      flex-shrink:0; padding:6px 10px; border-radius:8px;
+      background:var(--surface-2); color:var(--fg-dim); font-weight:600; font-size:.78rem;
+      font-family:var(--font-display);
+    }
+
+    /* CHART AREA */
+    .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:860px){ .chart-grid{grid-template-columns:1fr} }
+    .chart-card{padding:20px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border)}
+    .chart-card h4{font-size:.95rem;margin-bottom:14px}
+
+    /* CONTACT */
+    .contact-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:24px}
+    @media (max-width:860px){ .contact-grid{grid-template-columns:1fr} }
+    .contact-card{padding:28px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-soft)}
+    .form{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+    .form input,.form textarea{
+      padding:12px 14px;border-radius:10px;border:1px solid var(--border);
+      background:var(--bg-elev);color:var(--fg); font-family:var(--font-body); font-size:.95rem;
+      transition: border-color var(--t-fast), background var(--t-fast);
+    }
+    .form input:focus,.form textarea:focus{outline:none;border-color:var(--accent);background:var(--surface-2)}
+    .form textarea{resize:vertical;min-height:110px}
+    .notice{color:var(--muted);font-size:.85rem;min-height:1.2em}
+    .info-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px dashed var(--border)}
+    .info-row:last-child{border-bottom:none}
+    .info-row .icon-pill{
+      width:38px;height:38px;border-radius:10px;background:var(--surface-2);
+      display:inline-flex;align-items:center;justify-content:center;color:var(--accent-2);flex-shrink:0;
+    }
+    .info-row .label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em}
+    .info-row .value{color:var(--fg);font-weight:500;margin-top:2px}
+    .info-row .value a{color:var(--fg)}
+    .info-row .value a:hover{color:var(--accent-2)}
+
+    /* FOOTER */
+    footer{padding:36px 0;border-top:1px solid var(--border);color:var(--muted);font-size:.88rem;margin-top:36px}
+    .footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .social{display:flex;gap:8px}
+    .social a{
+      width:38px;height:38px;border-radius:10px;
+      background:var(--surface);border:1px solid var(--border);
+      display:inline-flex;align-items:center;justify-content:center;color:var(--fg-dim);
+      transition: all var(--t-fast);
+    }
+    .social a:hover{color:var(--fg); border-color:var(--border-strong); transform:translateY(-2px)}
+
+    /* MOTION */
+    .reveal{opacity:0; transform:translateY(16px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.3,1)}
+    .reveal.in{opacity:1; transform:none}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none}
+      *{animation:none !important; transition:none !important}
+    }
+
+    /* LEAFLET adjustments for dark mode */
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip{background:var(--bg-elev);color:var(--fg);border:1px solid var(--border)}
+    .leaflet-popup-content a{color:var(--accent-2)}
   </style>
 </head>
 <body>
-  <div class="dashboard">
 
-    <!-- LEFT: PROFILE -->
-    <aside class="panel profile" aria-label="Profile and controls">
-      <div class="photo" id="profilePhoto">
-        <!-- Responsive srcset: use 1x and 2x from your 1024 file -->
-        <img id="photoImg"
-             src="assets/img/sujoy_headshot.png"
-             srcset="assets/imgsujoy_headshot.png 1x, assets/img/sujoy_headshot.png 2x"
-             alt="Portrait of Sujoy Mudi"
-             loading="lazy"
-             onerror="this.style.display='none'; document.getElementById('initials').style.display='flex'">
-        <div id="initials" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-weight:800;font-size:36px">SM</div>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="dot">SM</span>
+        <span>Sujoy Mudi</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#map-section">Map</a>
+        <a href="#publications">Publications</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
-
-      <div>
-        <h2>Sujoy Mudi</h2>
-        <div class="role muted">Senior Geospatial ML Engineer</div>
-        <div style="margin-top:8px" class="muted">GeoAI • Forest Carbon MRV • Natural Hazards • Biomass Pipelines</div>
-      </div>
-
-      <div class="stats" style="margin-top:12px">
-        <div class="stat"><div class="n">7+</div><div class="muted">Years</div></div>
-        <div class="stat"><div class="n">15</div><div class="muted">Projects</div></div>
-        <div class="stat"><div class="n">5</div><div class="muted">Selected pubs</div></div>
-      </div>
-
-      <div style="margin-top:12px">
-        <a class="btn" href="Sujoy_Mudi_CV.pdf" download><i class="fas fa-file-pdf"></i> Download CV</a>
-        <button class="btn ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><i class="fas fa-envelope"></i> Contact</button>
-      </div>
-
-      <div class="links" style="margin-top:12px">
-        <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><i class="fas fa-book"></i> Google Scholar</a>
-        <a href="https://github.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
-      </div>
-
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
-
-      <div style="font-weight:700;margin-bottom:8px">Map controls</div>
-      <div class="map-controls">
-        <div class="tool active" id="toggleProjects" onclick="toggleLayer('projects')">Projects</div>
-        <div class="tool active" id="togglePublications" onclick="toggleLayer('publications')">Publications</div>
-        <div class="tool" id="zoomToAll" onclick="fitToAll()">Zoom to all</div>
-      </div>
-
-      <div style="margin-top:12px">
-        <div style="font-weight:700;margin-bottom:6px">Basemap</div>
-        <select id="basemapSelect" style="width:100%;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted)" onchange="changeBaseMap(this.value)">
-          <option value="osm">OpenStreetMap (default)</option>
-          <option value="sat">Esri World Imagery</option>
-        </select>
-      </div>
-    </aside>
-
-    <!-- CENTER: MAP -->
-    <main class="panel map-wrap" aria-label="Map area">
-      <div id="map" role="application" aria-label="Interactive map"></div>
-      <div class="map-toolbar" style="margin-top:8px">
-        <div style="flex:1"></div>
-        <div class="muted">Tip: click map features for details</div>
-      </div>
-    </main>
-
-    <!-- RIGHT: TABS -->
-    <aside class="panel right-col" aria-label="Details">
-      <div>
-        <div class="tabs" role="tablist" aria-label="Detail tabs">
-          <div class="tab active" id="tabBtnProjects" onclick="showTab('projects')">Projects</div>
-          <div class="tab" id="tabBtnPublications" onclick="showTab('publications')">Publications</div>
-          <div class="tab" id="tabBtnCharts" onclick="showTab('charts')">Charts</div>
-        </div>
-
-        <!-- Projects -->
-        <div id="tab-content-projects" class="list" style="display:block">
-          <div class="project-card">
-            <h4>Forest Carbon MRV — Amazon pilot</h4>
-            <p class="muted">Biomass estimation pipeline; plot-based validation. <a href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank">Read</a></p>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_amazon')">View on map</button></div>
-          </div>
-
-          <div class="project-card">
-            <h4>Cyclone Amphan — Inundation mapping</h4>
-            <p class="muted">SAR-based inundation mapping and damage assessment. <a href="https://eprints.soton.ac.uk/457154/" target="_blank">Read</a></p>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_amphan')">View on map</button></div>
-          </div>
-
-          <div class="project-card">
-            <h4>RSGISWORLD — Open Learning</h4>
-            <p class="muted">Open-source e-learning and mapping demos. <a href="" target="_blank">Visit</a></p>
-            <div style="margin-top:8px"><button class="btn ghost" onclick="zoomToFeature('project_rsgis')">View on map</button></div>
-          </div>
-        </div>
-
-        <!-- Publications -->
-        <div id="tab-content-publications" style="display:none">
-          <div id="pubListContainer" class="list"></div>
-        </div>
-
-        <!-- Charts -->
-        <div id="tab-content-charts" style="display:none">
-          <div style="margin-bottom:12px">
-            <div style="font-weight:700;margin-bottom:8px">Project distribution</div>
-            <canvas id="projectsChart" width="340" height="180"></canvas>
-          </div>
-          <div>
-            <div style="font-weight:700;margin-bottom:8px">Publications by year</div>
-            <canvas id="pubsChart" width="340" height="180"></canvas>
-          </div>
-        </div>
-
-      </div>
-    </aside>
-
-  </div>
-
-  <!-- CONTACT SECTION (anchor target) -->
-  <section id="contact" style="max-width:1200px;margin:12px auto;padding:12px 18px;">
-    <div class="panel" style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
-      <div style="flex:1;min-width:280px">
-        <h3 style="margin:0 0 8px">Get in touch</h3>
-        <p class="muted">I'm available for roles or collaborations in GeoAI, MRV, and environmental monitoring. Describe your project and I'll reply.</p>
-
-        <!-- direct mailto button -->
-        <div style="margin-top:12px">
-          <a class="btn" href="mailto:sujoymudi62@gmail.com?subject=Website%20Inquiry&body=Hi%20Sujoy,%0A%0AI%20am%20contacting%20you%20about...">
-            <i class="fas fa-envelope"></i> Email Sujoy
-          </a>
-          <a class="btn ghost" href="Sujoy_Mudi_CV.pdf" download style="margin-left:8px"><i class="fas fa-file-download"></i> Download CV</a>
-        </div>
-
-        <div style="margin-top:14px">
-          <form id="contactForm" class="contact-form" onsubmit="submitForm(event)">
-            <input type="text" id="name" placeholder="Your name" required>
-            <input type="email" id="email" placeholder="Your email" required>
-            <textarea id="message" placeholder="Short message" rows="4" required></textarea>
-            <button class="btn" type="submit"><i class="fas fa-paper-plane"></i> Send (opens your email)</button>
-            <div id="formNotice" class="muted" style="margin-top:8px;font-size:13px"></div>
-          </form>
-        </div>
-      </div>
-
-      <aside style="width:320px;min-width:240px">
-        <div style="font-weight:700">Location</div>
-        <div class="muted" style="margin-top:6px">Kolkata, India</div>
-        <div style="height:12px"></div>
-        <div style="font-weight:700">Phone</div>
-        <div class="muted" style="margin-top:6px">[REDACTED]</div>
-        <div style="height:12px"></div>
-        <div style="font-weight:700;margin-top:8px">Social</div>
-        <div class="muted" style="margin-top:6px">
-          <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          &nbsp; • &nbsp;
-          <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><i class="fas fa-book"></i> Google Scholar</a>
-        </div>
-      </aside>
     </div>
-  </section>
+  </header>
 
-  <div class="sqrt">(√81)</div>
+  <main id="top">
 
-  <!-- SCRIPTS: data + map + UI -->
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow"><span class="live"></span> Open to GeoAI &amp; MRV collaborations</span>
+          <h1>Mapping the planet with <span class="gradient-text">machine learning</span>.</h1>
+          <p class="lead">I'm Sujoy — a Senior Geospatial ML Engineer building GeoAI pipelines for forest carbon MRV, natural-hazard mapping, and large-scale biomass estimation from satellite data.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact"><i class="fas fa-envelope"></i> Get in touch</a>
+            <a class="btn btn-ghost" href="#work"><i class="fas fa-arrow-right"></i> See selected work</a>
+          </div>
+          <div class="pills" aria-label="Focus areas">
+            <span class="pill">GeoAI</span>
+            <span class="pill">Forest Carbon MRV</span>
+            <span class="pill">SAR &amp; Optical Fusion</span>
+            <span class="pill">Natural Hazards</span>
+            <span class="pill">Biomass Pipelines</span>
+            <span class="pill">Earth Engine</span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="hero-card">
+            <div class="photo-frame" id="photoFrame">
+              <img id="photoImg"
+                   src="assets/img/sujoy_headshot.png"
+                   alt="Portrait of Sujoy Mudi"
+                   loading="eager"
+                   onerror="this.style.display='none'; document.getElementById('photoInitials').style.display='flex'">
+              <div id="photoInitials" class="initials" style="display:none">SM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BENTO -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">At a glance</div>
+            <h2>Numbers &amp; focus</h2>
+          </div>
+        </div>
+        <div class="bento reveal">
+          <div class="stat-card"><div class="n">7+</div><div class="lbl">Years experience</div></div>
+          <div class="stat-card"><div class="n">15</div><div class="lbl">Projects delivered</div></div>
+          <div class="stat-card"><div class="n">5</div><div class="lbl">Selected publications</div></div>
+          <div class="stat-card"><div class="n">3</div><div class="lbl">Continents covered</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section id="map-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Where the work happens</div>
+            <h2>Interactive project map</h2>
+          </div>
+          <div style="color:var(--muted);font-size:.88rem">Click any feature for details</div>
+        </div>
+        <div class="map-wrap reveal">
+          <div id="map" role="application" aria-label="Interactive map of projects and publications"></div>
+          <div class="map-toolbar">
+            <button class="tool active" id="toggleProjects" onclick="toggleLayer('projects')">Projects</button>
+            <button class="tool active" id="togglePublications" onclick="toggleLayer('publications')">Publications</button>
+            <button class="tool" onclick="fitToAll()"><i class="fas fa-expand"></i> Fit all</button>
+            <div style="flex:1"></div>
+            <select id="basemapSelect" class="basemap-select" aria-label="Basemap" onchange="changeBaseMap(this.value)">
+              <option value="osm">OpenStreetMap</option>
+              <option value="sat">Esri Imagery</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Selected work</div>
+            <h2>Projects</h2>
+          </div>
+        </div>
+        <div class="projects reveal">
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-tree"></i> Forest Carbon</span>
+            <h3>Forest Carbon MRV — Amazon pilot</h3>
+            <p>Biomass estimation pipeline with plot-based validation across a tropical forest test site.</p>
+            <div class="actions">
+              <a class="link-inline" href="https://www.mdpi.com/2072-4292/13/6/1066" target="_blank" rel="noopener noreferrer">Read paper <i class="fas fa-arrow-right"></i></a>
+              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_amazon')">View on map <i class="fas fa-map-pin"></i></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-wind"></i> Natural Hazards</span>
+            <h3>Cyclone Amphan — Inundation mapping</h3>
+            <p>Sentinel-1 SAR–based inundation mapping and rapid damage assessment over coastal West Bengal.</p>
+            <div class="actions">
+              <a class="link-inline" href="https://eprints.soton.ac.uk/457154/" target="_blank" rel="noopener noreferrer">Read paper <i class="fas fa-arrow-right"></i></a>
+              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_amphan')">View on map <i class="fas fa-map-pin"></i></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="tag"><i class="fas fa-graduation-cap"></i> Open Learning</span>
+            <h3>RSGISWORLD — Open RS/GIS Learning</h3>
+            <p>An open-source teaching project with tutorials, mapping demos, and reproducible notebooks.</p>
+            <div class="actions">
+              <a class="link-inline" href="#map-section" onclick="zoomToFeature('project_rsgis')">View on map <i class="fas fa-map-pin"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS + CHARTS -->
+    <section id="publications">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Research output</div>
+            <h2>Publications &amp; metrics</h2>
+          </div>
+          <div class="tabs" role="tablist">
+            <button class="tab active" id="tabBtnPublications" onclick="showTab('publications')" role="tab">List</button>
+            <button class="tab" id="tabBtnCharts" onclick="showTab('charts')" role="tab">Metrics</button>
+          </div>
+        </div>
+
+        <div id="tab-content-publications" class="reveal">
+          <div id="pubListContainer" class="pub-list"></div>
+        </div>
+
+        <div id="tab-content-charts" style="display:none" class="reveal">
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h4>Project vs publication distribution</h4>
+              <canvas id="projectsChart" height="200"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>Publications by year</h4>
+              <canvas id="pubsChart" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Say hello</div>
+            <h2>Get in touch</h2>
+          </div>
+        </div>
+        <div class="contact-grid reveal">
+          <div class="contact-card">
+            <h3 style="font-family:var(--font-display);font-size:1.25rem">Let's collaborate</h3>
+            <p style="color:var(--fg-dim);margin-top:8px">Available for roles or collaborations in GeoAI, MRV, and environmental monitoring. Send a short note and I'll reply.</p>
+            <form id="contactForm" class="form" onsubmit="submitForm(event)">
+              <input type="text" id="name" placeholder="Your name" required autocomplete="name">
+              <input type="email" id="email" placeholder="Your email" required autocomplete="email">
+              <textarea id="message" placeholder="Tell me about your project…" required></textarea>
+              <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Send message</button>
+              <div id="formNotice" class="notice" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <aside class="contact-card">
+            <div class="info-row">
+              <span class="icon-pill"><i class="fas fa-envelope"></i></span>
+              <div>
+                <div class="label">Email</div>
+                <div class="value"><a href="mailto:sujoymudi62@gmail.com">sujoymudi62@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="icon-pill"><i class="fas fa-map-marker-alt"></i></span>
+              <div>
+                <div class="label">Location</div>
+                <div class="value">Kolkata, India</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="icon-pill"><i class="fas fa-clock"></i></span>
+              <div>
+                <div class="label">Response time</div>
+                <div class="value">Usually within 48 hours</div>
+              </div>
+            </div>
+            <div style="margin-top:18px">
+              <div class="label" style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Find me on</div>
+              <div class="social">
+                <a href="https://www.linkedin.com/in/sujoy-mudi-182553129" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="https://github.com/sujoymudi62" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Sujoy Mudi · Built with care</div>
+      <div>Geospatial ML · Kolkata, India</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
   <script>
+    /* Theme toggle */
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('theme');
+      if(saved) root.setAttribute('data-theme', saved);
+      const sync = () => {
+        const t = root.getAttribute('data-theme');
+        btn.innerHTML = t === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      };
+      sync();
+      btn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        sync();
+      });
+    })();
+
+    /* Mobile nav */
+    (function(){
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      toggle.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }));
+    })();
+
+    /* Active section highlight */
+    (function(){
+      const links = document.querySelectorAll('.nav-links a');
+      const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            const id = '#' + e.target.id;
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(s => io.observe(s));
+    })();
+
+    /* Reveal on scroll */
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    /* Footer year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
     /*******************************
-     * Static publications (curated)
+     * Publications data
      *******************************/
     const STATIC_PUBS = [
-      {
-        title: "Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India",
-        authors: "Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.",
-        venue: "Remote Sensing, 2021",
-        year: 2021,
-        link: "https://www.mdpi.com/2072-4292/13/6/1066"
-      },
-      {
-        title: "Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data",
-        authors: "Behera M.D., Mudi S., et al.",
-        venue: "Tropical Ecology, 2021",
-        year: 2021,
-        link: "https://eprints.soton.ac.uk/457154/"
-      },
-      {
-        title: "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data",
-        authors: "Roy S., Mudi S., Das P., et al.",
-        venue: "Spatial Modeling in Forest Resources Management, Springer, 2021",
-        year: 2021,
-        link: "https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11"
-      },
-      {
-        title: "Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data",
-        authors: "Mudi S., Prakash J., Das P.",
-        venue: "Research Report / ResearchGate, 2022",
-        year: 2022,
-        link: "https://www.researchgate.net/"
-      },
-      {
-        title: "Managing Mangrove Forests Using Open Source–Based WebGIS",
-        authors: "Roy S., Mudi S., Das P.",
-        venue: "WebGIS research article, 2020",
-        year: 2020,
-        link: "https://www.researchgate.net/"
-      }
+      { title:"Automated Mapping for Long-Term Analysis of Shifting Cultivation in Northeast India", authors:"Das P., Mudi S., Behera M.D., Barik S.K., Mishra D.R., Roy P.S.", venue:"Remote Sensing", year:2021, link:"https://www.mdpi.com/2072-4292/13/6/1066" },
+      { title:"Assessment of Tropical Cyclone Amphan Affected Inundation Areas using Sentinel-1 Satellite Data", authors:"Behera M.D., Mudi S., et al.", venue:"Tropical Ecology", year:2021, link:"https://eprints.soton.ac.uk/457154/" },
+      { title:"Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1 Data", authors:"Roy S., Mudi S., Das P., et al.", venue:"Spatial Modeling in Forest Resources Management, Springer", year:2021, link:"https://link.springer.com/chapter/10.1007/978-3-030-56542-8_11" },
+      { title:"Flood Hazard Mapping in Assam Using Sentinel-1 SAR Data", authors:"Mudi S., Prakash J., Das P.", venue:"Research Report / ResearchGate", year:2022, link:"https://www.researchgate.net/" },
+      { title:"Managing Mangrove Forests Using Open Source–Based WebGIS", authors:"Roy S., Mudi S., Das P.", venue:"WebGIS research article", year:2020, link:"https://www.researchgate.net/" }
     ];
 
-    // populate publications tab
     function renderPublicationsTab(){
       const container = document.getElementById('pubListContainer');
       container.innerHTML = '';
-      STATIC_PUBS.forEach(p=>{
-        const d = document.createElement('div');
+      STATIC_PUBS.sort((a,b)=>b.year-a.year).forEach(p => {
+        const d = document.createElement('article');
         d.className = 'pub-item';
-        d.innerHTML = `<div style="font-weight:700"><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></div>
-                       <div class="muted" style="margin-top:6px">${p.authors} — <em>${p.venue}</em> (${p.year})</div>
-                       <div style="margin-top:8px"><a class="btn ghost" href="${p.link}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Read</a></div>`;
+        d.innerHTML = `
+          <div style="min-width:0">
+            <div style="font-weight:600;font-family:var(--font-display);font-size:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.title}</a></div>
+            <div class="meta">${p.authors} — <em>${p.venue}</em></div>
+            <div style="margin-top:10px"><a class="link-inline" href="${p.link}" target="_blank" rel="noopener noreferrer">Open <i class="fas fa-external-link-alt"></i></a></div>
+          </div>
+          <span class="year-badge">${p.year}</span>`;
         container.appendChild(d);
       });
     }
     renderPublicationsTab();
 
     /*******************************
-     * Sample GeoJSON features (same as earlier)
+     * Map (Leaflet) — defer-loaded
      *******************************/
     const SAMPLE_GEOJSON = {
       "type":"FeatureCollection",
       "features":[
         {"type":"Feature","properties":{"id":"project_amazon","title":"Forest Carbon MRV — Amazon pilot","description":"Biomass estimation pipeline; plot-based validation.","type":"project","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Polygon","coordinates":[[[-60.0,-3.0],[-59.2,-3.0],[-59.2,-3.6],[-60.0,-3.6],[-60.0,-3.0]]] }},
-        {"type":"Feature","properties":{"id":"project_amphan","title":"Cyclone Amphan inundation (case study)","description":"SAR-based inundation mapping and damage assessment.","type":"project","link":"https://eprints.soton.ac.uk/457154/"},"geometry":{"type":"Point","coordinates":[88.36,22.58]}},
+        {"type":"Feature","properties":{"id":"project_amphan","title":"Cyclone Amphan inundation","description":"SAR-based inundation mapping and damage assessment.","type":"project","link":"https://eprints.soton.ac.uk/457154/"},"geometry":{"type":"Point","coordinates":[88.36,22.58]}},
         {"type":"Feature","properties":{"id":"project_rsgis","title":"RSGISWORLD — Open Learning","description":"Open-source tutorials and mapping demos.","type":"project","link":""},"geometry":{"type":"Point","coordinates":[87.3,22.3]}},
         {"type":"Feature","properties":{"id":"pub_shifting_cultivation","title":"Shifting Cultivation mapping (2021)","description":"Automated mapping method using Landsat/GEE.","type":"publication","link":"https://www.mdpi.com/2072-4292/13/6/1066"},"geometry":{"type":"Point","coordinates":[92.0,26.5]}}
       ]
     };
 
-    /*******************************
-     * Map init & layers
-     *******************************/
-    const map = L.map('map', {zoomControl:true, preferCanvas:true}).setView([22.6, 88.2], 6);
-    const baseLayers = {
-      osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19, attribution:'© OSM'}),
-      esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19, attribution:'Esri'})
-    };
-    baseLayers.osm.addTo(map);
+    let map, baseLayers, geoJsonLayer, layers;
+    function initMap(){
+      if(typeof L === 'undefined'){ setTimeout(initMap, 80); return; }
+      map = L.map('map', {zoomControl:true, preferCanvas:true}).setView([22.6, 88.2], 4);
+      baseLayers = {
+        osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19, attribution:'© OpenStreetMap'}),
+        esri: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19, attribution:'Esri'})
+      };
+      baseLayers.osm.addTo(map);
 
-    function styleFeature(feature){
-      return feature.properties.type === 'publication' ? {color:'#f59e0b', weight:2, fill:false} : {color:'#16a34a', weight:2, fillColor:'rgba(22,163,74,0.08)', fillOpacity:0.5};
+      geoJsonLayer = L.geoJSON(SAMPLE_GEOJSON, {
+        style: f => f.properties.type === 'publication'
+          ? {color:'#06b6d4', weight:2, fill:false}
+          : {color:'#3b82f6', weight:2, fillColor:'rgba(59,130,246,0.18)', fillOpacity:0.6},
+        pointToLayer: (f,latlng) => L.marker(latlng, {icon: L.divIcon({
+          className:'custom-marker',
+          html:`<div style="background:${f.properties.type==='publication'?'#06b6d4':'#3b82f6'};width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 4px rgba(59,130,246,0.18), 0 2px 8px rgba(0,0,0,0.5);border:2px solid #fff"></div>`,
+          iconSize:[18,18], iconAnchor:[9,9]
+        })}),
+        onEachFeature: (f,layer) => {
+          const p = f.properties;
+          const link = p.link ? `<div style="margin-top:8px"><a href="${p.link}" target="_blank" rel="noopener noreferrer">Open resource →</a></div>` : '';
+          layer.bindPopup(`<div style="font-weight:700;margin-bottom:6px;font-family:Archivo,sans-serif">${p.title}</div><div style="font-size:13px;color:#7a8294">${p.description || ''}</div>${link}`, {maxWidth:320});
+          layer.featureId = p.id;
+        }
+      }).addTo(map);
+
+      layers = { projects: geoJsonLayer, publications: geoJsonLayer };
+      fitToAll();
     }
+    window.addEventListener('load', initMap);
 
-    const geoJsonLayer = L.geoJSON(SAMPLE_GEOJSON, {
-      style:styleFeature,
-      pointToLayer:function(feature,latlng){
-        const icon = L.divIcon({className:'custom-marker', html:`<div style="background:${feature.properties.type==='publication'?'#f59e0b':'#16a34a'};width:14px;height:14px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.5)"></div>`, iconSize:[18,18], iconAnchor:[9,9]});
-        return L.marker(latlng, {icon:icon});
-      },
-      onEachFeature:function(feature,layer){
-        const p = feature.properties;
-        const html = `<div style="font-weight:800;margin-bottom:6px">${p.title}</div><div style="font-size:13px;color:var(--muted)">${p.description || ''}</div><div style="margin-top:8px"><a href="${p.link}" target="_blank">Open resource</a></div>`;
-        layer.bindPopup(html, {maxWidth:320});
-        layer.featureId = p.id;
-      }
-    }).addTo(map);
-
-    const layers = { projects: geoJsonLayer, publications: geoJsonLayer };
-
-    function fitToAll(){ try{ map.fitBounds(geoJsonLayer.getBounds(), {padding:[30,30]}); }catch(e){ map.setView([22.6,88.2],6); } }
+    function fitToAll(){
+      if(!geoJsonLayer) return;
+      try{ map.fitBounds(geoJsonLayer.getBounds(), {padding:[40,40]}); }catch(e){ map.setView([22.6,88.2],4); }
+    }
     function zoomToFeature(id){
+      if(!geoJsonLayer) return;
       let found=null;
-      geoJsonLayer.eachLayer(l=>{ if(l.feature && l.feature.properties && l.feature.properties.id === id) found = l; });
-      if(found){ map.fitBounds(found.getBounds ? found.getBounds() : L.latLng(found.getLatLng()), {maxZoom:12, padding:[40,40]}); found.openPopup(); } else { alert('Feature not found'); }
+      geoJsonLayer.eachLayer(l => { if(l.feature && l.feature.properties && l.feature.properties.id === id) found = l; });
+      if(found){
+        const b = found.getBounds ? found.getBounds() : null;
+        if(b) map.fitBounds(b, {maxZoom:8, padding:[40,40]});
+        else map.setView(found.getLatLng(), 8);
+        found.openPopup();
+      }
     }
     function toggleLayer(name){
       const el = document.getElementById('toggle'+name.charAt(0).toUpperCase()+name.slice(1));
-      if(el.classList.contains('active')){ el.classList.remove('active'); map.removeLayer(layers[name]); } else { el.classList.add('active'); map.addLayer(layers[name]); }
+      if(!layers || !layers[name]) return;
+      if(el.classList.contains('active')){ el.classList.remove('active'); map.removeLayer(layers[name]); }
+      else { el.classList.add('active'); map.addLayer(layers[name]); }
     }
-    function changeBaseMap(key){ Object.values(baseLayers).forEach(l=>map.removeLayer(l)); if(key === 'sat') baseLayers.esri.addTo(map); else baseLayers.osm.addTo(map); }
-    function toggleInfo(){ alert('This dashboard showcases geospatial projects, publications and metrics. Replace SAMPLE_GEOJSON with real GeoJSON.'); }
-    function downloadMapPNG(){ alert('PNG export not enabled in demo. I can add html2canvas or leaflet-image on request.'); }
-
-    fitToAll();
+    function changeBaseMap(key){
+      if(!baseLayers) return;
+      Object.values(baseLayers).forEach(l => map.removeLayer(l));
+      (key === 'sat' ? baseLayers.esri : baseLayers.osm).addTo(map);
+    }
 
     /*******************************
-     * Tabs & charts
+     * Tabs + charts
      *******************************/
     function showTab(name){
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('[id^="tab-content-"]').forEach(e=>e.style.display='none');
-      if(name === 'projects'){ document.getElementById('tabBtnProjects').classList.add('active'); document.getElementById('tab-content-projects').style.display='block'; }
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('[id^="tab-content-"]').forEach(e => e.style.display='none');
       if(name === 'publications'){ document.getElementById('tabBtnPublications').classList.add('active'); document.getElementById('tab-content-publications').style.display='block'; }
       if(name === 'charts'){ document.getElementById('tabBtnCharts').classList.add('active'); document.getElementById('tab-content-charts').style.display='block'; renderCharts(); }
     }
 
+    let chartsRendered = false;
     function renderCharts(){
-      // projects vs publications
+      if(chartsRendered || typeof Chart === 'undefined'){ if(!chartsRendered) setTimeout(renderCharts, 80); return; }
+      chartsRendered = true;
       const counts = {project:0, publication:0};
-      SAMPLE_GEOJSON.features.forEach(f=> counts[f.properties.type] = (counts[f.properties.type]||0)+1 );
-      const ctx1 = document.getElementById('projectsChart').getContext('2d');
-      new Chart(ctx1, { type:'doughnut', data:{ labels:['Projects','Publications'], datasets:[{ data:[counts.project, counts.publication], backgroundColor:['#16a34a','#f59e0b']}] }, options:{plugins:{legend:{position:'bottom'}} } });
-
-      // pubs by year
+      SAMPLE_GEOJSON.features.forEach(f => counts[f.properties.type] = (counts[f.properties.type]||0)+1);
+      new Chart(document.getElementById('projectsChart').getContext('2d'), {
+        type:'doughnut',
+        data:{ labels:['Projects','Publications'], datasets:[{ data:[counts.project, counts.publication], backgroundColor:['#3b82f6','#06b6d4'], borderColor:'transparent' }] },
+        options:{ responsive:true, plugins:{ legend:{ position:'bottom', labels:{ color:'#b6bdcc' } } } }
+      });
       const byYear = {};
-      STATIC_PUBS.forEach(p=> byYear[p.year] = (byYear[p.year]||0)+1 );
+      STATIC_PUBS.forEach(p => byYear[p.year] = (byYear[p.year]||0)+1);
       const years = Object.keys(byYear).sort();
-      const ctx2 = document.getElementById('pubsChart').getContext('2d');
-      new Chart(ctx2, { type:'bar', data:{ labels:years, datasets:[{ label:'Pubs', data:years.map(y=>byYear[y]), backgroundColor:'#60a5fa' }] }, options:{scales:{y:{beginAtZero:true}}, plugins:{legend:{display:false}} } });
+      new Chart(document.getElementById('pubsChart').getContext('2d'), {
+        type:'bar',
+        data:{ labels:years, datasets:[{ label:'Publications', data:years.map(y => byYear[y]), backgroundColor:'#3b82f6', borderRadius:6 }] },
+        options:{ responsive:true, scales:{ y:{beginAtZero:true, ticks:{color:'#7a8294'}, grid:{color:'rgba(255,255,255,0.05)'}}, x:{ticks:{color:'#7a8294'}, grid:{display:false}} }, plugins:{legend:{display:false}} }
+      });
     }
 
     /*******************************
-     * Contact form - opens user's mail client with prefilled body
+     * Contact form (mailto)
      *******************************/
     function submitForm(e){
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
-      if(!name||!email||!message){ document.getElementById('formNotice').textContent = 'Please fill all fields.'; return; }
-      const subject = encodeURIComponent('Website enquiry from '+name);
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}\n\n---\nSent from: Sujoy's website`);
-      const mailto = `mailto:sujoymudi62@gmail.com?subject=${subject}&body=${body}`;
-      window.open(mailto, '_blank');
-      document.getElementById('formNotice').textContent = 'Email client opened — if not, use the Email button above.';
+      const notice = document.getElementById('formNotice');
+      if(!name || !email || !message){ notice.textContent = 'Please fill all fields.'; return; }
+      const subject = encodeURIComponent('Website enquiry from ' + name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}\n\n— Sent from sujoymudi62.github.io`);
+      window.location.href = `mailto:sujoymudi62@gmail.com?subject=${subject}&body=${body}`;
+      notice.textContent = 'Opening your email client…';
       document.getElementById('contactForm').reset();
     }
 
-    // keyboard shortcuts
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '1') showTab('projects');
-      if(e.key === '2') showTab('publications');
-      if(e.key === '3') showTab('charts');
+    /* Keyboard shortcuts (kept) */
+    document.addEventListener('keydown', (e) => {
+      if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if(e.key === '1') showTab('publications');
+      if(e.key === '2') showTab('charts');
       if(e.key === 'f') fitToAll();
     });
 
-    /*******************************
-     * Accessibility: smooth scroll for Contact anchor & others
-     *******************************/
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
+    /* Smooth anchor scrolling */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
         const href = a.getAttribute('href');
-        if(href.startsWith('#') && href.length>1){
-          e.preventDefault();
+        if(href.length > 1){
           const el = document.querySelector(href);
-          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+          if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
         }
       });
     });
-
-    // init (ensure publications tab shows content if clicked)
-    (function init(){
-      renderPublicationsTab();
-      // ensure profile image displays nicely: if 1024px, object-fit covers crop
-      const img = document.getElementById('photoImg');
-      img.style.objectFit = 'cover';
-      img.style.width = '100%';
-      img.style.height = '100%';
-    })();
-
   </script>
 </body>
 </html>
