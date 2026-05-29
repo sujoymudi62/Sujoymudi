@@ -160,7 +160,9 @@
     .reco{padding:22px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border); position:relative; transition:all var(--t-fast); display:flex; flex-direction:column; gap:14px}
     .reco:hover{border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px)}
     .reco::before{content:"\201C"; position:absolute; top:6px; right:14px; font-family:var(--font-display); font-size:3.6rem; color:rgba(59,130,246,0.18); line-height:1}
-    .reco .body{color:var(--fg-dim); font-size:.95rem; line-height:1.6}
+    .reco .body{color:var(--fg-dim); font-size:.95rem; line-height:1.65}
+    .reco .body p{margin:0}
+    .reco .body p + p{margin-top:10px}
     .reco .who{display:flex; gap:12px; align-items:center; margin-top:auto; padding-top:12px; border-top:1px solid var(--border)}
     .reco .av{width:40px;height:40px;border-radius:50%;background:var(--accent-grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:.9rem;flex-shrink:0}
     .reco .n{font-family:var(--font-display); font-weight:600; font-size:.95rem}
@@ -987,7 +989,11 @@
         </div>
         <div class="recos reveal">
           <article class="reco">
-            <div class="body">"Sujoy is a skilled and collaborative professional who combines strong technical ability with a rigorous scientific mindset. He played a key role in developing our monitoring approaches for natural hazards and forest carbon &mdash; building pipelines to track drought, fire, cyclones, and sea-level rise, as well as project-level evaluations that integrate remotely sensed datasets with field measurements. A dedicated professional with strong problem-solving skills and the ability to build end-to-end solutions &mdash; an exceptional contributor to any team."</div>
+            <div class="body">
+              <p>"I had the pleasure of working with Sujoy during his time as a Geospatial Analyst at BeZero Carbon. Sujoy is a skilled and collaborative professional who combines strong technical ability with a rigorous scientific mindset.</p>
+              <p>At BeZero, he played a key role in developing our monitoring approaches for natural hazards and forest carbon &mdash; building pipelines to track drought, fire, cyclones, and sea level rise, as well as project-level evaluations of forest carbon that integrate remotely sensed datasets with field measurements.</p>
+              <p>Sujoy is a dedicated professional with strong problem-solving skills and the ability to build end-to-end solutions, making him an exceptional contributor to any team. I highly recommend him for any role requiring expertise in geospatial analysis and environmental assessment."</p>
+            </div>
             <div class="who">
               <div class="av">NA</div>
               <div>
@@ -997,7 +1003,13 @@
             </div>
           </article>
           <article class="reco">
-            <div class="body">"Sujoy played a major role in setting up and maturing our Natural Hazards products, building geospatial pipelines for drought, fire, tropical cyclone, and sea-level change risk assessment. His work delivered scientific results that our ratings analysts and product teams depended on, including client-facing outputs such as streamlined interactive charts and tables. Beyond technical strength, I valued his ownership, kindness, and collaborative spirit &mdash; I am convinced that any team looking for a geospatial engineer or data scientist will make the right choice with Sujoy."</div>
+            <div class="body">
+              <p>"I had the pleasure of closely collaborating and managing Sujoy at BeZero Carbon, where he served as a Geospatial Analyst for ~3.5 years. He joined when the company was only about 40 people, and grew alongside the organisation, taking on increasing scope and responsibility.</p>
+              <p>Most notably, Sujoy played a major role in setting up and maturing our Natural Hazards products, building geospatial pipelines for drought, fire, tropical cyclone, and sea-level change risk assessment. His work delivered scientific results that our ratings analysts and product teams depended on, included client-facing outputs such as streamlined interactive charts and tables.</p>
+              <p>He also worked extensively on a biomass pipeline to provide in-house estimates of forest stand biomass. This included his contributions in setting up a plots database of global field measurement data for the independent validation of biomass estimates, plus conducting fieldwork in his local region to strengthen ground truth.</p>
+              <p>During his time at BeZero, Sujoy learned a lot about productionising geospatial pipelines: data ingestion, writing reliable production-grade code in GitHub repos, handling Snowflake and PostGIS databases, and orchestrating scheduled runs with Prefect.</p>
+              <p>Beyond technical strength, I valued his ownership, kindness, and collaborative spirit. I am convinced that any team looking for a geospatial engineer and/or data scientist will make the right choice with Sujoy."</p>
+            </div>
             <div class="who">
               <div class="av">DW</div>
               <div>
