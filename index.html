@@ -190,6 +190,21 @@
     .photo-frame .initials{font-family:var(--font-display); font-weight:800; font-size:64px; color:var(--fg)}
     .now-row{display:flex;gap:10px;align-items:center;margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);font-size:.85rem;color:var(--fg-dim)}
     .now-row strong{color:var(--fg); font-weight:600}
+    .scholar-strip{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+      margin-top:10px; padding:10px 6px; border-radius:12px;
+      background:var(--surface-2); border:1px solid var(--border);
+    }
+    .scholar-stat{text-align:center; padding:4px 2px; position:relative}
+    .scholar-stat + .scholar-stat::before{
+      content:""; position:absolute; left:0; top:14%; bottom:14%; width:1px;
+      background:var(--border);
+    }
+    .scholar-stat .v{font-family:var(--font-display); font-weight:800; font-size:1.15rem; background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1}
+    .scholar-stat .l{color:var(--muted); font-size:.68rem; margin-top:5px; text-transform:uppercase; letter-spacing:.06em}
+    .scholar-stat.loading .v{-webkit-text-fill-color:var(--muted); background:none; color:var(--muted)}
+    .scholar-foot{margin-top:8px; text-align:center; color:var(--muted); font-size:.74rem}
+    .scholar-foot a{color:var(--accent-2); font-weight:600}
     @media (max-width:920px){ .hero-grid{grid-template-columns:1fr; gap:32px} .hero{padding:48px 0 16px} .photo-frame{max-width:340px;margin:0 auto} }
 
     /* SECTIONS */
@@ -494,6 +509,16 @@
             <div class="now-row">
               <i class="fas fa-briefcase" style="color:var(--accent-2)"></i>
               <div><strong>Currently:</strong> Customer Success Manager (Deployment) at <strong>Neara</strong> · Remote / Kolkata</div>
+            </div>
+            <div class="scholar-strip" aria-label="Google Scholar metrics">
+              <div class="scholar-stat loading"><div class="v" id="scholarPubs">—</div><div class="l">Papers</div></div>
+              <div class="scholar-stat loading"><div class="v" id="scholarCites">—</div><div class="l">Citations</div></div>
+              <div class="scholar-stat loading"><div class="v" id="scholarH">—</div><div class="l">h-index</div></div>
+              <div class="scholar-stat loading"><div class="v" id="scholarI10">—</div><div class="l">i10</div></div>
+            </div>
+            <div class="scholar-foot">
+              <a href="https://scholar.google.com/citations?user=oVm7TyYAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">via Google Scholar <i class="fas fa-external-link-alt" style="font-size:.7em"></i></a>
+              · auto-refreshed weekly
             </div>
           </div>
         </div>
@@ -1178,9 +1203,23 @@
       const upd = PUB_DATA && PUB_DATA.updated_at ? formatUpdated(PUB_DATA.updated_at) : '';
       document.getElementById('pubUpdated').innerHTML = upd
         ? `<i class="fas fa-sync-alt"></i> updated ${upd}` : '';
-      // hero stats
+      // hero stats (about bento)
       const sp = document.getElementById('statPubs'); if(sp) sp.textContent = count;
       const sc = document.getElementById('statCites'); if(sc) sc.textContent = totalCites > 0 ? totalCites : '—';
+      // hero scholar strip
+      const setStat = (id, val) => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        if(val === null || val === undefined || val === '' || Number.isNaN(val)) return;
+        el.textContent = val;
+        el.parentElement.classList.remove('loading');
+      };
+      setStat('scholarPubs', count);
+      if(totalCites > 0) setStat('scholarCites', totalCites);
+      if(PUB_DATA){
+        setStat('scholarH', PUB_DATA.h_index);
+        setStat('scholarI10', PUB_DATA.i10_index);
+      }
     }
 
     async function loadPublications(){
