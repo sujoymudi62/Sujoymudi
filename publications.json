@@ -1,14 +1,22 @@
 {
-  "updated_at": 1780914413,
+  "updated_at": 1781524435,
   "user_id": "oVm7TyYAAAAJ",
   "source": "scholar.google.com (via SerpAPI)",
   "name": "Sujoy Mudi",
   "affiliation": "Geospatial Analyst at BeZero Carbon Ltd",
   "h_index": 9,
   "i10_index": 9,
-  "total_citations": 306,
+  "total_citations": 309,
   "count": 18,
   "publications": [
+    {
+      "title": "Scaling agroforestry land suitability analysis in Odisha, India: a machine learning approach",
+      "authors": "RK Singh, S Gakhar, P Das, A Jaya Prakash, MD Behera, C Biradar, ...",
+      "venue": "Frontiers in Remote Sensing 7, 1780218, 2026",
+      "year": "2026",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:pUxgyZctzPYC"
+    },
     {
       "title": "A synergistic approach using machine learning and deep learning for forest fire susceptibility in Himalayan forests",
       "authors": "P Shome, AJ Prakash, MD Behera, S Mudi, P Das, S Behera, PV Vinod, ...",
@@ -102,7 +110,7 @@
       "authors": "P Das, S Mudi, MD Behera, SK Barik, DR Mishra, PS Roy",
       "venue": "Remote Sensing 13 (6), 1066, 2021",
       "year": "2021",
-      "citations": "76",
+      "citations": "77",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:BW2nPTmhBn4C"
     },
     {
@@ -126,7 +134,7 @@
       "authors": "S Mudi, S Roy, P Das, SKV Pasha",
       "venue": "Forest Resources Resilience and Conflicts, 17-31, 2021",
       "year": "2021",
-      "citations": "2",
+      "citations": "3",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:K4-iKlO5MD4C"
     },
     {
@@ -134,16 +142,8 @@
       "authors": "S Roy, S Mudi, P Das, S Ghosh, PK Shit, GS Bhunia, J Kim",
       "venue": "Spatial Modeling in Forest Resources Management: Rural Livelihood and …, 2020",
       "year": "2020",
-      "citations": "24",
+      "citations": "25",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:wGzT3bKASkAC"
-    },
-    {
-      "title": "Scaling Agroforestry Land Suitability Analysis in Odisha, India: A Machine Learning Approach",
-      "authors": "RK Singh, S Gakhar, P Das, J Prakash, MD Behera, C Biradar, S Mudi, ...",
-      "venue": "Frontiers in Remote Sensing 7, 1780218, 0",
-      "year": "",
-      "citations": "0",
-      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:pUxgyZctzPYC"
     },
     {
       "title": "A, JP, & Das, P.(2022). Flood hazard mapping in Assam using Sentinel-1 SAR data",
