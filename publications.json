@@ -1,13 +1,13 @@
 {
-  "updated_at": 1785145162,
+  "updated_at": 1785749550,
   "user_id": "oVm7TyYAAAAJ",
   "source": "scholar.google.com (via SerpAPI)",
   "name": "Sujoy Mudi",
   "affiliation": "Geospatial Analyst at BeZero Carbon Ltd",
   "h_index": 9,
   "i10_index": 9,
-  "total_citations": 322,
-  "count": 18,
+  "total_citations": 314,
+  "count": 19,
   "publications": [
     {
       "title": "Scaling agroforestry land suitability analysis in Odisha, India: a machine learning approach",
@@ -22,7 +22,7 @@
       "authors": "P Shome, AJ Prakash, MD Behera, S Mudi, P Das, S Behera, PV Vinod, ...",
       "venue": "Journal of the Indian Society of Remote Sensing, 1-16, 2025",
       "year": "2025",
-      "citations": "9",
+      "citations": "8",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:gmHTDCtJMcoC"
     },
     {
@@ -46,7 +46,7 @@
       "authors": "AJ Prakash, S Begam, V Vilímek, S Mudi, P Das",
       "venue": "Geoenvironmental Disasters 11 (1), 14, 2024",
       "year": "2024",
-      "citations": "39",
+      "citations": "38",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:DIubQTN3OvUC"
     },
     {
@@ -70,7 +70,7 @@
       "authors": "MD Behera, S Mudi, P Shome, PK Das, S Kumar, A Joshi, A Rathore, ...",
       "venue": "Geocarto International 37 (25), 8127-8147, 2022",
       "year": "2022",
-      "citations": "52",
+      "citations": "50",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:wBLCggQE-ToC"
     },
     {
@@ -78,7 +78,7 @@
       "authors": "S Mudi, S Paramanik, MD Behera, AJ Prakash, NR Deep, MP Kale, ...",
       "venue": "Environmental Monitoring and Assessment 194 (12), 897, 2022",
       "year": "2022",
-      "citations": "17",
+      "citations": "16",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:ojlX30-wUrgC"
     },
     {
@@ -110,7 +110,7 @@
       "authors": "P Das, S Mudi, MD Behera, SK Barik, DR Mishra, PS Roy",
       "venue": "Remote Sensing 13 (6), 1066, 2021",
       "year": "2021",
-      "citations": "82",
+      "citations": "81",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:BW2nPTmhBn4C"
     },
     {
@@ -132,7 +132,7 @@
     {
       "title": "Development of a WebGIS platform to generate biodiversity data using citizen science approach",
       "authors": "S Mudi, S Roy, P Das, SKV Pasha",
-      "venue": "Forest Resources Resilience and Conflicts, 17-31, 2021",
+      "venue": "Forest resources resilience and conflicts, 17-31, 2021",
       "year": "2021",
       "citations": "3",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:K4-iKlO5MD4C"
@@ -142,15 +142,23 @@
       "authors": "S Roy, S Mudi, P Das, S Ghosh, PK Shit, GS Bhunia, J Kim",
       "venue": "Spatial Modeling in Forest Resources Management: Rural Livelihood and …, 2020",
       "year": "2020",
-      "citations": "25",
+      "citations": "24",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:wGzT3bKASkAC"
+    },
+    {
+      "title": "Estimating Above Ground Biomass (AGB) and Tree Density using Sentinel-1",
+      "authors": "S Roy, S Mudi, P Das, S Ghosh",
+      "venue": "Spatial Modeling in Forest Resources Management: Rural Livelihood and …, 2020",
+      "year": "2020",
+      "citations": "0",
+      "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:8RAEygVn5_EC"
     },
     {
       "title": "A, JP, & Das, P.(2022). Flood hazard mapping in Assam using Sentinel-1 SAR data",
       "authors": "S Mudi, D A JP",
       "venue": "Geospatial technology for environmental hazards. Advances in geographic …, 0",
       "year": "",
-      "citations": "5",
+      "citations": "4",
       "scholar_link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=oVm7TyYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=oVm7TyYAAAAJ:NtGNdKbuCngC"
     }
   ]
